@@ -1,0 +1,47 @@
+<!-- 005e: Billing Info -->
+<div class="com-billing-info com-005e">
+    <div class="com-billing-info-cr">
+        <header>
+            <h1 class="assistive-text">Billing Information</h1>
+            <p class="txt-title">Billing Information</p>
+        </header>
+        <div class="com-billing-info-ct">
+            <p class="txt-desc">This will be used to claim your earnings.</p>
+            <form class="com-billing-info-frm">
+                <fieldset>
+                    <legend>Billing Information</legend>
+                    
+                    {% include ../snippets/notification-success.html %}
+                    
+                    <div class="fld fld-name">
+                        <div class="psu-inp psu-inp-txt psu-inp-name">
+                            <label>Complete Name or Company Name</label>
+                            <p class="edit-lnk-cr edit-name"><a class="edit-lnk" href="#" title="Edit name"><span class="lbl">Edit</span></a></p>
+                            <input class="inp-name" type="text" placeholder="Name" disabled value="{{current_user.name}}" id="current-name-display">
+                            {% include 002f_edit-name-address.html %}
+                        </div>
+                        {% include ../tooltips/billing_settlement_name.html %}
+                    </div>
+                    
+                    <div class="fld fld-email">
+                        <div class="psu-inp psu-inp-email">
+                            <label>Email</label>
+                            <p class="edit-lnk-cr edit-email"><a class="edit-lnk" href="#" title="Edit email"><span class="lbl">Edit</span></a></p>
+                            <input class="inp-email" type="text" placeholder="Email" disabled value="{{current_user.billing_email}}">
+                            {% include 002g_edit-email.html %}
+                        </div>
+                        {% include ../tooltips/billing_settlement_email.html %}
+                    </div>
+
+                    <div class="note">
+                        <div class="note-cr">
+                            <p>You will receive a statement report summarizing your monthly transactions; and once you reach a minimum amount of 5000 Php revenue share, you can start collecting your share by furnishing an invoice to Chikka Philippines, Inc. Your payment will be released via check within 60 calendar days upon the receipt of your invoice.</p>
+                        </div>
+                        <p class="download-invoice-lnk-cr"><a href="{{static_url('Chikka_SMS-API_OnlineInvoiceTemplate.xls')}}" class="download-invoice-lnk"><span class="lbl">Download invoice template</span></a></p>
+                    </div>
+                    
+                </fieldset>
+            </form> 
+       </div>
+   </div>
+</div><!--.com-billing-info-->

@@ -1,0 +1,23 @@
+<ul class="nav-menu-pri">
+    {% if current_user %}
+        <li class="nav-menu-item nav-menu-dashboard  {% block menu_dashboard_active%}{% end %}"><a href="/dashboard"><span class="lbl">Dashboard</span></a></li>
+        {% if not current_user.suffix %}
+        <li class="nav-menu-item nav-menu-short-code {% block short_code_active%}{% end %}"><a href="/shortcode"><span class="lbl">Short Code</span></a></li>
+        {% end %}
+
+        {% if current_user.package_type ==  current_user.PACKAGE_FREE or not current_user.package_type %}
+            <li class="nav-menu-item nav-menu-test {% block test_min_active%}{% end %}"><a href="/testmin/enroll"><span class="lbl">Test</span></a></li>
+        {% end %}
+        <li class="nav-menu-item nav-menu-packages {% block package_active%}{% end %} "><a href="/cart"><span class="lbl">Packages</span></a></li>
+    
+    
+    <li class="nav-menu-item nav-menu-logs {% block menu_logs_active%}{% end %}"><a href="#"><span class="lbl">Logs</span></a>
+    <section>
+    {% include logs_menu.html %}
+    </section>
+    
+    {% end %}
+    <li class="nav-menu-item nav-menu-docs"><a href="/docs/overview"><span class="lbl">Docs</span></a>
+    <li class="nav-menu-item nav-menu-help {% block menu_help_active %}{% end %}"><a href="/help"><span class="lbl">Help</span></a>
+        
+</ul>

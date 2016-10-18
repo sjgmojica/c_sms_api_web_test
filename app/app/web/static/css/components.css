@@ -1,0 +1,2105 @@
+/*------------------------- Clearfix -------------------------*/
+.clearfix:before,
+.clearfix:after,
+li.sc-cr:before,
+li.sc-cr:after,
+.com-sci-ct:before,
+.com-sci-ct:after,
+.com-account-settings .user-info-cr:before,
+.com-account-settings .user-info-cr:after,
+.com-account-settings .user-email-cr:before,
+.com-account-settings .user-email-cr:after,
+.com-account-settings .user-password-cr:before,
+.com-account-settings .user-password-cr:after,
+.com-purchase-history .com-purchase-history-table:before,
+.com-purchase-history .com-purchase-history-table:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after,
+li.sc-cr:after,
+.com-sci-ct:after, 
+.com-account-settings .user-info-cr:after,
+.com-account-settings .user-email-cr:after,
+.com-account-settings .user-password-cr:after,
+.com-purchase-history .com-purchase-history-table:after {
+	clear: both;
+}
+
+.clearfix,
+li.sc-cr,
+.com-sci-ct,
+.com-account-settings .user-info-cr,
+.com-account-settings .user-email-cr,
+.com-account-settings .user-password-cr,
+.com-purchase-history .com-purchase-history-table {
+	*zoom: 1;
+}
+
+/*------------------------- Image replacement -------------------------*/
+.ir {
+	background-color: transparent;
+	border: 0;
+	overflow: hidden;
+	*text-indent: -9999px;
+}
+
+.ir:before {
+	content: "";
+	display: block;
+	width: 0;
+	height: 150%;
+}
+
+/*------------------------- Hide visually -------------------------*/
+.visuallyhidden,
+.com-rp label,
+.com-account-info .txt-title,
+.com-sc label,
+.com-recent-transactions label,
+.com-transaction-history label,
+.com-inbox .txt-title,
+.com-sent .txt-title,
+.com-verify-public-key label,
+.com-purchase-package .com-rates .txt-title,
+.com-smart-payment label,
+.com-edit-email label,
+.com-edit-name-address label,
+.com-edit-username label,
+.com-scl .txt-ttl,
+.com-sci .txt-ttl,
+.com-verify-number .txt-ttl,
+.com-test-send label,
+.com-test-receive label,
+.pop-over .txt-title,
+.sort-date-lnk .lbl,
+.sort-datetime-lnk .lbl,
+.sort-from-lnk .lbl,
+.sort-charge-lnk .lbl,
+.sort-to-lnk .lbl,
+.sort-type-lnk .lbl,
+.sort-status-lnk .lbl,
+.prev-page .lbl,
+.next-page .lbl,
+.com-upgrade-banner .txt-title,
+.srch-cr label,
+.com-test-mms-send .psu-inp-min label,
+.com-test-mms-send .psu-inp-mn label,
+.com-test-mms-send .psu-inp-upload label,
+.com-test-mms-receive label,
+.com-help > div > header > .txt-title,
+.com-help .data-howto .faq-lnk,
+.com-account-settings .psu-inp-threshold label,
+.com-smart-payment-pin .fld-pin label {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.visuallyhidden.reverse,
+.com-pin-code .txt-ttl,
+.com-csc .txt-desc {
+	clip:rect(auto, auto, auto, auto);
+	height:auto;
+	margin:auto;
+	overflow:auto;
+	padding:inherit;
+	position:inherit;
+	width:auto;
+}
+
+.com-contact .txt-desc,
+.com-terms .txt-desc,
+.com-privacy-policy .txt-desc,
+.com-verify-number .txt-desc,
+.com-pin-code .txt-desc,
+.com-new-password .txt-desc,
+.com-edit-name-address .txt-desc,
+.com-edit-email .txt-desc,
+.com-edit-password .txt-desc,
+.com-rp .txt-desc,
+.com-checkout .payment-cr .txt-desc,
+.com-verify-public-key .txt-desc,
+.com-purchase-details .txt-desc,
+.com-rates .txt-desc,
+.com-account-settings-balance .hint,
+.com-inbox-table .type,
+.sort-date,
+.sort-datetime,
+.sort-from,
+.sort-charge,
+.sort-to,
+.sort-type,
+.sort-status {
+	display: none;
+}
+
+/*------------------------- Account info -------------------------*/
+.com-account-info {
+	text-align: right;
+}
+
+.toggled-on .com-account-info {
+	display: none;
+}
+
+.com-account-info .account-balance {
+	display: none;
+}
+
+/*------------------------- Settings menu -------------------------*/
+.com-settings-menu {
+	position: relative;
+	top: 3.5em;
+	right: 0;
+}
+
+/*------------------------- Home -------------------------*/
+.com-home-banner .banner-main {
+	margin: 1em auto;
+}
+
+.com-home-banner .banner-main .lbl {
+	display: none;
+}
+
+.com-sms-banner div.banner-main {
+	margin: 3em auto;
+}
+
+.com-sms-banner .txt-desc {
+	margin-top: 0.5em;
+}
+
+.com-home-banner .psu-btn,
+.com-sms-banner .psu-btn {
+	font-size: 1.25em;
+}
+
+.com-features ul,
+.com-sms-features ul,
+.com-sms-features-budget ul {
+	margin-top: 2.25em;
+}
+
+.com-features ul li,
+.com-sms-features ul li,
+.com-sms-features-budget ul li {
+	display: block;
+	width: auto;
+	margin: 2em auto 0;
+	position: relative;
+}
+
+.com-features ul li {
+	padding-top: 150px;
+}
+
+.com-sms-features ul li {
+	padding-top: 100px;
+}
+
+.com-sms-features-budget ul li {
+	width: 24.5%;
+	max-width: 14em;
+}
+
+.com-features ul li .feature-icon,
+.com-sms-features ul li .feature-icon {
+	position: absolute;
+	top: 0;
+	left: 50%;
+}
+
+.com-features ul li .feature-icon {
+	margin-left: -75px;
+}
+
+.com-sms-features ul li .feature-icon {
+	margin-left: -50px;
+}
+
+.com-feature,
+.com-sms-feature {
+	margin-top: 1.5em;
+	padding: 0 2em;
+}
+
+.com-extra .txt-desc {
+	margin-bottom: 0.25em;
+}
+
+.com-sms-extra * {
+	display: inline-block;
+}
+
+.com-sms-extra .psu-btn {
+	margin: 1em 1em 0;
+}
+
+/*------------------------- Dashboard -------------------------*/
+.com-dashboard-welcome-cr {
+	position: relative;
+}
+
+.com-dashboard-welcome .txt-desc {
+	margin-bottom: 1em;
+}
+
+.com-dashboard-welcome ul {
+	list-style-type: disc;
+	max-width: 99%;
+}
+
+.com-dashboard-welcome ul li {
+	width: 50%;
+	float: left;
+	list-style-position: inside;
+	margin: 0.5em 0 0;
+}
+
+.com-dashboard-welcome ul li {
+	font-size: 1.125em;
+}
+
+.site-content > section > div > div.com-upgrade-banner-cr {
+	padding-bottom: 1.75em;
+}
+
+.page-dashboard .notification-short-code {
+	margin: 0 auto;
+}
+
+.com-upgrade-banner-cr {
+	position: relative;
+}
+
+.com-upgrade-banner .txt-desc {
+	width: 60%;
+	margin-bottom: 1em;
+}
+
+.com-upgrade-banner .banner-main {
+	text-align: right;
+	position: absolute;
+	bottom: 1.5em;
+	right: 1.5em;
+}
+
+.site-content > section > div > div.com-dashboard-short-code-cr {
+	padding: 0.5em;
+}
+
+.com-dashboard-short-code * {
+	display: inline-block;
+	text-align: center;
+}
+
+.com-dashboard-short-code .txt-desc {
+	margin: 0 0.5em;
+}
+
+.com-recent-transactions .com-recent-transactions-ct,
+.com-recent-transactions table {
+	margin-top: 1.5em;
+}
+
+.com-recent-transactions .pagination-cr {
+	display: none;
+}
+
+.com-recent-transactions .psu-btn {
+	margin-top: 1.5em;
+}
+
+.com-dashboard-rates .com-dashboard-rates-ct {
+	margin-top: 0.5em;
+	text-align: justify;
+	margin-bottom: -1.25em;
+}
+
+.com-dashboard-rates .com-dashboard-rates-ct:after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+	line-height: 0;
+}
+
+.com-dashboard-rates table {
+	display: inline-block;
+	margin-top: 1em;
+	width: 48%;
+	background-color: #F7F7F7;
+}
+
+.com-dashboard-rates table td {
+	padding: 0.25em 1.5em;
+	width: 60%;
+}
+
+/*------------------------- Sign up -------------------------*/
+.com-su .fld-cpwd {
+	clear: both;
+}
+
+.com-su .form-footer {
+	margin-top: 2em;
+}
+
+.com-su .form-footer p {
+	margin-top: 1em;
+}
+
+.com-sign-up-email .notification {
+	margin-bottom: 0;
+}
+
+/*------------------------- Sign in -------------------------*/
+.com-si-form .psu-inp-pwd {
+	margin-bottom: 2em;
+}
+
+.com-si-form .fld-axn {
+    display: block;
+    width: 100%;
+    pointer-events: none;
+    position: relative;
+    margin-top: 0;
+}
+
+.com-si-form .fld-axn * {
+    pointer-events: initial;
+}
+
+.com-si-form .psu-btn-sec {
+    display: block;
+    margin: auto;
+    margin-top: 5.5rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    width: 235px;
+    height: 40px;
+}
+
+.com-si-form .psu-btn-sec:hover,
+.com-si-form .psu-btn-sec:active {
+    background-color: transparent;
+}
+
+.com-si-form .psu-btn-sec:before {
+    display: inline-block;
+    content: "or";
+    background-color: #fff;
+    position: absolute;
+    width: 2rem;
+    margin-left: -1rem;
+    left: 50%;
+    bottom: 4rem;
+    text-align: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.com-si-form .psu-btn-sec:after {
+    pointer-events: none;
+    display: block;
+    content: "";
+    width: 100%;
+    border-bottom: 1px solid #B0B6C1;
+    position: absolute;
+    bottom: 4.5rem;
+    left: 0;
+}
+
+.com-si-form .mobile-connect-link {
+    padding: 0;
+    position: absolute;
+}
+
+.com-si-form .mobile-connect-link .label {
+    width: 235px;
+    height: 40px;
+    background-image: url("../img/mobile-connect2.svg");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: auto 120px;
+    text-indent: -9999px;
+    margin: auto;
+}
+
+.com-si-form .mobile-connect-link:hover .label {
+    background-position: 0 -40px;
+}
+.com-si-form .mobile-connect-link:active .label {
+    background-position: 0 -80px;
+}
+
+.com-si-form .rst-pwd-lnk-cr {
+	float: right;
+}
+
+/*------------------------- Reset Password -------------------------*/
+.com-rp .fld-email {
+	margin-top: 1.5em;
+}
+
+/*------------------------- New Password -------------------------*/
+.com-new-password .fld-pwd-new-c {
+	clear: both;
+}
+
+/*------------------------- Short code -------------------------*/
+.com-sc .fld-axn {
+	margin-bottom: 0;
+}
+
+.com-sc .fld-axn,
+.com-sc .psu-btn-sec,
+.com-sc .psu-btn-sec > a {
+	width: 100%;
+	text-align: center;
+}
+
+.com-sc .com-tutorial-short-code .psu-btn-sec {
+	width: auto;
+}
+
+.com-sc .fld-axn .psu-btn-sub {
+	float: right;
+	margin-top: -3.25em;
+}
+
+.com-sc .fld-axn .psu-btn-sub button {
+	width: 12em;
+}
+
+.com-sc .divider {
+	margin-bottom: 1em;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+}
+
+.com-sc .divider:before,
+.com-sc .divider:after {
+	content: " ";
+	display: inline-block;
+	width: 40%;
+	position: relative;
+	top: 0.75em;
+}
+
+.com-sc .divider:before {
+	float: left;
+}
+
+.com-sc .divider:after {
+	float: right;
+}
+
+.com-your-short-code {
+	text-align: center;
+}
+
+.com-your-short-code .your-short-code {
+	margin-top: 0.25em;
+}
+
+/*------------------------- Custom Short Code -------------------------*/
+.com-csc .srch-cr .fld-axn,
+.com-csc .com-sci .fld-axn {
+	width: auto;
+	margin-top: 0;
+}
+
+.srch-cr {
+	margin-top: 2em;
+	margin-bottom: 0.5em;
+	width: 100%;
+}
+
+.srch-cr .fld-kw,
+.srch-cr .fld-axn {
+	display: inline-block;
+}
+
+.srch-cr .pref {
+	vertical-align: middle;
+	margin-right: 0.5em;
+}
+
+.srch-cr .psu-inp-kw {
+	width: 16.5em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.srch-cr .inp-txt-kw {
+	width: 100%;
+}
+
+.srch-cr .fld-axn {
+	float: right;
+}
+
+.srch-cr .psu-inp,
+.srch-cr .fld-axn .psu-btn-sub {
+	margin-top: 0;
+}
+
+.srch-cr .fld-axn .psu-btn-sub {
+	margin: 0 1em 0 0;
+}
+
+.srch-cr .fld-axn .psu-btn {
+	display: inline-block;
+}
+
+.srch-cr .fld-axn .psu-btn-sub,
+.srch-cr .fld-axn .psu-btn-sub button {
+	width: auto;
+}
+
+.com-sci .sc-cr {
+	display: inline-block;
+	width: 12.5em;
+}
+
+.com-sci .fld-axn {
+	margin-left: 1em;
+}
+
+.com-sci .fld-axn .psu-btn {
+	width: auto;
+	margin-top: 0;
+}
+
+li.sc-cr {
+	margin: 1em 0;
+}
+
+li.sc-cr:only-child,
+li.sc-cr:last-child {
+	margin-bottom: 0;
+}
+
+.com-confirm-short-code p {
+	margin: 1em 0;
+}
+
+/*------------------------- Test -------------------------*/
+.test-content input[type],
+.test-content .verified-icon,
+.test-content .psu-inp-min {
+	display: inline-block;
+}
+
+.test-content .fld-mn {
+	display: inline-block;
+	margin-bottom: 2em;
+	margin-right: 1em;
+	vertical-align: top;
+}
+
+.test-content .fld-axn,
+.test-content .fld-min {
+	display: inline-block;
+}
+
+.test-content div.fld-min  {
+	margin-bottom: 1em;
+}
+
+.test-content .com-verify-number .fld-axn,
+.test-content .psu-inp-mn {
+	margin-top: 0;
+}
+
+.test-content .psu-inp-msg,
+.test-content .psu-inp-msg textarea {
+	display: table-cell;
+	vertical-align: middle;
+	vertical-align: -webkit-baseline-middle
+}
+
+.test-content .psu-inp-msg textarea {
+	height: 4em;
+}
+
+.test-content .char-count {
+	display: table-cell;
+	padding: 0.75em;
+	vertical-align: baseline;
+	height: 4.8em;
+}
+
+.test-content .com-verify-number .notification {
+	margin: 0 0 2em;
+}
+
+.test-content .com-pin-code .notification {
+	margin: 1.5em 0;
+}
+
+.com-test-mms-send .psu-inp-file {
+	margin-top: 0;
+}
+
+.com-test-mms-send .psu-inp-upload {
+	padding-left: 0.5em;
+	display: inline-block;
+	margin-top: 0;
+	vertical-align: middle;
+	overflow: hidden;
+	width: 13.5em;
+	box-sizing: border-box;
+}
+
+.com-test-mms-send .psu-inp-upload input {
+	padding: 0.25em 0;
+	text-indent: -5.75em;
+	width: 12em;
+	-webkit-margin-start: -1em;
+	-webkit-margin-before: 0.25em;
+	-webkit-margin-after: -0.1em;
+}
+
+.com-test-mms-send .psu-inp-upload input::-webkit-file-upload-button {
+	width: 0;
+}
+
+.com-test-mms-send .browse-lnk-cr {
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+.com-test-mms-send .psu-inp-msg {
+	display: inline-block;
+	vertical-align: bottom;
+	margin-top: 0;
+}
+
+.com-test-mms-send .char-count {
+	display: inline-block;
+	height: 4.75em;
+	margin-left: -3px;
+	vertical-align: bottom;
+}
+
+.com-test-send .psu-inp-min {
+	width: 75%;
+}
+
+.com-test-send .info-send-message {
+	margin-top: 0.5em;
+}
+
+/*------------------------- MIN -------------------------*/
+.min-cr {
+	display: none;
+}
+
+.min-cr.active {
+	display: block;
+}
+
+.min-cr .psu-inp {
+	margin-top: 0;
+	vertical-align: top;
+}
+
+.min-cr .verified-icon {
+	margin-left: 1em;
+	vertical-align: top;
+	margin-top: 0.35em;
+}
+
+.min-cr .edit-lnk-cr {
+	display: inline-block;
+	margin-left: 1em;
+	vertical-align: top;
+	margin-top: 0.25em;
+}
+
+.min-cr .dismiss-link-cr {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.min-cr .dismiss-link {
+	padding: 0.55em;
+	display: inline-block;
+	margin-left: -2.5em;
+}
+
+/*------------------------- Verify Mobile Number -------------------------*/
+.com-verify-number {
+	display: none;
+}
+
+.com-verify-number.active {
+	display: block;
+}
+
+.com-verify-number .psu-btn-cncl {
+	margin-left: 1em;
+}
+
+/*------------------------- PIN Code -------------------------*/
+
+/*------------------------- Packages -------------------------*/
+.com-purchase-package .plan-lst {
+	width: 100%;
+	display: table;
+	margin: 1em 0;
+}
+
+.com-purchase-package .plan-lst li {
+	padding: 1em 0;
+}
+
+.com-purchase-package .plan-lst li:last-child {
+	border-right: 0 none;
+}
+
+.com-purchase-package .fld-axn {
+	margin-bottom: 1em;
+}
+
+.com-purchase-package .info-cr {
+	margin-top: 0.5em;
+}
+
+.com-purchase-package .info-list {
+	display: none;
+}
+
+.com-purchase-package .payment-options.active .info-list {
+	display: block;
+}
+
+.payment-options {
+	margin-top: 1rem;
+}
+
+.payment-options .info-list {
+	margin-left: 1.75rem;
+}
+
+/*------------------------- Plan -------------------------*/
+.com-plan header,
+.com-plan .com-plan-ct,
+.com-plan .fld-sel-qty,
+.com-plan .fld-axn {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.com-plan .txt-title {
+	margin-bottom: 0.5em;
+	margin-right: 1em;
+}
+
+.com-plan .psu-inp-sel-qty label {
+	display: inline-block;
+}
+
+.com-plan .fld-sel-qty,
+.com-plan .psu-inp-sel-qty,
+.com-plan .fld-axn {
+	margin: 0;
+}
+
+.com-plan .inp-sel-qty,
+.com-plan .fld-axn {
+	margin-left: 1em;
+}
+
+.com-plan .psu-btn .btn-sub {
+	padding: 0.75em 0.9em;
+}
+
+/*------------------------- Rates -------------------------*/
+.rates-cr {
+	margin: 1.5em 0 0;
+}
+.com-rates {
+	display: none;
+}
+
+.com-rates.active {
+	display: block;
+}
+
+.com-rates table {
+	margin-top: 1em;
+	text-align: left;
+}
+
+/*------------------------- Transaction History -------------------------*/
+.com-transaction-history .filter-options-cr,
+.com-transaction-history .fld,
+.com-transaction-history .results-header p {
+	display: inline-block;
+}
+
+.com-transaction-history .results-header .txt-title {
+	vertical-align: middle;
+	margin-right: 0.5rem;
+}
+
+.com-transaction-history .txt-desc {
+	margin-bottom: 1em;
+}
+
+.com-transaction-history .notification {
+	margin-bottom: 0.75em;
+}
+
+.com-transaction-history .filter-options-cr {
+	margin-top: 1em;
+	display: block;
+}
+
+.com-transaction-history .fld {
+	display: block;
+}
+
+.com-transaction-history .fld .psu-inp input,
+.com-transaction-history .fld .psu-inp select {
+	width: 100%;
+}
+
+.com-transaction-history .psu-inp {
+	margin-top: 0;
+}
+
+.com-transaction-history .fld-axn {
+	margin-right: 0;
+	vertical-align: top;
+}
+
+.com-transaction-history .fld input {
+	display: inline-block;
+}
+
+.com-transaction-history .results-cr {
+	margin-top: 1em;
+}
+
+.com-transaction-history .results-header {
+	margin: 1.5em 0;
+}
+
+.com-transaction-history .export-lnk-cr {
+	margin-left: 0.5rem;
+	vertical-align: middle;
+}
+
+.com-recent-transactions .outgoing-filter-cr,
+.com-transaction-history .outgoing-filter-cr {
+	margin: 1em 0;
+	float: left;
+}
+
+.com-recent-transactions .outgoing-filter-cr,
+.com-recent-transactions .com-inbox-table,
+.com-recent-transactions .com-sent-table {
+	font-size: 0.8em;
+}
+
+.com-recent-transactions .outgoing-filter-cr .fld-sel-transaction,
+.com-transaction-history .outgoing-filter-cr .fld-sel-transaction {
+	font-size: 0.9em;
+}
+
+.com-recent-transactions .outgoing-filter-cr .psu-inp-sel-transaction,
+.com-transaction-history .outgoing-filter-cr .psu-inp-sel-transaction {
+	display: inline-block;
+}
+
+.com-recent-transactions .outgoing-filter-cr .txt-desc,
+.com-transaction-history .outgoing-filter-cr .txt-desc {
+	display: inline-block;
+	margin-right: 0.5em;
+}
+
+.com-recent-transactions .def-cr,
+.com-transaction-history .def-cr {
+	margin-top: 1em;
+	font-size: 0.9em;
+}
+
+.com-recent-transactions .def-list,
+.com-transaction-history .def-list {
+	list-style-type: disc;
+	line-height: 0.9em;
+	margin-left: 1em;
+	color: #898D93;
+}
+
+.com-transaction-history nav ul,
+.com-recent-transactions nav ul {
+	display: table;
+	width: 100%;
+	text-align: center;
+}
+
+.com-transaction-history nav ul li,
+.com-recent-transactions nav ul li {
+	display: table-cell;
+	width: 50%;
+}
+
+.com-transaction-history nav ul li a,
+.com-recent-transactions nav ul li a {
+	padding: 1em;
+	display: block;
+}
+
+.com-transaction-history table,
+.com-recent-transactions table {
+	text-align: center;
+	margin-top: 1.5em;
+}
+
+.com-transaction-history .com-transaction-history-inbox-sent-cr > div,
+.com-recent-transactions .com-recent-transactions-inbox-sent-cr > div {
+	display: none;
+	clear: both;
+}
+
+.com-transaction-history .com-transaction-history-inbox-sent-cr div.active,
+.com-recent-transactions .com-recent-transactions-inbox-sent-cr div.active {
+	display: block;
+}
+
+.com-transaction-history .com-sent-table table,
+.com-recent-transactions .com-sent-table table {
+	table-layout: fixed;
+}
+
+.com-transaction-history table td,
+.com-recent-transactions table td {
+	min-width: 3em;
+	text-align: left;
+}
+
+.com-transaction-history .com-sent-table th.datetime,
+.com-recent-transactions .com-sent-table th.datetime { width: 10em; }
+.com-transaction-history .com-sent-table th.to,
+.com-recent-transactions .com-sent-table th.to { width: 7em; }
+.com-transaction-history .com-sent-table th.type,
+.com-recent-transactions .com-sent-table th.type { width: 5em; }
+
+/*------------------------- Monthly Summary -------------------------*/
+.com-monthly-summary .com-monthly-summary-table {
+	overflow-x: scroll;
+}
+
+.com-monthly-summary .com-monthly-summary-table td {
+	text-align: right;
+	min-width: 6em;
+}
+
+.com-monthly-summary .com-monthly-summary-table .month {
+	text-align: left;
+	min-width: 7.5em;
+}
+
+/*------------------------- Purchase History -------------------------*/
+.com-purchase-history .pagination-cr {
+	margin-top: 0;
+}
+
+/*------------------------- Purchase Details -------------------------*/
+.com-purchase-details .com-purchase-details-table {
+	margin-top: 1.5em;
+}
+
+.com-purchase-details .com-purchase-details-table th:first-child {
+	text-align: left;
+}
+
+.com-purchase-details .com-purchase-details-table .qty {
+	text-align: center;
+}
+
+.com-purchase-details .com-purchase-details-table th:last-child,
+.com-purchase-details .com-purchase-details-table .amount {
+	text-align: right;
+}
+
+/*------------------------- Shopping Cart -------------------------*/
+.com-shopping-cart .cart-table th:first-child,
+.com-shopping-cart .cart-table .total .label {
+	text-align: left;
+}
+
+.com-shopping-cart .cart-table .qty {
+	text-align: center;
+}
+
+.com-shopping-cart .cart-table th:last-child,
+.com-shopping-cart .cart-table .total,
+.com-shopping-cart .cart-table .amount {
+	text-align: right;
+	padding-right: 3em;
+}
+
+.com-shopping-cart .cart-table .inp-qty {
+	width: 3em;
+	margin: 0 auto;
+}
+
+.com-shopping-cart .cart-table .remove {
+	display: none;
+}
+
+.com-shopping-cart .cart-table tr:hover .remove {
+	display: block;
+	position: absolute;
+	margin-top: 0.5em;
+	margin-left: -3em;
+}
+
+.com-shopping-cart .cart-table + .fld-axn .psu-btn {
+	margin-right: 1em;
+}
+
+.com-shopping-cart .cart-table + .fld-axn .psu-btn:last-child {
+	margin-right: 0;
+}
+
+.com-shopping-cart-empty .empty-shopping-cart-message {
+	margin: 2em 0 3em;
+}
+
+/*------------------------- Checkout -------------------------*/
+.com-checkout .checkout-table th:first-child,
+.com-checkout .checkout-table .total .label {
+	text-align: left;
+}
+
+.com-checkout .checkout-table .qty {
+	text-align: center;
+}
+
+.com-checkout .checkout-table th:last-child,
+.com-checkout .checkout-table .total,
+.com-checkout .checkout-table .amount {
+	text-align: right;
+}
+
+.com-checkout label {
+	margin-left: 1em;
+}
+
+.com-checkout .payment-cr {
+	margin: 2em 0;
+}
+
+.com-checkout .payment-cr .fld-item-payment:first-child {
+	margin-top: 1em;
+}
+
+.com-checkout .payment-cr input,
+.com-checkout .payment-cr label {
+	display: inline-block;
+	width: auto;
+}
+
+.com-checkout .fld-item-terms input,
+.com-checkout .fld-item-terms label {
+	display: inline-block;
+	vertical-align: top;
+	width: auto;
+}
+
+.com-checkout .fld-item-terms input {
+	margin-top: 0.25em;
+}
+
+.com-checkout .fld-item-terms label {
+	width: 90%;
+}
+
+/*------------------------- SMART Payment -------------------------*/
+.com-smart-payment-pin div.fld-axn {
+	float: none;
+}
+
+/*------------------------- Account Settings -------------------------*/
+.com-account-settings input[type="checkbox"] {
+	margin-top: 0.2em;
+}
+
+.com-account-settings label,
+.com-account-settings input[type="checkbox"] {
+	display: inline-block;
+	vertical-align: top;
+	width: auto;
+}
+
+.com-account-settings .fld-send-email label {
+	margin-left: 0.5em;
+}
+
+.com-account-settings .txt-desc {
+	margin-bottom: 0;
+}
+
+.com-account-settings .psu-inp-threshold {
+	display: inline-block;
+	width: 100%;
+	margin-right: -2em;
+	margin-top: 0;
+}
+
+.com-account-settings .fld-threshold .dismiss-link-cr {
+	display: none;
+	vertical-align: top;
+	margin-top: 0.5em;
+}
+
+.com-account-settings .com-account-settings-balance {
+	margin-top: 1.5em;
+}
+
+.com-account-settings .com-account-settings-balance .fld-axn,
+.com-account-settings .com-account-settings-balance[data-state-threshold="edit"] .dismiss-link-cr {
+	display: none;
+}
+
+.com-account-settings .com-account-settings-balance[data-state-threshold="edit"] .hint {
+	display: block;
+}
+
+.com-account-settings .com-account-settings-balance[data-state-threshold="edit"] .fld-axn {
+	display: block;
+}
+
+.com-account-settings .com-account-settings-balance[data-state-threshold="saved"] .fld-threshold,
+.com-account-settings .com-account-settings-balance[data-state-threshold="disabled"] .fld-threshold {
+	margin-bottom: 0;
+}
+
+.com-account-settings .com-account-settings-balance .dismiss-link-cr {
+	display: inline-block;
+}
+
+.com-account-settings .com-account-settings-mobile .txt-title,
+.com-account-settings .com-account-settings-mobile .tooltip-cr, 
+.com-account-settings .com-account-settings-mobile .mobile-connect-link-cr, 
+.com-account-settings .com-account-settings-mobile .verified-icon, 
+.com-account-settings .com-account-settings-mobile .unlink-mobile-link-cr {
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.com-account-settings .com-account-settings-mobile .label {
+    margin-bottom: auto;
+}
+
+.com-account-settings .com-account-settings-mobile .verified-icon {
+    margin-left: 0.5rem;
+}
+
+.com-account-settings .com-account-settings-mobile .unlink-mobile-link-cr {
+    margin-left: 1rem;
+}
+
+.com-account-settings .com-account-settings-mobile .mobile-connect-link {
+    display: block;
+}
+
+.com-account-settings .com-account-settings-mobile .mobile-connect-link .label {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/mobile-connect.svg");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 150px;
+    text-indent: -9999px;
+}
+
+.com-account-settings .com-account-settings-mobile .mobile-connect-link:hover .label {
+    background-position: -50px 0;
+}
+.com-account-settings .com-account-settings-mobile .mobile-connect-link:active .label {
+    background-position: -100px 0;
+}
+
+/*------------------------- Unlink Mobile Connect -------------------------*/
+.com-unlink-mobile-connect p {
+    margin-top: 1rem;
+}
+
+/*------------------------- Edit Name and Address -------------------------*/
+
+/*------------------------- Edit Email -------------------------*/
+.com-edit-email.ui-dialog div.psu-inp {
+	margin-top: 0;
+}
+
+/*------------------------- Edit Password -------------------------*/
+.com-edit-password .fld-pwd-new-c {
+	clear: both;
+}
+
+/*------------------------- API Settings -------------------------*/
+.com-api-settings-saved .txt-title,
+.com-api-settings-saved .txt-title + section,
+.com-api-settings-saved .edit-lnk,
+.com-api-settings-saved .psu-inp-public-key label,
+.com-api-settings-saved .verify-public-key-lnk-cr,
+.com-api-settings-saved .verified .verified-icon,
+.com-api-settings-saved .edit-lnk-cr {
+	display: inline-block;
+}
+
+.com-api-settings-saved .txt-title {
+	vertical-align: middle;
+}
+
+.com-api-settings-saved .verify-public-key-lnk-cr {
+	margin-left: 0.5em;
+}
+
+.com-api-settings-saved .verified-icon,
+.com-api-settings-saved .verified .verify-public-key-lnk-cr {
+	display: none;
+}
+
+.com-api-settings-saved .verified .verified-icon {
+	margin-left: 0.5em;
+	vertical-align: text-bottom;
+}
+
+.com-api-settings-saved .edit-lnk-cr {
+	vertical-align: middle;
+}
+
+.com-api-settings-saved .tooltip-cr {
+	padding-left: 1em;
+	padding-right: 1em;
+	top: 0.5em;
+}
+
+.com-api-settings-saved .tooltip-cr .tooltip-ct {
+	width: 200px;
+	padding: 0.75em 1em;
+	bottom: 3em;
+	left: 3em;
+	position: relative;
+}
+
+.com-api-settings-credentials .edit-lnk-cr {
+	margin: 0 1em 0 0.75em;
+}
+
+.com-api-settings-credentials .cred-cr {
+	margin-top: 1em;
+	word-wrap: break-word;
+}
+
+.com-api-settings-credentials .generate-lnk-cr {
+	margin-top: 0.5em;
+}
+
+.com-mms-api-settings-saved {
+	margin-top: 2em;
+	padding-top: 1.5em;
+}
+
+/*------------------------- Edit API Settings -------------------------*/
+.com-api-settings-frm {
+	margin-top: 0.5em;
+}
+
+/*------------------------- Billing -------------------------*/
+.com-billing-estimate {
+	display: none;
+}
+
+.com-billing-estimate .txt-title {
+	display: inline-block;
+}
+
+.com-billing-estimate .tooltip-cr {
+	bottom: 0.25em;
+}
+
+.com-billing-info {
+	margin-top: 1.5rem;
+}
+
+.com-billing label {
+	display: inline-block;
+}
+
+.com-billing-info .txt-desc {
+	margin-bottom: 0;
+}
+
+.com-billing-info .psu-inp {
+	width: 80%;
+	display: inline-block;
+	margin-top: 0;
+	vertical-align: bottom;
+}
+
+.com-billing-info .ui-dialog .psu-inp {
+	width: 100%;
+	margin-top: 1em;
+}
+
+.com-billing-info .tooltip-cr {
+	bottom: 0.5em;
+	left: 0.5em;
+}
+
+.com-billing-info .fld-name {
+	margin-top: 1rem;
+}
+
+.com-billing-info .download-invoice-lnk-cr {
+	margin-top: 1rem;
+}
+
+.com-billing-info .download-invoice-lnk-cr,
+.com-billing-info .download-invoice-lnk {
+	display: inline-block;
+}
+
+/*------------------------- Guide -------------------------*/
+.com-guide {
+	padding: 1.5em;
+}
+
+.com-guide-cr {
+	position: relative;
+}
+
+/*------------------------- Short code notification -------------------------*/
+div.notification-short-code {
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+/*------------------------- Secret key -------------------------*/
+.page-dashboard .com-api-settings-credentials .generate-lnk-cr {
+	display: none;
+}
+
+.page-dashboard .com-api-settings-credentials .edit-lnk-cr {
+	vertical-align: bottom;
+	margin-bottom: 0.1em;
+}
+
+/*------------------------- Help Icon -------------------------*/
+.info-cr {
+	margin-top: 1.5em;
+}
+
+.expand-tutorial-lnk-cr > span.icon,
+.info-cr span.icon {
+	display: inline-block;
+	margin-right: 0.5em;
+	vertical-align: middle;
+}
+
+.info-cr .ui-dialog .fld-axn {
+	margin-top: -1.5em;
+}
+
+.info-cr .note {
+	font-size: 0.7rem;
+	margin-top: 0.75rem;    
+}
+
+.info-cr .note a {
+	color: #000;
+}
+
+.info-cr .note p {
+	margin: 0;
+}
+
+.expand-tutorial-lnk {
+	position: relative;
+}
+
+.expand-tutorial-lnk:after {
+	left: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-left-color: #BCC7CE;
+	border-width: 5px;
+	top: 25%;
+	margin-left: 0.5rem;
+}
+
+.active .expand-tutorial-lnk:after {
+	top: 50%;
+	margin-top: -2px;
+	border-left-color: transparent;
+	border-top-color: #BCC7CE;
+}
+
+/*------------------------- Help -------------------------*/
+.com-help .data-cr .com-heading {
+	margin-bottom: 1rem;
+}
+
+.com-help .toc-cr,
+.com-help .main-cr {
+	width: auto;
+	display: block;
+	vertical-align: top;
+}
+
+.com-help .help-list {
+	display: table;
+	width: 100%;
+	margin: 0;
+	list-style-type: none;
+	background-color: #49677A;
+}
+
+.com-help .help-list li {
+	display: table-cell;
+	width: 33%;
+}
+
+.com-help .help-list [data-state="active"] a {
+	color: rgba(255,255,255,1);
+}
+
+.com-help .help-list li a {
+	display: block;
+	text-decoration: none;
+	color: rgba(255,255,255,0.5);
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	text-align: center;
+	padding: 1rem;
+	font-weight: bold;
+	padding: 0.75rem 0;
+}
+
+.com-help .help-list li a:hover {
+	text-decoration: none;
+	color: rgba(255,255,255,1);
+}
+
+.com-help .help-list li a:active {
+	color: rgba(255,255,255,0.3);
+}
+
+.com-help .help-list li a .lbl {
+	border-right: 1px solid #263F4C;
+	display: block;
+	padding: 0.5rem 1.25rem;
+}
+
+.com-help .help-list li:last-child a .lbl {
+	border-right: 0 none;
+}
+
+.com-help .main-cr {
+	padding-top: 1.5em;
+}
+
+.toc-cr {
+	padding: 0.5em 1em;
+}
+
+.com-help .data-basics,
+.com-help .data-faq, 
+.com-help .data-howto {
+	display: none;
+}
+
+.com-help [data-state="active"].data-basics,
+.com-help [data-state="active"].data-faq,
+.com-help [data-state="active"].data-howto {
+	display: block;
+}
+
+.com-help .com-help-ct {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.com-help li[data-state="active"] {
+	position: relative;
+}
+
+.com-help li[data-state="active"]:after {
+	bottom: 0;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: transparent;
+	border-bottom-color: #fff;
+	border-width: 0.75rem;
+	margin-left: -0.75rem;
+}
+
+.toc-lnk {
+	position: relative;
+	display: block;
+	padding: 0.25em 0;
+}
+
+.toc-lst.sub {
+	margin-left: 1em;
+}
+
+.toc-lnk.sub:after {
+	left: -1em;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-left-color: #BCC7CE;
+	border-width: 5px;
+	top: 0%;
+	margin-top: 0.65em;
+}
+
+.toc-lst:not(.sub) > li {
+	margin-bottom: 0.65em;
+}
+
+.com-help ol {
+	list-style-type: none;
+}
+
+.com-help ul {
+	list-style-type: disc;
+	margin: 1em 2em;
+}
+
+.com-help .faq-lst > li:not(:first-child) .faq-ct {
+	margin-top: 2.75em;
+}
+
+.com-help .faq-lst > li:not(:first-child) .faq-ct.sub {
+	margin-top: 1.5em;
+}
+
+.com-help .data-howto .faq-lst > li .faq-ct {
+	margin: 0;
+}
+
+.com-help .faq-lst li p {
+	margin: 0 0 1em;
+	color: #666A6C;
+}
+
+.com-help .faq-ct {
+	margin-bottom: 2rem;
+}
+
+.com-help .faq-lnk {
+	margin-bottom: 1em;
+	display: block;
+}
+
+.com-help .faq-lnk.sub {
+	margin: 1em 0;
+	display: block;
+}
+
+.com-help h3 {
+	margin: 0.5em 0 0;
+}
+
+/*------------------------- Tutorials -------------------------*/
+.data-howto .ui-dialog {
+	position: static;
+	display: none;
+}
+
+.data-howto .ui-dialog .dismiss-link-cr {
+	display: none;
+}
+
+.data-howto [data-state="active"] .ui-dialog {
+	display: block;
+}
+
+.data-howto .ui-dialog > div {
+	position: static;
+	width: auto;
+	margin-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.ui-dialog p.txt-title {
+	margin: 0;
+}
+
+.picture-slider {
+	position: relative;
+	overflow: hidden;
+	width: 435px;
+	height: auto;
+	margin-top: 1em;
+}
+
+.ps-controls {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+
+.ps-sheet {
+	position: absolute;
+	top: 0;
+}
+
+.ps-frame {
+	position: absolute;
+	top: 0;
+	background-color: #F7F7F7;
+	height: auto;
+}
+
+.ps-frame-content {
+	position: absolute;
+	top: 0;
+	margin: 1em;
+	z-index: -1;
+}
+
+.ps-frame-image {
+	display: block;
+	position: static;
+	margin: 1em auto;
+	height: auto;
+	width: auto;
+}
+
+.ps-caption {
+	width: 100%;
+	margin-top: 21.5em;
+	position: relative;
+	z-index: 1;
+}
+
+.ps-caption .page {
+	font-size: 0.8em;
+	position: absolute;
+	bottom: 0;
+	margin: 0 !important;
+	color: #8A8E93;
+}
+
+.ui-dialog .fld-axn {
+	position: relative;
+	z-index: 1;
+}
+
+.data-howto .ui-dialog .fld-axn {
+	margin-top: -1.5rem;
+}
+
+.data-howto .ui-dialog .psu-btn-neg {
+	display: none;
+}
+
+.ui-dialog .fld-axn .psu-btn-pri {
+	margin-left: 1em;
+}
+
+.ui-dialog p.dismiss-link-cr {
+	margin: 0;
+}
+
+.com-help .faq-lst li .ui-dialog header p {
+	margin: 0;
+}
+
+.com-tutorial-api-settings .picture-slider { min-height: 22.5rem; }
+.com-tutorial-api-settings .ps-frame { height: 22.5rem; }
+.com-tutorial-api-settings .ps-caption { margin-top: 23.5rem; height: 5rem; }
+
+.com-tutorial-enroll-number .picture-slider { min-height: 15.5rem; }
+.com-tutorial-enroll-number .ps-frame { height: 15.5rem; }
+.com-tutorial-enroll-number .ps-caption { margin-top: 16.5rem; height: 5rem; }
+
+.com-tutorial-purchase-history .picture-slider { min-height: 12rem; }
+.com-tutorial-purchase-history .ps-frame { height: 12rem; }
+.com-tutorial-purchase-history .ps-caption { margin-top: 13rem; height: 5rem; }
+
+.com-tutorial-transaction-history .picture-slider { min-height: 17.5rem; }
+.com-tutorial-transaction-history .ps-frame { height: 17.5rem; }
+.com-tutorial-transaction-history .ps-caption { margin-top: 18.5rem; height: 5rem; }
+
+.com-tutorial-smart-payment .picture-slider { min-height: 19rem; }
+.com-tutorial-smart-payment .ps-frame { height: 19rem; }
+.com-tutorial-smart-payment .ps-caption { margin-top: 20rem; height: 5rem; }
+
+.com-tutorial-dragonpay .picture-slider { min-height: 19rem; }
+.com-tutorial-dragonpay .ps-frame { height: 19rem; }
+.com-tutorial-dragonpay .ps-caption { margin-top: 20rem; height: 5rem; }
+
+.com-tutorial-paypal .picture-slider { min-height: 20rem; }
+.com-tutorial-paypal .ps-frame { height: 20rem; }
+.com-tutorial-paypal .ps-caption { margin-top: 21rem; height: 5rem; }
+
+.com-tutorial-paymaya .picture-slider { min-height: 20rem; }
+.com-tutorial-paymaya .ps-frame { height: 20rem; }
+.com-tutorial-paymaya .ps-caption { margin-top: 21rem; height: 5rem; }
+
+.com-tutorial-manage-cart .picture-slider { min-height: 14.5rem; }
+.com-tutorial-manage-cart .ps-frame { height: 14.5rem; }
+.com-tutorial-manage-cart .ps-caption { margin-top: 15.5rem; height: 5rem; }
+
+.com-tutorial-short-code .picture-slider { min-height: 14.5rem; }
+.com-tutorial-short-code .ps-frame { height: 14.5rem; }
+.com-tutorial-short-code .ps-caption { margin-top: 15.5rem; height: 5rem; }
+
+.com-tutorial-receive-message .picture-slider { min-height: 15.5rem; }
+.com-tutorial-receive-message .ps-frame { height: 15.5rem; }
+.com-tutorial-receive-message .ps-caption { margin-top: 16.5rem; height: 5rem; }
+
+.com-tutorial-send-message .picture-slider { min-height: 15.5rem; }
+.com-tutorial-send-message .ps-frame { height: 15.5rem; }
+.com-tutorial-send-message .ps-caption { margin-top: 16.5rem; height: 5rem; }
+
+/*------------------------- Back to top -------------------------*/
+.back-top-link-cr {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	margin: -1em 1em 1em 0;
+	display: none;
+	z-index: 1;
+}
+
+.back-top-link-cr a {
+	display: block;
+	padding: 0.5em;
+	background-color: black;
+	border-radius: 0.25em;
+}
+
+/*------------------------- Contact Us -------------------------*/
+.com-contact p {
+	margin: 1em 0;
+}
+
+.com-contact .contact-map-cr {
+	margin-top: 1em;
+}
+
+.com-contact .contact-map-cr p {
+	margin: 0;
+}
+
+/*------------------------- Terms and Conditions -------------------------*/
+.com-terms header .txt-title {
+	margin-bottom: 0.75em;
+}
+
+.com-terms .com-terms-ct .txt-title {
+	margin: 1.75em 0 0;
+}
+
+.com-terms .com-terms-ct p {
+	margin: 1em 0;
+}
+
+.com-terms ol,
+.com-terms ul {
+	list-style-type: upper-latin;
+	margin-left: 1.5em;
+}
+
+.com-terms ul {
+	list-style-type: disc;
+}
+
+/*------------------------- Privacy Policy -------------------------*/
+.com-privacy-policy header .txt-title {
+	margin-bottom: 0.75em;
+}
+
+.com-privacy-policy .com-privacy-policy-ct .txt-title {
+	margin: 1.75em 0 0;
+}
+
+.com-privacy-policy .com-privacy-policy-ct p {
+	margin: 1em 0;
+}
+
+/*------------------------- Maintenance -------------------------*/
+.com-maintenance {
+	text-align: center;
+}
+
+.com-maintenance .txt-title {
+	margin: 0;
+}
+
+.com-maintenance .banner-cr {
+	display: inline-block;
+	margin: 1em 0;
+}
+
+.com-maintenance p {
+	margin: 0 0 2em;
+}
+
+/*------------------------- Payment -------------------------*/
+.com-payment-notification p {
+	margin-bottom: 1em;
+}
+
+.com-payment-notification .fld-axn {
+	display: block;
+	text-align: center;
+}
+
+.com-payment-notification .psu-btn a {
+	width: 23em;
+}
+
+.com-payment-status .loader-cr {
+	margin-top: 2.5rem;
+	margin-bottom: 4.5em;
+}
+
+/*------------------------- Media Query -------------------------*/
+@media only screen and (min-width: 320px) {
+	.com-test-send .psu-inp-min {
+		width: auto;
+	}
+}
+
+@media only screen and (min-width: 480px) {
+	.com-guide .com-guide-lst {
+		text-align: center;
+		width: 114%;
+		margin-left: -7%;
+		display: table;
+		table-layout: fixed;
+	}
+
+	.com-guide .com-guide-item {
+		display: table-cell;
+		width: 20%;
+	}
+
+	.com-guide .com-guide-item a {
+		width: 20%;
+		padding: 0.5em 1em 0.25em;
+		display: table-cell;
+	}
+}
+
+@media only screen and (min-width: 640px) {	
+	.com-transaction-history .filter-options-cr {
+		display: inline-block;
+	}
+
+	.com-transaction-history .fld {
+		margin-right: 1em;
+		display: inline-block;
+	}
+
+	.com-transaction-history .fld-axn {
+		margin-right: 0;
+	}
+
+	.com-transaction-history .fld .psu-inp input,
+	.com-transaction-history .fld .psu-inp select {
+		width: auto;
+	}
+}
+
+@media only screen and (min-width: 768px) {	
+	.com-sms-extra .psu-btn {
+		margin: 0 1em;
+	}
+
+	.com-transaction-history .fld-axn {
+		float: right;
+	}
+
+	.com-guide-cr {
+		width: 35em;
+		margin: 0 auto;
+	}
+
+	.back-top-link-cr {
+		margin: -1.5em 1.5em 1.5em 0;
+	}
+
+	.page-dashboard .site-content > section > div > div,
+	.page-dashboard .notification-short-code {
+		margin: 1.5em auto;
+	}
+
+	.com-features ul li,
+	.com-sms-features ul li,
+	.com-sms-features-budget ul li {
+		width: 30%;
+		max-width: 20em;
+		display: inline-block;
+		vertical-align: top;
+	}
+    
+    .com-si-form .fld-axn {
+        margin-top: -0.25rem;
+    }
+    
+    .com-si-form .psu-btn-sec {
+        margin-top: 4rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) {	
+	.site-content > section > div.com-help > div {
+		width: 52rem;
+	}
+
+	.com-help .toc-ct.sticky {
+		position: fixed;
+		max-width: 13.5em;
+		top: 0.25em;
+	}
+
+	.com-help .toc-cr,
+	.com-help .main-cr {
+		display: table-cell;
+	}
+
+	.com-help .toc-cr {
+		width: 13.5em;
+	}
+
+	.com-help .main-cr {
+		padding-left: 1.5em;
+		padding-top: 0.5em;
+	}
+}
+
+@media only screen and (max-width: 767px) {	
+	.com-dashboard-welcome ul li {
+		width: auto;
+		float: none;
+	}
+
+	.com-purchase-package .plan-lst li {
+		display: inline-block;
+		padding: 1em 1.5em 1em 0;
+	}
+
+	.com-dashboard-rates table {
+		display: table;
+		width: 100%;
+	}
+
+	.com-upgrade-banner .txt-desc {
+		width: 100%;
+	}
+
+	.com-upgrade-banner .banner-main {
+		z-index: -1;
+	}
+
+	.com-si-form .rst-pwd-lnk {
+		float: none;
+	}
+
+	.com-sc .fld-axn .psu-btn-sub {
+		float: none;
+		display: block;
+		margin-top: 0;
+	}
+
+	.com-sc .divider {
+		margin: 1em 0;
+		display: block;
+	}
+
+	.srch-cr .fld-axn .psu-btn-neg,
+	.srch-cr .fld-axn .psu-btn-sub {
+		float: none;
+		display: inline-block;
+	}
+
+	.srch-cr .fld-axn .psu-btn-neg {
+		margin: 0 1em 0 0;
+	}
+
+	.com-csc .srch-cr .fld-axn,
+	.com-csc .com-sci .fld-axn {
+		float: none;
+	}
+
+	.com-csc .srch-cr .fld-axn {
+		margin-bottom: 1em;
+	}
+
+	.com-csc .com-sci .fld-axn {
+		margin-top: 1em;
+	}
+
+	.menu {
+		text-align: center;
+	}
+
+	.menu .menu-item {
+		display: inline-block;
+	}
+
+	.com-si .rst-pwd-lnk-cr {
+		float: none;
+		position: absolute;
+		margin-top: 3em;
+	}
+
+	.com-si div.fld-axn {
+		margin-bottom: 2em;
+	}
+}
+
+@media only screen and (max-width: 767px) {	
+	.com-home-banner div.banner-main { height: 20em; }
+	.com-sms-banner div.banner-main { height: 11em; }
+}
+@media only screen and (max-width: 639px) {
+	.com-home-banner div.banner-main { height: 15em; }
+	.com-sms-banner div.banner-main { height: 8em; }
+}
+@media only screen and (max-width: 479px) {
+	.com-home-banner div.banner-main { height: 11em; }
+	.com-sms-banner div.banner-main { height: 6em; }
+}
+@media only screen and (max-width: 319px) {
+	.com-home-banner div.banner-main { height: 8em; }
+	.com-sms-banner div.banner-main { height: 4em; }
+}

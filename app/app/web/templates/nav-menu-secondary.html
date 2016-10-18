@@ -1,0 +1,22 @@
+{% if current_user %}
+
+<ul class="nav-menu-sec">
+        <li class="nav-menu-item nav-menu-cart {% block cart_active %}{% end %}">
+        <a href="/cart/view">
+            <span class="lbl">Cart</span>
+            <span class="extra"><span class="icon"></span><span id="purchase_counter" class="count">{{current_user.cart_count}}</span></span>
+        </a>
+    </li>
+    <li class="nav-menu-item nav-menu-account">
+        <section>
+        {% include base_account_info.html  %}
+        </section>
+    </li>
+    <li class="nav-menu-item nav-menu-sett">
+        <a href="#" title="Settings"><span class="lbl">Settings</span></a>
+        <section>
+        {% include settings_menu.html %}
+        </section>
+    </li>
+</ul>
+{% end %}

@@ -1,0 +1,79 @@
+{% extends base.html%}
+
+{% block body_classes %}page-monthly-summary{%end%}
+
+{% block page_title %}Monthly Summary{% end %}
+
+{% block menu_logs_active%}active{% end %}
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+
+{% block docbody %}
+
+{% if current_user.suffix  %}
+
+<section>
+<!-- 002m: Monthly Summary -->
+<div class="com-monthly-summary com-002m">
+    <div class="com-monthly-summary-cr">
+        <header>
+            <h1 class="assistive-text">Monthly Summary</h1>
+            <p class="txt-title">Monthly Summary</p>
+        </header>
+        <div class="com-monthly-summary-ct">
+        
+            <p class="txt-desc">Summary of all of your transactions for the past 3 months.</p>
+            
+            <div class="com-monthly-summary-table">
+                <table cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Total Outgoing Messages</th>
+                            <th>Total Outgoing Messages Cost</th>
+                            <th>Total Incoming Messages</th>
+                            <th>Total Incoming Messages Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        {% for item in formatted_summary %}
+                        <tr>
+                            <td class="month">  {% if item.get('mo', None) %} {{item['mo']['month_name']}}  {% else %} {{item['mt']['month_name']}} {% end %} </td>
+                            <td class="outgoing">   {{item['mt']['sms_count']}}  </td>
+                            <td class="charge-out">P{{format(item['mt']['cost'], ',.2f')}} </td>
+                            <td class="incoming"> {{item['mo']['sms_count']}} </td>
+                            <td class="charge-in">P{{format(item['mo']['cost'], ',.2f')}}</td>
+                        </tr>
+                    
+                        {% end %}
+                    
+                    
+                        <tr class="total">
+                            <td class="month">Total</td>
+                            <td class="outgoing">{{total_sms_out}}</td>
+                            <td class="charge-out">P{{ format( total_sms_out_cost, ',.2f')}}</td>
+                            <td class="incoming">{{total_sms_in}}</td>
+                            <td class="charge-in">P{{format(total_sms_in_cost, ',.2f')}}   </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       </div>
+   </div>
+</div><!--.com-monthly-summary-->                            
+</section>
+
+
+
+{% end %}
+{% end %}

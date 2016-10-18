@@ -1,0 +1,73 @@
+{% extends base.html%}
+
+
+{% block page_title %}SMART Payment{% end %}
+{% block body_classes %}page-smart-payment-pin{%end%}
+
+
+
+{% block extra_js %}  
+<script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+    
+    
+<script type="text/javascript">
+
+
+ 
+
+function hide_notifications(){
+    $$('.notification').hide()
+}
+
+
+window.addEvent('domready', function(){
+
+    $$('a.resend-link').removeEvents()
+    $$('a.resend-link').addEvent('click', function(e){
+        e.preventDefault()
+        
+        // hide notifications to prepare for new ones
+        hide_notifications();
+        
+        var myRequest = new Request.JSON( {
+            url : '/cart/payment/ajax/resend-sms',
+            data : { 'checkout_id' : $('checkoout_id_field').value   },
+            method : 'GET',
+            onSuccess: function( response ){
+                if ( response.result == true ){
+                    // success
+                    
+                    response.success_message
+                    
+                    $$('.notification.notification-success').getElement('p').set('text',response.success_message)
+                    $$('.notification.notification-success').show()
+                }
+                else{
+                    // failure
+                    var error_message = 'error in sending sms'
+                    if ( response.error_message )
+                        error_message = response.error_message
+                    $$('.notification.notification-error').getElement('p').set('text', error_message )
+                    $$('.notification.notification-error').show()
+                }
+            }
+        }).send()        
+    })
+}
+)
+
+
+
+
+
+</script>    
+    
+{% end %}
+
+
+{% block docbody %}
+
+<section>
+    {% include components/002w_smart-payment-pin.html %}
+</section>
+{% end %}

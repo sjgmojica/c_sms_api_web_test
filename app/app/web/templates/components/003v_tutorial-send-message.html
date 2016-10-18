@@ -1,0 +1,53 @@
+<!-- Tutorial: Send message -->
+<div class="com-tutorial-send-message com-003v ui-dialog">
+    <div class="com-tutorial-send-message-cr">
+        <header>
+            <h1 class="assistive-text">Send a free test message</h1>
+            <p class="txt-title">Send a free test message</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-send-message-ct">
+            <div id="pc-send-message"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-send-message'), [
+						{
+							src: img_base_uri+'/tutorial_send-msg_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">Enter a test message of up to 138 characters and click Send.</p><p class="page">Page 1 of 2</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_send-msg_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">We will send the test message to your verified mobile number via your Short Code.</p><p class="page">Page 2 of 2</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-send-message .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-send-message .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-send-message-->

@@ -1,0 +1,14 @@
+<!-- Pagination -->
+<div class="page-nav" style="display: {% if page_count > 1%}block{%else%}none{%end%}">
+    <a class="prev-page" href="#" title="Previous"><span class="lbl">Previous</span></a>
+    <div class="psu-inp psu-inp-page">
+        <p class="txt-desc">Page</p>
+        <label>Page</label>
+        <select class="inp-sel" title="Page">
+            {% for x in range(1,page_count+1) %}
+                <option value="{{x}}">{{x}}</option>
+            {% end %}
+        </select>
+    </div>
+    <a class="next-page" href="#" title="Next"><span class="lbl">Next</span></a>
+</div>

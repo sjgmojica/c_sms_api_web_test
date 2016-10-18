@@ -1,0 +1,51 @@
+{% extends base.html%}
+
+
+{% block page_title %}Shopping Cart{% end %}
+{% block body_classes %}page-shopping-cart{%end%}
+
+
+
+{% block cart_active %}active{% end %}
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+{% end %}
+
+
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+{% block docbody %}
+                            
+<section>
+<!-- 002x: Shopping Cart (empty) -->
+<div class="com-shopping-cart-empty com-002x">
+    <div class="com-shopping-cart-empty-cr">
+        <header>
+            <h1 class="assistive-text">Shopping Cart</h1>
+
+            <p class="txt-title">Shopping Cart</p>
+        </header>
+        <div class="com-shopping-cart-empty-ct">
+            <p class="empty-shopping-cart-message">You have not yet chosen a plan.</p>            
+            <div class="psu-btn psu-btn-sec">
+                <a class="keep-shopping-lnk" href="/cart"><span class="lbl">Buy a Plan</span></a>
+            </div>
+       </div>
+
+   </div>
+</div><!--.com-shopping-cart-empty-->
+</section>
+
+
+ 
+{% end %}

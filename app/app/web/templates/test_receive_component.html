@@ -1,0 +1,55 @@
+<!-- 001k: Receive Text component -->
+<div id="receive_tab" class="com-test-receive 001k">
+    <div class="com-test-receive-cr">
+        <header>
+            <h1 class="at">Receive Text</h1>
+        </header>
+        <div class="com-test-receive-ct">
+            <form action="/testmo/save" method="post" class="com-test-receive-frm">
+                <fieldset>
+                    <legend>Receive Text</legend>
+                    
+                    <p class="txt-desc">Send any message to [short code] to receive a test reply message. You may customize your reply message.</p>
+ 
+                    <!-- Notification (success) -->
+<div id="mo_notification_success" class="notification notification-success" style="display:none">
+    <p id="mo_notification_success_message" class="notification-message"></p>
+</div>        
+<div id="mo_notification_error" class="notification notification-error" style="display:none">
+    <p id="mo_notification_error_message" class="notification-message"></p>
+</div>      
+
+                    <div class="fld fld-msg">
+                        <div class="psu-inp psu-inp-msg">
+
+                            <label>Message</label>     
+                            <textarea id="testmin_message2" name="MO_message" placeholder="{{'Thank you for using Chikka API.' if len(current_user.test_mo_reply) == 22 else current_user.test_mo_reply}}" maxlength="118"></textarea>
+                        </div>
+                       <p id="testmin_char_count2" class="char-count">140</p>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+
+                            <button id="save_mo_reply" class="btn-sub" type="submit">Save</button>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+            
+            <div class="info-cr">
+                <p class="info"><span class="icon">Info</span><a href="#" class="info-lnk" id="tutorial-receive-message">How to receive a confirmation message?</a></p>
+            
+                     <section>
+                     
+                     
+					{% include components/003v_tutorial-receive-message.html %}
+
+
+				</section>
+
+            </div>
+            
+       </div>
+   </div>
+</div><!--.com-test-receive--> 

@@ -1,0 +1,111 @@
+<!-- Prepare Application -->
+<div class="com-prepare-application com-001j">
+    <div class="com-prepare-application-cr">
+        <header>
+            <h1 id="prepare-your-application" class="assistive-text">Prepare Application</h1>
+            <p class="txt-title">How To Prepare Your Application</p>
+        </header>
+        <div class="com-prepare-application-ct">
+        
+            <p>This is how your application will communicate with the Chikka SMS API:</p>
+            
+            <div class="diagram-cr">
+                <img class="diagram" src="/static-svg/docs/img/receivingSMSReply.png"/>
+                <h3>Receiving and Replying to an SMS</h3>
+                <ol>
+                    <li>User sends an SMS to your access code (Chikka SMS API).</li>
+                    <li>Your Message Receiver component receives the SMS from the Chikka SMS API.</li>
+                    <li>Your Message Receiver component replies to the SMS and sends it to the Chikka SMS API.</li>
+                    <li>The Chikka SMS API delivers your reply message to the User.</li>
+                    <li>Your Notification Receiver component receives a delivery notification from the Chikka SMS API.</li>
+                </ol>
+            </div>
+            
+            <div class="diagram-cr">
+                <img class="diagram" src="/static-svg/docs/img/sendingSMS.png"/>
+                <h3>Sending an SMS</h3>
+                <ol>
+                    <li>Message Sender sends an SMS to the Chikka SMS API.</li>
+                    <li>The Chikka SMS API delivers your message to the User.</li>
+                    <li>Your Notification Receiver component receives a delivery notification from the Chikka SMS API.</li>
+                </ol>
+            </div>
+            
+            <div class="components-cr">
+                <p>Your application needs to have the following components, to be able to use the Chikka SMS API:</p>
+                <ol>
+                    <li>
+                        <p id="message-receiver"><strong>Message Receiver</strong> - a web application designed to accept and <a href="/docs/handling-messages#receive-sms">receive HTTP POST requests (messages from users)</a> FROM the Chikka SMS API and <a href="/docs/handling-messages#reply-sms">reply to messages via HTTP POST requests</a>.</p>
+                        <div class="examples-cr">
+                            <p>Here's a sample code for PHP:</p>
+                            <ul class="lang-lst">
+                                <li class="lang-php active"><a href="#">PHP</a></li>
+                                <li class="lang-python"><a href="#">Python</a></li>
+                                <li class="lang-java"><a href="#">Java</a></li>
+                            </ul>
+                            <div class="codes-cr">
+                                <div class="code-php active">
+                                    <pre><code>{{message_receiver_code}}</code></pre>
+                                </div>
+                                <div class="code-python">
+                                    <code></code>
+                                </div>
+                                <div class="code-java">
+                                    <code></code>
+                                </div>
+                            </div>
+                            <p class="note">The Chikka SMS API is asynchronous; it is expected that your Message Receiver component must be able to handle duplicate messages. In order to detect duplicates, refer to the <var>request_id</var> parameter; this is always unique per incoming message.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p id="message-sender"><strong>Message Sender</strong> - a web application designed to <a href="/docs/handling-messages#send-sms">send HTTP POST requests (messages from YOU)</a> TO the Chikka SMS API.</p>
+                        <div class="examples-cr">
+                            <p>Here's a sample code for PHP:</p>
+                            <ul class="lang-lst">
+                                <li class="lang-php active"><a href="#">PHP</a></li>
+                                <li class="lang-python"><a href="#">Python</a></li>
+                                <li class="lang-java"><a href="#">Java</a></li>
+                            </ul>
+                            <div class="codes-cr">
+                                <div class="code-php active">
+                                    <pre><code>{{message_sender_code}}</code></pre>
+                                </div>
+                                <div class="code-python">
+                                    <code></code>
+                                </div>
+                                <div class="code-java">
+                                    <code></code>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p id="notification-receiver"><strong>Notification Receiver</strong> - a web application designed to accept and <a href="/docs/handling-messages#delivery-notifications">receive HTTP POST requests (delivery notifications)</a> FROM the Chikka SMS API.</p>
+                        <div class="examples-cr">
+                            <p>Here's a sample code for PHP:</p>
+                            <ul class="lang-lst">
+                                <li class="lang-php active"><a href="#">PHP</a></li>
+                                <li class="lang-python"><a href="#">Python</a></li>
+                                <li class="lang-java"><a href="#">Java</a></li>
+                            </ul>
+                            <div class="codes-cr">
+                                <div class="code-php active">
+                                    <pre><code>{{notification_receiver_code}}</code></pre>
+                                </div>
+                                <div class="code-python">
+                                    <code></code>
+                                </div>
+                                <div class="code-java">
+                                    <code></code>
+                                </div>
+                            </div>
+                            <p class="note">The Chikka SMS API is asynchronous; it is expected that your Notification Receiver component must be able to handle duplicate notifications. In order to detect duplicates, refer to the <var>message_id</var> parameter; this is the unique ID provided by the API user to track outgoing messages.</p>
+                        </div>
+                    </li>
+                </ol>
+                
+                <p>After preparing your application, you need to submit the corresponding <strong>URLS</strong> of the following components: <strong>Message Receiver</strong> and <strong>Notification Receiver</strong> to the API Settings in your dashboard.</p>
+            </div>
+       </div>
+   </div>
+</div><!--.com-prepare-application-->

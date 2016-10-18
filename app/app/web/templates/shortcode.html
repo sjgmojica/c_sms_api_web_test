@@ -1,0 +1,33 @@
+{% extends base.html%}
+
+{% block extra_js %}
+    <script src="{{ static_url('js/libs/picture-slider.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/shortcode.js') }}"></script>
+{% end %}
+
+{% block body_classes %}page-short-code{%end%}
+
+{% block short_code_active%}active{% end %}
+
+{% block docbody %}
+
+<section>
+    {% include shortcode_component.html %}
+</section>        
+
+{% end %}
+
+   {% block custom_page_js %}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');        
+        ga('create', 'UA-46076418-1', 'chikka.com');
+        ga('send', 'pageview');
+        Utils.sendGoogleAnalytics({
+            'category': 'Short Code page',
+            'action': 'View Short Code page',
+            'label': 'Short Code page'
+        });
+    </script>
+    {% end %}

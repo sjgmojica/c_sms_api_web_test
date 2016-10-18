@@ -1,0 +1,97 @@
+<!-- 002l: Sent -->
+<div class="com-sent com-002l">
+    <div class="com-sent-cr">
+        <header>
+            <h1 class="assistive-text">Outgoing</h1>
+            <p class="txt-title">Outgoing</p>
+        </header>
+        <div class="com-sent-ct">
+			<div class="outgoing-filter-cr">
+				<div class="fld fld-sel-transaction">
+					<p class="txt-desc">Filter by:</p>
+					<div class="psu-inp psu-inp-sel-transaction">
+						<label>Transaction</label>
+						<select class="inp-sel-transaction" title="Transaction">
+							<option value="all" selected>All</option>
+							<option value="reply">Replies</option>
+							<option value="broadcast">Broadcast</option>
+						</select>
+					</div>
+				</div>
+			</div>
+            {% try %}
+
+            {% set total_pages_out = total_number_of_pages_out %}
+            
+            {% except Exception, e %}
+            
+            {% set total_pages_out = 1 %}
+            {% end %}
+            <div class="pagination-cr">
+                    <!-- Pagination -->
+                    {% set pages = range(1, total_pages_out +1 ) %}
+                    <div class="page-nav" id="sent-nav"{% if len(pages) <= 1 %} style="display: none;" {% end %}>
+                        <a class="prev-page" href="#" title="Previous"><span class="lbl">Previous</span></a>
+            
+                        <div class="psu-inp psu-inp-page">
+                            <p class="txt-desc">Page</p>
+                            <label>Page</label>
+                            <select title="Page" class="inp-sel" id="sent_page">
+                            {% for page in pages %}
+                                <option value="{{page}}">{{page}}</option>
+                            {% end %}
+                            </select>
+                        </div>
+                        <a class="next-page" href="#" title="Next"><span class="lbl">Next</span></a>
+                    </div>
+            </div>
+            <div class="com-sent-table">
+                <table cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th class="datetime">Date/Time<span class="sort-datetime"><a class="sort-datetime-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="to">To<span class="sort-to"><a class="sort-to-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="status">Status<span class="sort-status"><a class="sort-status-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="type">Type<span class="sort-type"><a class="sort-type-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="charge">Cost<span class="sort-charge"><a class="sort-charge-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            
+                        </tr>
+                    </thead>
+                    {% if transactions['sent'] %}
+                    <tbody>
+                        {% for sent_item in transactions['sent'] %}
+                        <tr>
+                            <td class="datetime">    {{sent_item['date_received'].strftime('%m/%d/%Y') }} - {{sent_item['time_received'][:5]}}</td>
+                            <td class="to">  {{sent_item['receiver']}}  </td>
+                            <td class="status{% if sent_item['status'] == 'Failed' %} failed{% end %}">{{sent_item['status']}}</td>
+                            <td class="type">
+                              {% if sent_item['message_type'] %}
+                              {{sent_item['message_type']}} 
+                              {% end %}
+                            </td>
+                            <td class="charge"> 
+                            {% try %}
+                            {{ "P%.2f" % float(sent_item['cost'])  }}
+                            {% except %}
+                            {{sent_item['cost']}}
+                            {% end %}
+                             </td>
+                        </tr>
+                        {% end %}
+                        
+                    </tbody>
+                    {% end %}
+                </table>
+            </div>
+
+			<div class="def-cr">
+				<p class="hint">Definition of terms:</p>
+				<ul class="def-list">
+					<li class="def-item"><p class="hint">Free - Send SMS</p>
+					<li class="def-item"><p class="hint">Paid - Reply SMS (for Free MO)</p>
+					<li class="def-item"><p class="hint">Charged - Reply SMS (for Charged MO)</p>
+				</ul>
+			</div>
+       </div>
+   </div>
+</div><!--.com-sent-->

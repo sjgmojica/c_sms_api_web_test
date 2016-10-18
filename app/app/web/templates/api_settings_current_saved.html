@@ -1,0 +1,39 @@
+<!-- 004b: SMS API Settings -->
+<div class="com-sms-api-settings-saved com-004b">
+    <div class="com-sms-api-settings-saved-cr">
+        <header>
+            <h1 class="assistive-text">SMS</h1>
+            <p class="txt-title">SMS</p>
+            <p class="edit-lnk-cr edit-api"><a id="api_edit_icon" class="edit-lnk" href="#" title="Edit" ><span class="lbl">Edit</span></a></p>
+            <section>
+            {% include api_settings_dialog.html %}
+            </section>
+        </header>
+        
+        
+        <div class="com-sms-api-settings-saved-ct">
+            <form class="com-api-settings-saved-frm">
+                <fieldset>
+                    <legend>API Settings</legend>
+                                     
+                    {% include snippets/notification-success.html %}
+                                        
+                    <div class="fld fld-callback-url">
+                        <div class="psu-inp psu-inp-txt psu-inp-callback-url">
+
+                            <label>Notification Receiver URL</label>
+                            <input class="inp-callback-url" type="text" placeholder="{{cp_obj['DN_ENDPOINT'] if cp_obj and 'DN_ENDPOINT' in cp_obj and cp_obj['DN_ENDPOINT'] != ' ' else 'Notification Receiver URL'}}" disabled>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-mo-url">
+                        <div class="psu-inp psu-inp-mo-url">
+                            <label>Message Receiver URL</label>
+                            <input class="inp-mo-url" type="text" placeholder="{{cp_obj['MO_ENDPOINT'] if cp_obj and 'MO_ENDPOINT' in cp_obj and cp_obj['MO_ENDPOINT'] != ' ' else 'Message Receiver URL'}}" disabled>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>                    
+       </div>
+   </div>
+</div><!--.com-sms-api-settings-saved-->

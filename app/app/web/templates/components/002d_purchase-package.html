@@ -1,0 +1,68 @@
+<!-- 002d: Purchase Package -->
+<div class="com-purchase-package com-002d">
+    <div class="com-purchase-package-cr">
+        <header>
+            <h1 class="assistive-text">Packages</h1>
+            <p class="txt-title">Packages</p>
+        </header>
+        <div class="com-purchase-package-ct">
+            <p class="txt-desc">Choose the plan that best suits your need.</p>
+
+            {% include ../snippets/notification-success.html %}
+            {% include snippet_notification.html  %}
+
+        {% include ../purchase_package_package_list.html %}
+
+            <div class="fld fld-axn">
+                <div class="psu-btn psu-btn-pri psu-btn-sub">
+                    <a class="view-shopping-cart-lnk" href="/cart/view"><span class="lbl">Proceed to shopping cart and payment</span></a>
+                </div>
+            </div>
+
+        <div class="payment-options">
+            <p class="expand-tutorial-lnk-cr"><span class="icon">Info</span><a href="#" class="expand-tutorial-lnk">Payment Options</a></p>
+            <ul class="info-list">
+                   <li class="info-item info-item-smart-payment">
+                       <div class="info-cr info-smart-payment">
+                           <p class="info"><a href="#" class="info-lnk" id="tutorial-payment-smart">Buy a package using Smart mobile payment</a></p>
+                           <section>
+                           {% include 003v_tutorial-smart-payment.html %}
+                           </section>
+                       </div>
+                    </li>
+                    <li class="info-item info-item-paymaya">
+                        <div class="info-cr info-paymaya">
+                            <p class="info"><a href="#" class="info-lnk">Buy a package using VISA/Mastercard</a></p>
+                            <div class="note">
+                            </div>
+                            <section>{% include 003v_tutorial_paymaya.html %}</section>
+                        </div>
+                    </li>
+                    <li class="info-item info-item-dragonpay">
+                        <div class="info-cr info-dragonpay">
+                           <p class="info"><a href="#" class="info-lnk" id="tutorial-payment-dragonpay">Buy a package using Dragonpay</a></p>
+                           <section>
+                           {% include 003v_tutorial-dragonpay.html %}
+                           </section>
+                        </div>
+                    </li>
+                    <li class="info-item info-item-paypal">
+                        <div class="info-cr info-paypal">
+                            <p class="info"><a href="#" class="info-lnk">Buy a package using Paypal</a></p>
+                            <div class="note">
+                                <div class="note-cr">
+                                    <p>VISA/Mastercard, Paypal and Dragonpay payments are only available for transactions</p>
+                                    <p>P500 and up. Credits purchase via PayPal is only available to verified Paypal accounts.</p>
+                                    <p>VISA/Mastercard or Paypal credits purchase is limited to 300,000 per month </p>
+                                </div>
+                            </div>
+                            <section>
+                                {% include 003v_tutorial-paypal.html %}
+                            </section>
+                        </div>
+                    </li>
+            </ul>
+        </div>
+       </div>
+   </div>
+</div><!--.com-purchase-package-->

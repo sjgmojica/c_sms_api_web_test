@@ -1,0 +1,8 @@
+{% if current_user and not current_user.suffix  %}
+<section>
+    <!-- Notification (short code) -->
+    <div class="notification notification-error notification-short-code">
+        <p class="notification-message">You need a short code to access this page. <a href="/shortcode">Get a short code.</a></p>
+    </div>
+</section>
+{% end %}

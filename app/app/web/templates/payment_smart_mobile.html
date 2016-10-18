@@ -1,0 +1,45 @@
+{% extends base.html%}
+
+
+{% block page_title %}SMART Payment{% end %}
+{% block body_classes %}page-smart-payment{%end%}
+
+{% block extra_js %}  
+<script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+    
+    
+<script type="text/javascript">
+
+
+ 
+
+window.addEvent('domready', function(){
+    // this prevents multiple clicks
+    $$('.com-smart-payment-frm .btn-sub').removeEvents()
+    $$('.com-smart-payment-frm .btn-sub').addEvent( 'click', function(e){
+        //e.preventDefault()
+        this.set('disabled', 'disable')
+        $('send-code-form').submit()
+    })
+}
+)
+
+
+
+
+
+</script>    
+    
+{% end %} {% block docbody %}
+
+
+
+<section>
+    {% include components/002i_smart-payment.html %}
+</section>
+
+
+
+
+
+{% end %}

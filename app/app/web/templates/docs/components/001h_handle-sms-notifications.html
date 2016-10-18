@@ -1,0 +1,125 @@
+<!-- Delivery Notifications -->
+<div class="com-handle-sms-notifications com-001h">
+    <div class="com-handle-sms-notifications-cr">
+        <header>
+            <h1 id="delivery-notifications" class="assistive-text">Delivery Notifications</h1>
+            <p class="txt-title">Receive Delivery Notifications</p>
+        </header>
+        <div class="com-handle-sms-notifications-ct">
+            
+            <p class="note">You cannot receive delivery notifications if you have not bought SMS credits yet.</p>
+            
+            <p>The Chikka SMS API relays delivery notifications via HTTP to your application's <strong>Notification Receiver URL</strong> you have provided in the API Settings. Delivery Notifications indicate if the message you sent/reply is successfully delivered or not.</p>
+            
+            <div class="diagram-cr">
+                <ol class="diagram-list">
+                    <li class="diagram-item diagram-user"><span class="lbl">User receives a message</span></li>
+                    <li class="diagram-item diagram-chikka"><span class="lbl">Chikka sends delivery notification</span></li>
+                    <li class="diagram-item diagram-notification"><span class="lbl">Notification receiver component receives delivery notifications</span></li>
+                </ol>
+            </div>
+            
+            <p>Since the Chikka SMS API is asynchronous, it is possible that you receive the delivery notification or multiple delivery notifications before the HTTP POST Response in a single transaction. For this reason, use the <strong><var>message_id</var></strong> to match transactions.</p>
+            
+            <p>To receive delivery notifications, do the following:</p>
+            
+            <ol>
+                <li>
+                    <p>Make sure that your application's <strong><a href="/docs/getting-started#notification-receiver">Notification Receiver</a></strong> component is coded in such a way that it expects an HTTP POST request from the Chikka SMS API. The request body contains the following parameters:</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Parameters</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><pre>message_type</pre></td>
+                                    <td>
+                                        <p>Indicates the message type of the message. Value is always <strong>outgoing</strong> for all delivery notifications received from the Chikka SMS API.</p></td>
+                                </tr>
+                                <tr>
+                                    <td><pre>shortcode</pre></td>
+                                    <td>
+                                        <p>Same access code you indicated in the message you sent/reply.</p>
+                                        <p><strong>Format:</strong> 29290xxxxxx</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>message_id</pre></td>
+                                    <td>
+                                        <p>Same message_id you generated in the message you sent/reply.</p>
+                                        <p><strong>Length:</strong> 32 characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>status</pre></td>
+                                    <td>
+                                        <p>Status of the sent/reply message.</p>
+                                        <p><strong>Possible values:</strong></p>
+                                        <ol>
+                                            <li><strong><pre>SENT</pre></strong> - The message has been successfully delivered to the mobile number and it usually indicates that the charge was successful. True delivery notification is dependent on the mobile operator's settings.</li>
+                                            <li><strong><pre>FAILED</pre></strong> - Transaction encountered an error.</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>credits_cost</pre></td>
+                                    <td>
+                                        <p>The credits cost of the sent/reply message. This is the amount deducted to your API credits.</p>
+                                        <p>Values depend on the <strong>charging rate</strong> and <strong>number of message parts</strong>. The current rate is 0.40 (Smart and Sun) and 0.50 (Globe) credits per message part.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>timestamp</pre></td>
+                                    <td>
+                                        <p>Time when the message was sent to the user.</p>
+                                        <p><strong>Format:</strong> Epoch Timestamp in Seconds</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="sample-cr">
+                        <p>Here's an HTTP POST body example:</p>
+                        <samp>
+                        message_type=outgoing&shortcode=29290123456&message_id=ccc1 279fcc048d1a6fcc52ed4c13255&status=SENT&credits_cost=0.50&t imestamp=1383609498.44
+                        </samp>
+                    </div>
+                </li>
+                <li>
+                    <p>Make sure that your application's <strong><a href="/docs/getting-started#notification-receiver">Notification Receiver</a></strong> component returns an <strong>HTTP POST response</strong> telling if the message has successfully processed. The response must include one of the following statuses:</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><pre>Accepted</pre></td>
+                                    <td>
+                                        <p>Message has been successfully processed.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>Error</pre></td>
+                                    <td>
+                                        <p>Message has not been processed.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ol>
+       </div>
+   </div>
+</div><!--.com-handle-sms-notifications-->

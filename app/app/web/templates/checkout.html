@@ -1,0 +1,113 @@
+{% extends base.html%}
+
+{% block docbody %}
+
+
+<!-- 002b: Checkout -->
+<div class="com-checkout com-002b">
+    <div class="com-checkout-cr">
+        <header>
+            <h1 class="assistive-text">Checkout</h1>
+            <p class="txt-title">Checkout</p>
+        </header>
+        <div class="com-checkout-ct">
+            <form method="post" action="/cart/payment" class="com-checkout-frm">
+
+				<fieldset>
+					<legend>Checkout</legend>
+                                      
+                    <p class="txt-desc">[Checkout description]</p>
+                    
+                    <div class="checkout-table">
+                        <table cellpadding="5" border="0">
+                        
+                            {% set total_cost = 0 %}
+                            {% if error_message %}
+                                {{ error_message }}
+                            {% else %}
+                            
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                {% set amount = float(item['amount']) * int(item['quantity']) %}
+                                    <tr>
+                                        <td class="item">{{ item['plan_code'] }}</td>
+                                        <td class="qty">{{ item['quantity'] }}</td>
+                                        <td class="total">P{{ amount }}</td>
+                                    </tr>
+                                {% set total_cost += amount %}
+                                {% end %}
+                                <input name="total_cost" type="hidden" value="{{total_cost}}" />
+                            {% end %}   
+                            </tbody>
+                        </table>        
+                    </div>
+                                
+                    <div class="checkout-table-footer">
+                        <div class="total-cr">
+                            <p class="total-ct">
+                                <span class="label">Total</span>
+                                <span class="total">P{{ total_cost }}</span>
+
+                            </p>
+                        </div>            	
+                    </div>
+                    
+                    <div class="payment-cr">
+						<p class="txt-title">Payment Options</p>
+						<p class="txt-desc">[Payment Options description]</p>
+                    
+                        <div class="fld fld-payment">
+                            <div class="fld-item-payment">
+
+                                <input value="SMART" id="payment-one" type="radio" name="radio" checked>
+                                <label class="radio-label" for="radio-one">SMART Payment</label>
+                            </div>
+                            <div class="fld-item-payment">
+                                <input value="CREDITCARD" id="payment-two" type="radio" name="radio">
+                                <label class="radio-label" for="radio-two">Credit Card</label>
+                            </div>
+                            <div class="fld-item-payment">
+
+                                <input value="SEVENELEVEN" id="payment-three" type="radio" name="radio">
+                                <label class="radio-label" for="radio-three">7-11 Connect</label>
+                            </div>
+                            <div class="fld-item-payment">
+                                <input value="DRAGONPLAY" id="payment-four" type="radio" name="radio">
+                                <label class="radio-label" for="radio-three">Dragonpay Online</label>
+                            </div>
+                            <div class="fld-item-payment">
+                                <input value="GLOBECASH" id="payment-five" type="radio" name="radio">
+                                <label class="radio-label" for="radio-three">Globe Cash</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-terms">
+                        <div class="fld-item-terms">
+                            <input id="terms" type="checkbox">
+
+                            <label class="checkbox-label" for="checkbox-one">[<a class="terms-lnk" href="#">Terms and Conditions</a> description]</label>
+                        </div>                                            
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button id="procede_checkout" disabled class="btn-sub" type="submit">Proceed</button>
+                        </div>
+
+                    </div>
+                    
+				</fieldset>
+			</form>
+       </div>
+   </div>
+</div><!--.com-checkout-->
+
+{% end %}

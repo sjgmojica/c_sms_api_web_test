@@ -1,0 +1,138 @@
+{% extends base.html%}
+
+
+{% block page_title %}Shopping Cart – Chikka API - Integrate web to mobile connectivity for your apps{% end %}
+
+{% block cart_active %}active{% end %}
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+{% end %}
+
+{% block body_classes %}page-shopping-cart{%end%}
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+{% block docbody %}
+        
+{% if current_user.suffix %}
+
+<section>
+<!-- 002a: Shopping Cart -->
+<div class="com-shopping-cart com-002a">
+    <div class="com-shopping-cart-cr">
+        <header>
+            <h1 class="assistive-text">Shopping Cart</h1>
+
+            <p class="txt-title">Summary</p>
+        </header>
+        <div class="com-shopping-cart-ct">
+           	<fieldset>
+                <legend>Shopping Cart</legend>
+                                       
+                <p class="txt-desc">Here are the plans you have chosen.</p>
+
+
+<div class="notification notification-generic" {% if not display_threshold_warning %} style="display:none"{% end%}>
+    <p class="notification-message">{{threshold_warning_message}}</p>
+</div>
+
+                    
+                <div class="cart-table">
+                    <input type="hidden" value={{current_balance}} name="current_balance" id="current_balance">
+                    <input type="hidden" value={{balance_threshold}} name="balance_threshold" id="balance_threshold">
+                    <table cellpadding="5" border="0">
+                        
+                        {% set total_cost = 0 %}
+                        {% set cart_ids = [] %}
+
+                        {% if paymaya_error_message %}
+                            <div id="procede_checkout_error" class="notification notification-error notification-inline" style="display: block;">
+                                <p class="notification-message">{{ paymaya_error_message }}</p>                
+                            </div>                        
+                        {% end %}
+
+                        {% if error_message %}
+                            {{ error_message }}
+
+                            
+
+
+                        {% else %}
+                        
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set total_cost = 0 %}
+                            {% set cart_ids = [] %}
+                            {% for item in cart_items %}
+                            {% set amount = float(item['amount']) * int(item['quantity']) %}
+                            <tr> 
+                                <td class="item">{{ item['plan_code'] }}</td>
+                                <input type="hidden" id="amount-per-quantity" value="{{ float(item['amount']) }}" />
+                                <td class="qty"><input id="plan_qty{{item['id']}}"  name="plan_qty{{item['id']}}" class="inp-qty" type="text" value="{{ item['quantity'] }}"></td>
+                                <td id="total" class="total">P{{ '%.2f' % amount }}</td>
+                                <td class="remove"><a class="remove-lnk" href="/cart/remove/{{item['id']}}">Remove</a></td>
+                            </tr>
+                            
+                            {% set total_cost += amount %}
+                            {% set cart_ids.append(item['id']) %}
+                            {% end %}
+                            
+                            <input id="cart_ids"  name="cart_ids" id="cart_ids" type="hidden" value='{{dumps(cart_ids)}}' />
+                            
+                            <tr class="total">
+                            	<td class="label">Total Amount</td>
+                                <td class="amount" colspan="2">
+                                    <span id="total_cost">P{{ '%.2f'%total_cost }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        
+                {% end %}
+                    </table>
+                </div>
+                    
+                <div class="fld fld-axn">            
+                    <div class="psu-btn psu-btn-pri psu-btn-sub">
+                        <button id="checkout" class="btn-sub" type="submit">Proceed to Checkout</button>
+                    </div>
+                    <div class="psu-btn psu-btn-sec">
+                        <a id="add-more-packages" class="keep-shopping-lnk" href="/cart"><span class="lbl">Add More Packages</span></a>
+                    </div>
+                    <div class="psu-btn psu-btn-neg">
+                        <a class="empty-shopping-cart-lnk" href="/cart/wipeout"><span class="lbl">Empty Cart</span></a>
+
+                    </div>
+                </div>
+                <section>
+                	<!-- 002b: Checkout -->
+                    <div id="ui_dialog" class="com-checkout com-002b ui-dialog">
+                    </div>
+                    <!--.com-checkout-->                    
+                </section>
+
+            </fieldset>
+       </div>
+   </div>
+</div>
+<!--.com-shopping-cart-->
+</section>
+
+{% end %}                        
+                      
+{% end %}

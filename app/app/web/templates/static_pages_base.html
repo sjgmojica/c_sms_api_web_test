@@ -1,0 +1,22 @@
+{% extends theme_base.html%}
+
+
+{% block head_js%}
+
+    <script src="{{ static_url('js/libs/mootools-core-1.4.5.js') }}"></script>
+    <script src="{{ static_url('js/libs/mootools-more-1.4.0.1.js') }}"></script>
+    <script src="{{ static_url('js/common.js') }}"></script>
+
+{% end %}
+
+
+
+{% block nav_menu %}
+         <ul class="nav-menu-pri">
+             <li class="nav-menu-item nav-menu-contact {% block contactus_active %}{% end %}"><a href="/contact-us">Contact Us</a></li>
+             <li class="nav-menu-item nav-menu-privacy {% block privacy_active %}{% end %}"><a href="/privacy">Privacy Policy</a></li>
+             <li class="nav-menu-item nav-menu-terms {% block terms_active %}{% end %}"><a href="/terms-conditions">Terms and Conditions</a></li>
+             <li class="nav-menu-item nav-menu-help {% block help_active %}{% end %}"><a href="/help">Help</a></li>
+         </ul>
+
+{% end %}

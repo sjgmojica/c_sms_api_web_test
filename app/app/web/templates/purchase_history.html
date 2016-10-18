@@ -1,0 +1,235 @@
+{% extends base.html %}
+
+{% block page_title %}Purchase History{% end %}
+
+{% block body_classes %}page-purchase-history{%end%}
+
+{% block menu_logs_active%}active{% end %}
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/histories.js') }}"></script>
+{% end %}
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+
+
+{% block custom_page_js %}
+<script type="text/javascript">
+
+
+function __get_page( page_number ){
+    
+    uri = '/history/get-page/'+page_number
+    
+    var myRequest = new Request.JSON( {
+        url:uri,
+        data:{ 'json':'true' },
+        method:'GET',
+        onSuccess: function( response ){
+            
+            // clear list
+            __clear_list()
+            
+            var data_length = response.data.length
+            // fill up data
+            for (  var i=0; i<data_length; i++   )
+                __write_record( response.data[i] )
+                
+            // setup the controller (loads events to the clickable links)
+            var historyC = new ControllersHistories();
+            
+            // set page number to current number
+            $$('select.inp-sel')[0].value = page_number
+            
+
+        }
+    }).send()
+}
+
+function __write_record( data  ){
+    
+    var id = data.checkout_id,
+        pdate = data.date_purchased,
+        amount=data.amount,
+        mode=data.mode_of_payment,
+        status=data.status;
+    
+    var reference_elem = ''
+    if( id ){
+        reference_elem= '<a id="purchase_history_link" href="trans_'+id+'">'+id+'</a>'
+    }
+    else{
+        reference_elem = data.webtool_reference_id
+    }
+    
+    
+    var row = Elements.from('<tr><td class="transaction-id"> '+reference_elem+'     </td><td class="date">'+pdate+'</td><td class="total-amount">P'+amount+'</td><td class="payment-mode">'+mode+'</td><td class="status">'+status+'</td></tr>');
+    
+    row.inject(    $$('.com-purchase-history-ct table tbody')[0] )
+    
+    
+    
+}
+
+function __clear_list(){
+    // destroy item pop-ups
+    //$$('.com-purchase-history-cr section').dispose()
+    // empty main table
+    $$('.com-purchase-history-ct table tbody')[0].set('html', '')
+    
+    
+}
+
+
+function get_next_page( e ){
+    e.preventDefault()
+    
+    next_page = parseInt($$('select.inp-sel')[0].value)+1
+    
+    if ( next_page <= $$('select.inp-sel option').length ) 
+        __get_page( next_page  )
+}
+
+
+
+
+function get_prev_page( e ){
+    e.preventDefault()
+
+    prev_page_number = parseInt($$('select.inp-sel')[0].value)-1
+    if ( prev_page_number > 0 )
+        __get_page( prev_page_number )
+}
+
+
+
+
+
+
+
+
+
+(
+ function(){
+     window.addEvent('domready', function(){
+         
+         // add events to pagination
+         
+         $$('.prev-page')[0].addEvent('click', get_prev_page)
+         $$('.next-page')[0].addEvent('click', get_next_page)
+         
+         // add event that trigger change page when page is selected
+         $$('select.inp-sel')[0].addEvent('change', function(){ __get_page( $$('select.inp-sel')[0].value )  } )
+         
+     });
+ }()   
+ );
+
+
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-46076418-1', 'chikka.com');
+ga('send', 'pageview');
+Utils.sendGoogleAnalytics({
+    'category': 'Purchase History page',
+    'action': 'Purchase History page',
+    'label': 'Purchase History page'
+});
+
+
+
+</script>
+
+{% end %}
+
+
+
+{% block docbody %}
+
+{% if current_user.suffix  %}
+<section>
+<!-- 002p: Purchase History -->
+<div class="com-purchase-history com-002p">
+    <div class="com-purchase-history-cr">
+        <header>
+            <h1 class="assistive-text">Credits History</h1>
+            <p class="txt-title">Credits History</p>
+        </header>
+        <div class="com-purchase-history-ct">
+        	<p class="txt-desc">Your purchases for the last 3 months.</p>
+
+            <div class="pagination-cr">
+            {% include snippets/pagination.html %}
+            </div>
+
+            {% if not checkouts %}
+                <div class="com-shopping-cart-empty-ct">
+                    <p class="empty-shopping-cart-message">You don't have any purchase yet.</p><br/>
+                    <div class="psu-btn psu-btn-sec">
+                        <a class="keep-shopping-lnk" href="/cart"><span class="lbl">Buy a Plan</span></a>
+                    </div>
+               </div>
+            {% else %}
+        	<div class="com-purchase-history-table">
+                <table cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date<span class="sort-date"><a class="sort-date-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th>Total Amount</th>
+
+                            <th>Mode of Payment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        {% for checkout in checkouts %}
+                        
+                            <tr>
+                                <td class="transaction-id">
+                                {% if checkout['checkout_id']%}
+                                <a id="purchase_history_link-{{checkout['checkout_id']}}" href="trans_{{checkout['checkout_id']}}">{{checkout['checkout_id']}}</a></td>
+                                {% else %}
+                                {{checkout['webtool_reference_id']}}
+                                
+                                {% end %}
+                                <td class="date">  {{checkout['date_purchased'].strftime("%m/%d/%Y")}}</td>
+                                <td class="total-amount">P{{checkout['amount']}}</td>
+                                <td class="payment-mode">{{checkout['mode_of_payment']}}</td>
+                                <td class="status">{{checkout['status']}}</td>
+                            </tr>
+                    
+                        {% end %}
+                        {% end %}
+                    
+                    </tbody>
+                </table>
+
+			</div>
+        
+                
+            <section>
+            {% include purchase_history_details.html %}
+            </section>
+
+       </div>
+   </div>
+</div><!--.com-purchase-history-->
+</section>
+
+{% end %}
+{% end %}
+
+    

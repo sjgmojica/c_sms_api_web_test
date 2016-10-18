@@ -1,0 +1,20 @@
+<!-- 001f: Short Code List component -->
+<div class="com-scl 001f">
+    <div class="com-scl-cr">
+        <header>
+            <h1 class="at">Short Code List</h1>
+            <p class="txt-ttl">Short Code List</p>
+        </header>
+        <div class="com-scl-ct">
+            <ul class="sc-lst">
+              {% for code in code_list %}
+              <li class="sc-cr">
+                <section>
+                {% include shortcode_custom_list-info.html%}
+                </section>
+              </li>
+            {% end %}
+            </ul>
+       </div>
+   </div>
+</div><!--.com-scl-->

@@ -1,0 +1,20 @@
+<!-- 002t: Account Info -->
+<div class="com-account-info com-002t">
+    <div class="com-account-info-cr">
+        <header>
+
+            <h1 class="assistive-text">Account Info</h1>
+            <p class="txt-title">Account Info</p>
+        </header>
+    {% if current_user.suffix %}
+        <div class="com-account-info-ct">
+            <p class="shortcode">29290 {{current_user.suffix}}</p>
+            {% if current_user.package_type == current_user.PACKAGE_FREE %}
+            <p class="credits"><span class="label">Free credits</span> {{current_user.free_credits}} </p>
+            {% else %}
+            <p class="account-balance" style="display:block"><span class="label">Balance</span>{{current_user.balance_formatted}} </p>
+            {% end %}
+       </div>
+    {% end %}
+   </div>
+</div><!--.com-account-info-->   

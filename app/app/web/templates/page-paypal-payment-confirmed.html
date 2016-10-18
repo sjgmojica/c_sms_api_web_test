@@ -1,0 +1,108 @@
+{% extends base.html %}
+
+
+{% block custom_page_js %}
+
+<script type="text/javascript">
+
+// this is to hold the address of the reiterating call (for termination) 
+var polling_id = null;
+
+// to detect if response was received
+var result_received = false;
+
+
+function write_and_display_response_spiel( spiel ){
+    // this writes indicated spiel to the message box. 
+    // hides the thobber and displays the notification box
+    $$('.com-payment-notification-ct > p').set('text', spiel );
+    $$('.com-payment-status.com-006a').hide();
+    $$('.com-payment-notification.com-006b').show();
+}
+
+function get_paypal_notif(){
+    // this calls get notification method
+    
+    var myRequest = new Request.JSON( {
+        url:'/paypalnotif/{{hash}}/{{checkout_id}}',
+        data:{ 'json':'true', 'token': '{{token_str}}'  },
+        method:'GET',
+        onSuccess: function( response ){
+            console.log(response);
+            
+            if ( response.result == true){
+                // if the response indicates success
+                // mark the result received
+                result_received = true;
+                
+                // teminate polling and display success message
+                terminate_notif_polling();
+                write_and_display_response_spiel( 'You have successfully added {{amount}} to your account.' );
+            }
+            else
+                if  ( response.result == false){
+                    // failed
+                    // displays error depending on the 'verified' field
+                    result_received = true;
+                    terminate_notif_polling();
+                    display_failure( response.verified );
+                }
+                else{
+                    // where result is null
+                    // keep waiting on the next iteration
+                }
+        }
+    }).send()    
+
+}
+
+
+function display_failure( verified ){
+    // logic for displaying an error notice
+    // errors can be either a generic error, or that the paypal account was not verified
+    
+    var error_spiel = 'There seems to be a problem with your Paypal payment request. Please try again using another payment method.';
+    var error_unverified_spiel = 'There seems to be a problem with your Paypal payment request. Only verified Paypal accounts can be used for this transaction. Please try again using another payment method.';
+
+    var output = '';
+       
+    if ( verified == false ){
+        output = error_unverified_spiel;
+    }
+    else{
+        output = error_spiel;
+    }
+    
+    write_and_display_response_spiel( output );
+}
+
+
+function terminate_notif_polling(  ){
+    // kills the iteration and displays a notification that it took too long
+    clearInterval(polling_id);
+    if (result_received == false){
+        write_and_display_response_spiel( 'This is taking longer than usual. We\'ll just notify you through email once payment is confirmed.' );
+    }
+}
+
+// this starts the get notification poll
+polling_id = setInterval( get_paypal_notif, 5000);
+
+//kills get notification after a period of time
+setTimeout( terminate_notif_polling, 30000 );
+
+</script>
+{% end %}
+
+
+
+{% block docbody %}
+
+
+<section>
+    {% include components/006a_payment-status.html %}
+    {% include components/006b_payment-notification.html %}
+</section>
+
+
+{% end %}

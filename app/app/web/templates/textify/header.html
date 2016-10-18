@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ SITE_TITLE }}</title>
+        <meta name="description" content="{{ SITE_DESC }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{textify_static_path}}/img/favicon.ico">
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,100,300,600,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{textify_static_path}}/css/app.css">
+        <script src="{{textify_static_path}}/js/main.js"></script>
+    </head>
+    
+    <body data-state-dialog="inactive">
+        
+        {% include svg.html %}
+        
+        <div id="page">
+        
+            <header id="masthead" class="site-header" role="banner">
+                <div class="masthead-cr">
+                    {% include components/masthead-header.html %}
+                </div><!-- masthead-cr -->
+            </header><!-- masthead -->

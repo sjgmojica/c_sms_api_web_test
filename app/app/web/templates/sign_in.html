@@ -1,0 +1,145 @@
+{% extends signin_base.html %}
+
+
+{% block pagetitle %}Sign in{%end%}
+{% block body_classes %}page-sign-in page-not-signed-in page-home{%end%}
+
+
+
+{% block docbody %}
+
+
+<section>
+<!-- 001a: Sign in component -->
+<div class="com-si com-si-001a">
+    <div class="com-si-cr">
+        <header>
+            <h1 class="at">Log in</h1>
+            <p class="txt-ttl">Welcome back!</p>
+        </header>
+        <div class="com-si-ct">
+            <form class="com-si-form" method="post" action="/signin">
+
+
+                <fieldset>
+                    <legend>Sign in</legend>
+
+                    {% try %}
+
+                    {% if show_captcha %}
+
+                        <p class="txt-desc"> You need to pass this Captcha test to sign in. </p>
+                        <script type="text/javascript"
+                              src="http://api.recaptcha.net/challenge?k={{recaptcha_public}}">
+                              </script>
+
+                          <noscript>
+                             <iframe src="http://api.recaptcha.net/noscript?k={{recaptcha_public}}"
+                                 height="300" width="500" frameborder="0"></iframe><br>
+                             <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+                             </textarea>
+                             <input type="hidden" name="recaptcha_response_field"
+                                 value="manual_challenge">
+                          </noscript>
+
+
+                            {% try %}
+                                {% if error_captcha %}
+                                    <!-- Inline Notification (error) -->
+                                    <div class="notification notification-error notification-inline">
+                                        <p class="notification-message">{{error_captcha}}</p>
+                                    </div>
+                                {% end %}
+                            {% except %}
+                            {% end %}
+
+                    {% end %}
+                    {% except %}
+
+                    {% end %}
+                    <p class="txt-desc">Please sign in.</p>
+
+                    {% try %}
+                        {% if success_message %}
+                        <div class="notification notification-success">
+                            <p class="notification-message">
+                                {{success_message}}
+                            </p>
+                        </div>
+                        {% end %}
+
+                    {% except %}
+                    {% end %}
+
+
+                    {% try %}
+
+
+                    {% if error_message %}
+					<div class="notification notification-error">
+						<p class="notification-message">
+
+					{{error_message}}
+
+
+						</p>
+					</div>
+					{% end %}
+                    {% except %}
+
+					{% end %}
+
+
+
+
+                    {% try %}
+						{% set style = '' %}
+
+                        {% if error_invalid_email %}
+							{% set style = "style='border: 1px solid red'" %}
+
+						{% end %}
+
+					{% except %}
+					{% end %}
+
+
+                    <div class="fld fld-email">
+                        <div class="psu-inp psu-inp-email">
+                            <label>Email</label>
+                            <input type="text" title="Email" placeholder="" class="inp-txt-email" name="username"  maxlength="64" {{style}} required>
+                        </div>
+					</div>
+
+					{% if style != ''%}
+						<!-- Inline Notification (error) -->
+						<div class="notification notification-error notification-inline">
+							<p class="notification-message">{{error_invalid_email}}</p>
+						</div>
+					{% end %}
+
+
+                    <div class="fld fld-pwd">
+                        <div class="psu-inp psu-inp-pwd">
+                            <label>Password</label>
+                            <input class="inp-txt-pwd" type="password" placeholder="" title="Password" name="password" required>
+                        </div>
+                        <p class="rst-pwd-lnk-cr"><a class="rst-pwd-lnk" href="/forgotmypassword">Forgot your password?</a></p>
+                    </div>
+
+
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                        	<button class="btn-sub" type="submit" title="Log in">Log in</button>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+
+            </form>
+
+
+       </div>
+   </div>
+</div><!--.com-si-->
+</section>
+{% end %}

@@ -1,0 +1,101 @@
+NOTES:
+- no zero_credit_date param yet (?)
+
+CHECKOUT UPDATER:
+
+INSERT INTO checkout (account_id, suffix, phone, code, amount, date_expiry, mode_of_payment, status, date_created) VALUES ('17', '12345', '+639984690211', 'testte', '3000', (now() - INTERVAL 30 MINUTE), 'SMART', NULL, now());
+
+
+----
+update checkout set date_expiry = '2013-12-01 16:26:12' where id=63
+============================
+============================
+============================
+
+FREE:
+
+update accounts set suffix='12345' where id='2';
+update accounts set status='ACTIVE', package='FREE' where id='2';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '2');
+
+hset SMSAPI_12345 TRIAL_CREDITS 25
+hset SMSAPI_12345 ACTIVE 2
+
+ 
+# checking:
+select * from accounts where id='2' \G
+select * from claimed_suffixes where account_id='2';
+hgetall SMSAPI_12345
+
+
+============================
+============================
+============================
+
+PAID -> INACTIVE:
+
+update accounts set suffix='12345' where id='2';
+update accounts set status='ACTIVE', package='PAID' where id='2';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '2');
+
+hset SMSAPI_12345 TRIAL_CREDITS 25
+hset SMSAPI_12345 ACTIVE 2
+hset SMSAPI_12345 ZERO_CREDIT_DATE  "2013-11-15 19:09:01"
+
+ 
+# checking:
+select * from accounts where id='2' \G
+select * from claimed_suffixes where account_id='2';
+hgetall SMSAPI_12345
+
+
+============================
+============================
+============================
+
+UNPAID -> INACTIVE:
+
+update accounts set suffix='12345' where id='2';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '2');
+update accounts set status='ACTIVE', package='UNPAID' where id='2';
+ 
+# checking:
+select * from accounts where id='2' \G
+select * from claimed_suffixes where account_id='2';
+
+
+=============================
+=============================
+=============================
+
+EMAIL NOTIFICATIONS:
+
+----
+
+FREE
+
+update accounts set suffix='12345' where id='17';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '17');
+
+update accounts set status='ACTIVE', package='FREE' where id='17';
+update claimed_suffixes set date_created = (now() - INTERVAL 23 DAY) where account_id='17';
+
+----
+
+PAID -> notif 1 month before
+
+update accounts set suffix='12345' where id='17';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '17');
+
+update accounts set status='ACTIVE', package='PAID' where id='17';
+update claimed_suffixes set date_created = (now() - INTERVAL 60 DAY) where account_id='17';
+
+----
+
+PAID -> notif 2 weeks before code expiration
+
+update accounts set suffix='12345' where id='17';
+insert into claimed_suffixes (suffix, account_id) values ('12345', '17');
+
+update accounts set status='ACTIVE', package='PAID' where id='17';
+update claimed_suffixes set date_created = (now() - INTERVAL 76 DAY) where account_id='17';

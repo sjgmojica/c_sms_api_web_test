@@ -1,0 +1,34 @@
+<match sms_api.standalone.standalone_expired_checkout_deleter.**>
+  type file
+  path /var/log/td-agent/smsapi/sms_api_expired_checkout_deleter
+  time_slice_format %Y.%m.%d
+  time_slice_wait 10m
+</match>
+
+<match sms_api.standalone.email_notification.**>
+  type file
+  path /var/log/td-agent/smsapi/sms_api_standalone_email_notifier
+  time_slice_format %Y.%m.%d
+  time_slice_wait 10m
+</match>
+
+<match sms_api.standalone.suffix_free_to_inactive.**>
+  type file
+  path /var/log/td-agent/smsapi/sms_api_suffix_free_to_inactive_updater
+  time_slice_format %Y.%m.%d
+  time_slice_wait 10m
+</match>
+
+<match sms_api.standalone.suffix_paid_to_inactive.**>
+  type file
+  path /var/log/td-agent/smsapi/sms_api_suffix_paid_to_inactive_updater
+  time_slice_format %Y.%m.%d
+  time_slice_wait 10m
+</match>
+
+<match sms_api.standalone.suffix_unpaid_to_inactive.**>
+  type file
+  path /var/log/td-agent/smsapi/sms_api_suffix_unpaid_to_inactive_updater
+  time_slice_format %Y.%m.%d
+  time_slice_wait 10m
+</match>

@@ -1,0 +1,38 @@
+<!-- 001d: Short Code component -->
+<div class="com-sc 001d">
+    <div class="com-sc-cr">
+        <header>
+            <h1 class="at">Short Code</h1>
+            <p class="txt-ttl">Your Short Code</p>
+        </header>
+        <div class="com-sc-ct">
+            <p class="txt-desc">Choose or customize a unique short code that you will use to communicate to your customers.</p>
+            <form class="com-sc-frm" method="post" action="/shortcode/use" >
+                <fieldset>
+                    <legend>Short Code</legend>
+                    <p class="short-code">29290 {{ code }}</p>
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <input name="code" type="hidden" value="{{code}}" />
+                            <section>
+                            {% include shortcode_dialog_confirm_default.html %}
+                            </section>
+                            <button class="btn-sub use-shortcode" type="submit">Use short code</button>
+                        </div>
+                        <p class="divider">or</p>
+                        <div class="psu-btn psu-btn-sec">
+                            <a class="cust-sc-lnk" href="/shortcode/search"><span class="lbl">Customize short code</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+
+                    <div class="info-cr">
+                        <p class="info"><span class="icon">Info</span><a href="#" class="info-lnk" id="tutorial-shortcode">How to customize your short code?</a></p>
+                            <section>
+                            {% include components/003v_tutorial-short-code.html %}
+                            </section>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div><!--.com-sc-->

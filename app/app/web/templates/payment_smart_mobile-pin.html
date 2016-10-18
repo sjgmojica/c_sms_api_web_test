@@ -1,0 +1,52 @@
+{% if is_pincode_page %}
+<!-- 002w: SMART Payment PIN Code -->
+<div class="com-smart-payment-pin com-002w ui-dialog " 
+    
+    {% if is_pincode_page %}
+        style="display:block;"
+    {% end %}
+ >
+    <div class="com-smart-payment-pin-cr">
+        <header>
+            <h1 class="at">PIN Code</h1>
+            <p class="txt-ttl">PIN Code</p>
+        </header>
+
+        <div class="com-smart-payment-pin-ct">
+            <form method="post" action="/cart/payment/smart/pincode" class="com-smart-payment-pin-frm">
+                <fieldset>
+                    <legend>PIN Code</legend>
+                    
+                    <p class="txt-desc">Enter the PIN Code we sent you.</p>
+                    
+                    {% if perror_message %}
+                    <!-- Notification (error) -->
+
+                    <div class="notification notification-error">
+                        <p class="notification-message">{{ perror_message }}</p>
+                    </div>               
+                    {% end %}     
+                    <div class="fld fld-txt fld-pin">
+                        <div class="psu-inp psu-inp-txt pus-inp-pin">
+                            <label>PIN Code</label>
+                            <input name="checkout_id" type="hidden" value="{{checkout_id}}"/>
+                            <input name="mobile" type="hidden" value="{{mobile}}"/>
+                            <input name="pincode" class="inp-pin" type="text" placeholder="PIN Code"/>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                    </div><!--.fld-axn-->
+              </fieldset>
+          </form>
+       </div>
+   </div>
+</div><!--.com-smart-payment-pin-->                   
+
+ 
+
+{% end %}

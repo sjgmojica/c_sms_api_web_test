@@ -1,0 +1,174 @@
+{% extends base.html %}
+
+
+{% block body_classes %}page-billing{%end%}
+
+{% block guide_display %}
+{% set guide_title = 'Billing and Settlement' %}
+{% set guide_description = 'View your recent earnings and set your billing information.' %}
+{% set guide_billing_active = 'active' %}
+{% include guide.html %}
+{% end %}
+
+{% block no_shortcode_warning %}{%end%}
+
+
+{% block custom_page_js %}
+
+<script type="text/javascript">
+
+
+(function(){
+    var body = $$('body')[0];
+    
+    function openDialog() {
+        $("overlay").show();
+        body.addClass("dialog-active");
+    }
+
+    function closeDialog() {
+        $("overlay").hide();
+        body.removeClass("dialog-active");
+    }    
+    
+    function hide_notifications(){
+        $$('.notification').hide()
+    }
+
+    function display_success( message ){
+        $$('.notification.notification-success p.notification-message').set('text', message)
+        $$('.notification.notification-success').show()
+    }
+
+    
+    function display_name_error( message ){
+        $('name-error-msg-box').set('text', message)
+        $('billing-settle-error-msg').show()
+    }    
+    
+    
+    window.addEvent('domready', function(){
+        // window init functions
+        
+        // attach event to edit name button
+        //account settings
+        $$(".com-billing-info .edit-name .edit-lnk").addEvent('click', function(event) {
+            event.preventDefault();
+
+            // hide success message if any
+            hide_notifications()
+            
+            $$(".com-edit-name-address").show();
+            openDialog();
+        }); 
+
+        // attach event to open change email dialog
+        $$(".com-billing-info .edit-email .edit-lnk").addEvent('click', function(event) {
+            event.preventDefault();
+            
+            // hide success message if any
+            hide_notifications()
+
+            $$(".com-edit-email").show();
+            openDialog();
+        });
+        
+        // attach event to save the name upon click
+        $('change-name-butt-submit').addEvent( 'click', function(e){
+            e.preventDefault()
+            
+            if ( $('new_name').value == ''){
+                display_name_error('You can’t leave this empty.')
+                return
+            }
+            
+            new_name = $('new_name').value
+            
+            var myRequest = new Request.JSON( { 
+                url:'/ajax/change-name', 
+                data:{ 'new_name': new_name }, 
+                method:'POST', 
+                onSuccess: function( response ){
+                    console.log( response.result  )
+                    
+                    
+                    if ( response.result == true ){
+                        
+                        // update displayed info
+                        $('current-name-display').value = new_name
+                        
+                        // close dialog and display success message
+                        $$(".ui-dialog").hide();
+                        closeDialog();
+                        display_success( 'You have successfully changed your Complete Name/Company Name' )                        
+                    }
+                    else{
+                        // do not close dialog box and display error message
+                        display_name_error('error updating name')
+                    }
+                },
+                onError : function( response ){ console.log('error') }
+            }).send()            
+        });
+        
+        // attach event to update email submit
+        $('update-email-submit-butt').addEvent('click', function(e){
+            e.preventDefault()
+
+     
+            var new_email = $('new_email').value
+            
+            if ( new_email == ''){
+                $('change-email-error-msg').set('text', 'You can’t leave this empty.')
+                $('change-email-error-msg-box').toggle()
+                
+                return
+            }
+            
+            
+            var myRequest = new Request.JSON( {
+                url : '/ajax/change-billing-email',
+                data : { 'new_email': new_email   },
+                method : 'POST',
+                onSuccess: function( response ){
+                    
+                    
+                    if ( response.success == true ){
+                        console.log('success')
+
+                        // update displayed info
+                        $$('.com-billing-info-ct .psu-inp.psu-inp-email input').set('value', new_email)
+                        
+                        // close dialog and display success message
+                        $$(".ui-dialog").hide();
+                        closeDialog();
+                        //display_success( response.success_message )                        
+                        display_success( 'You have successfully changed your Billing Email Address' )
+                        
+                    }
+                        
+                    else {
+                        $('change-email-error-msg').set('text', response.error_message)
+                        $('change-email-error-msg-box').toggle()
+                        
+                        
+                        console.log('failue')
+                    }
+                }
+            }).send()
+            
+            
+        });
+    })
+}());
+</script>
+
+{%end%}
+{% block docbody %}
+
+
+<section>
+    {% include components/005c_billing.html %}
+</section>
+
+{% end %}

@@ -1,0 +1,261 @@
+------------------------------------
+--------------------------------------
+----------------------------------------
+
+For EXPIRED pincode purchase:
+
+# mali ata to.
+select id from checkout where status = 'PENDING' and expired = 0 and (date_created + 30 mins ) < now()
+
+if id:
+
+update expired = 1
+(10:00 + 30 ) < 10:45
+
+HINDI BA DAPAT AY:
+update checkout set expired=1 where status IS NULL and expired=0 and date_expiry < now()
+
+------------------------------------
+--------------------------------------
+----------------------------------------
+
+For FREE package:
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'FREE' and
+a.suffix = b.suffix and
+a.id = b.account_id
+
+
+current/previous purchase?
+
+loop list
+
+check account in checkout table
+
+select count(1) from checkout where account_id = <value> and status = 'PENDING' and
+date_created >= <short code date_created> and date_created < <short code date_created + 30 days>
+and (date_created + 30 days) <= now
+
+example:
+short code: MCDO
+date_created: 11-01-2013
+purchase: 11-30-2013
+date today: 01-01-2014
+
+if count == 0:
+
+delete record from claimed_suffixes where account_id = <value>
+update accounts set suffix = NULL where id = <value> # NOTE: MAY package='INACTIVE' dapat ito
+
+delete redis key "smsapi_<suffix>"
+
+
+
+NULL -> FREE -> INACTIVE -> UNPAID -> PAID -> INACTIVE -> UNPAID -> PAID
+
+NULL -> FREE -> PAID -> INACTIVE -> UNPAID -> PAID
+
+NULL -> FREE -> PAID -> INACTIVE -> UNPAID -> INACTIVE -> UNPAID -> INACTIVE
+
+
+------------------------------------
+--------------------------------------
+----------------------------------------
+
+"""
+
+For EXPIRED pincode purchase:
+
+select id from checkout where status = 'PENDING' and expired = 0 and (date_created + 30 mins ) < now()
+
+if id:
+
+update expired = 1
+(10:00 + 30 ) < 10:45
+
+
+
+For FREE package:
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'FREE' and
+a.suffix = b.suffix and
+a.id = b.account_id and
+b.date_created + 30 > now()
+
+
+current/previous purchase?
+
+loop list
+
+check account in checkout table
+
+select count(1) from checkout where account_id = <value> and status = 'PENDING' and
+date_created >= <short code date_created> and date_created < <short code date_created + 30 days>
+and (date_created + 30 days) <= now
+
+example:
+short code: MCDO
+date_created: 11-01-2013
+purchase: 11-30-2013
+date today: 01-01-2014
+
+if count == 0:
+
+
+delete record from claimed_suffixes where account_id = <value>
+update accounts set suffix = NULL , package = 'INACTIVE' where id = <value>
+delete redis key "smsapi_<suffix>"
+
+
+shortcode: 2929
+date_created: 11-01-2013
+package: FREE
+credits: 0
+date_today: 11-02-2013
+
+"""
+------------------------------------
+--------------------------------------
+----------------------------------------
+
+
+from PAID -> INACTIVE
+
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'PAID' and
+a.suffix = b.suffix and
+a.id = b.account_id
+
+
+loop
+
+check if key smsapi_<suffix>_credits exists
+
+if yes:
+retrieve zero_credit_date from key smsapi_<suffix>
+if with zero_credit_date value:
+hdel (zero_credit_value)
+
+
+else:
+retrieve zero_credit_date from key smsapi_<suffix>
+compare (zero_credit_date + 90 days ) to now()
+
+if greater than now:
+
+check account in checkout table
+
+select count(1) from checkout where account_id = <value> and status = 'PENDING' and
+date_created >= <zero_credit_date> and date_created < <zero_credit_date + 90 days>
+and (date_created + 30 days) <= now
+
+if count == 0:
+
+
+delete record from claimed_suffixes where account_id = <value>
+update accounts set suffix = NULL , package = 'INACTIVE' where id = <value>
+delete redis key "smsapi_<suffix>"
+
+
+
+------------------------------------
+--------------------------------------
+----------------------------------------
+
+
+from UNPAID -> INACTIVE
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'UNPAID' and
+a.suffix = b.suffix and
+a.id = b.account_id and
+b.date_created + 2 days > now()
+
+
+current/previous purchase?
+
+loop list
+
+check account in checkout table
+
+select count(1) from checkout where account_id = <value> and status = 'PENDING' and
+date_created >= <short code date_created> and date_created < <short code date_created + 2 days>
+and (date_created + 30 days) <= now
+
+if count == 0:
+
+delete record from claimed_suffixes where account_id = <value>
+update accounts set suffix = NULL , package = 'INACTIVE' where id = <value>
+delete redis key "smsapi_<suffix>"
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+email notification 1 week before expiry (FREE accounts)
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'FREE' and
+a.suffix = b.suffix and
+a.id = b.account_id and
+# b.date_created = (b.date_created + 23 days)  # MALI ATA TO.
+
+# ito ata dapat --> jhesed
+
+month(now()) = month(b.date_created + interval 23 day) and
+day(now()) = day(b.date_created + interval 23 day) and
+year(now()) = year(b.date_created + interval 23 day)
+
+loop
+
+mail account nearing short code expiration
+
+
+
+email notification 30 days before expiry (PAID accounts)
+
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'PAID' and
+a.suffix = b.suffix and
+a.id = b.account_id and
+b.date_created = (b.date_created + 60 days)
+
+
+loop
+mail account nearing short code expiration
+
+
+select a.id. a.suffix, b.date_created from accounts as a, claimed_suffixes as b where
+a.status = 'ACTIVE' and
+a.package = 'PAID' and
+a.suffix = b.suffix and
+a.id = b.account_id and
+b.date_created = (b.date_created + 76 days))
+
+loop
+mail account nearing short code expiration
+
+ 

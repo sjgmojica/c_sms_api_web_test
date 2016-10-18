@@ -1,0 +1,77 @@
+<style type="text/css">
+<!--
+
+.export-lnk .lbl {
+    background-image: url(/static-svg/download.svg);
+}
+
+-->
+</style>
+<!-- 002j: Transaction History -->
+<div class="com-transaction-history com-002j">
+    <div class="com-transaction-history-cr">
+        <header>
+            <h1 class="assistive-text">Transaction History</h1>
+            <p class="txt-title">Transaction History</p>
+        </header>
+        <div class="com-transaction-history-ct">
+            <form class="com-transaction-history-frm">
+                <fieldset>
+                    <legend>Transaction History</legend>
+                    <p class="txt-desc">View your transactions for a specific month or mobile number.</p>
+                    <div class="filter-options-cr">
+                        <div class="fld fld-mn">
+                            <div class="psu-inp psu-inp-mn">
+                                <label>Mobile Number</label>
+                                <input class="inp-mn" type="text" placeholder="Mobile number" id = "mobile_filter">
+                            </div>
+                        </div>
+                        <div class="fld fld-sel-month">
+                            <div class="psu-inp psu-inp-sel-month">
+                                <label>Month</label>
+                                <select class="inp-sel-month" title="Month" id="month-sel">
+                                    {% for filter in date_filter_list %}
+                                    <option value="{{filter['value']}}" >{{filter['text']}}</option>
+                                    {% end %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit" id="filter-trans-butt">Filter</button>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+            <div class="results-cr">
+
+
+                <div class="results-header">
+                    <p class="txt-title" id="csv-download-display">{{current_month_display}}</p>
+                    <p class="export-lnk-cr export-lnk-csv-cr"><a class="export-lnk export-lnk-csv" id="export-link-uri" href="/download-transactions/csv/{{current_month}}-{{current_year}}"><span class="lbl">Export CSV</span></a></p>
+                    <p class="export-lnk-cr export-lnk-xls-cr"><a class="export-lnk export-lnk-xls" id="export-link-uri" href="/download-transactions/xls/{{current_month}}-{{current_year}}"><span class="lbl">Export XLS</span></a></p>
+                </div>
+
+
+
+                <div class="results-ct">
+                    <nav class="com-transaction-history-nav">
+                        <ul class="com-transaction-history-nav-lst">
+                            <li id="trans-history-tab-sent" class="sent-lnk-cr active"><a class="sent-lnk" href="#"><span class="lbl">Outgoing</span></a></li>
+                            <li id="trans-history-tab-inbox" class="inbox-lnk-cr"><a class="inbox-lnk" href="#"><span class="lbl">Incoming</span></a></li>
+                        </ul>
+                    </nav>
+                    <div class="com-transaction-history-inbox-sent-cr">
+                        <div class="sent-cr active">
+                        {{transactions_sent}}
+                        </div>
+                        <div class="inbox-cr">
+                        {{transactions_inbox}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-transaction-history-->

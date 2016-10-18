@@ -1,0 +1,56 @@
+<ul class="plan-lst">
+    {% for package in packages_list %}
+    <li class="plan-two-cr">
+        <!-- 002c: Plan -->
+        <div class="com-plan com-002c">
+            <div class="com-plan-cr">
+                <header>
+        
+                    <h1 class="assistive-text">{{package.plan_code}}</h1>
+                    <p class="txt-title gradient">{{package.plan_code.title()}}</p>
+                </header>
+                <div class="com-plan-ct">
+                    <form method="post" action="" class="com-plan-frm">
+                        <fieldset>
+                            <legend>{{package.plan_code}}</legend>
+        
+                            
+                            <p class="txt-desc">{{package.plan_description}}</p>
+                            
+                            <div class="fld fld-sel-qty">
+                                <div class="psu-inp psu-inp-sel-qty">
+                                    <label>Qty</label>
+                                    <select name="quantity" id="quantity" class="inp-sel-qty" title="Qty">
+                                        <option selected>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <input name="plan_id" id="plan_id" type="hidden" value="{{package.id}}" />
+                            <input name="plan_code" id="plan_code" type="hidden" value="{{package.plan_code}}" />
+                            <input name="amount" id="amount" type="hidden" value="{{package.amount}}" />
+                            <input name="credits" id="credits" type="hidden" value="{{package.credits}}" />
+                            <input name="days_valid" id="days_valid" type="hidden" value="{{package.days_valid}}" />
+                            
+                            <div class="fld fld-axn">
+                                <div class="psu-btn psu-btn-sec psu-btn-sub">
+                                    <button id="addToCart" class="btn-sub" type="submit">Add to Cart</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+               </div>
+           </div>
+        </div><!--.com-plan-->          
+    </li>
+{% end %}
+</ul>

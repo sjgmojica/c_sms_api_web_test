@@ -1,0 +1,1 @@
+purchase_history_checkout_items_per_page = 10

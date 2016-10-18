@@ -1,0 +1,85 @@
+{% extends current_logged_in_base.html %}
+
+{% block docbody %}
+
+<!-- 001n: API Settings (Saved) -->
+<div class="com-api-settings-saved com-001n">
+    <div class="com-api-settings-saved-cr">
+        <header>
+            <h1 class="assistive-text">API Settings</h1>
+            <p class="txt-title">API Settings</p>
+        </header>
+        <div class="com-api-settings-saved-ct">
+            <form class="com-api-settings-saved-frm">
+
+                <fieldset>
+                    <legend>API Settings</legend>
+                    
+                    <p class="txt-desc">[API Settings description]</p>
+                    
+                    <div class="psu-btn psu-btn-pri psu-btn-sub">
+                        <a class="edit-api-lnk" href="#"><span class="lbl">Edit</span></a>
+                    </div>
+                
+                    <div class="fld fld-public-key">
+
+                        <div class="psu-inp psu-inp-public-key">
+                            <label>Public Key</label>
+                            <textarea class="inp-public-key" placeholder="{{public_key}}" disabled></textarea>
+                        </div>
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <a class="verify-public-key-lnk" href="#"><span class="lbl">Verify</span></a>
+                        </div>
+
+                        <div class="verified-icon"><span class="icon"></span></div>
+                        <div class="public-key-info">
+                        	<!-- Tooltip -->
+<span class="icon"></span>
+<div class="tooltip">
+    <div class="tooltip-ct">
+        <p>[Tooltip content]</p>
+    </div>
+</div>                        </div>
+
+                    </div>
+                    
+                    <div class="fld fld-callback-url">
+                        <div class="psu-inp psu-inp-txt psu-inp-callback-url">
+                            <label>Callback URL</label>
+                            <input class="inp-callback-url" type="text" placeholder="{{callback_url}}" disabled>
+                        </div>
+                        <div class="callback-url-info">
+                        	<!-- Tooltip -->
+
+<span class="icon"></span>
+<div class="tooltip">
+    <div class="tooltip-ct">
+        <p>[Tooltip content]</p>
+    </div>
+</div>                        </div>
+                    </div>
+                    
+                    <div class="fld fld-mo-url">
+                        <div class="psu-inp psu-inp-mo-url">
+
+                            <label>MO URL</label>
+                            <input class="inp-mo-url" type="text" placeholder="{{mo_url}}" disabled>
+                        </div>
+                        <div class="mo-url-info">
+                        	<!-- Tooltip -->
+<span class="icon"></span>
+<div class="tooltip">
+    <div class="tooltip-ct">
+        <p>[Tooltip content]</p>
+
+    </div>
+</div>                        </div>
+                    </div>
+                    
+                </fieldset>
+            </form>                    
+       </div>
+   </div>
+</div><!--.com-api-settings-saved-->
+
+{% end %}

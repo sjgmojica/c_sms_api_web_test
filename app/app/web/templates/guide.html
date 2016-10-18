@@ -1,0 +1,25 @@
+{% if current_user and current_user.suffix and current_user.package_type == current_user.PACKAGE_FREE  %}
+<section>
+<!-- 005g: Guide -->
+<div class="com-guide com-005g">
+    <div class="com-guide-cr">
+        <header>
+            <h1 class="assistive-text">Guide</h1>
+        </header>
+        <div class="com-guide-ct">
+            
+            <p class="txt-desc"> {{guide_description}}</p>
+            
+            <ul class="com-guide-lst">
+                <li class="com-guide-item com-guide-test {{guide_test_active}} "><a class="item-lnk item-test" href="/testmin/enroll"><span class="lbl">Test</span></a></li>
+                <li class="com-guide-item com-guide-api-settings {{guide_api_settings_active}} "><a class="item-lnk item-api-settings" href="/api/settings"><span class="lbl">API Settings</span></a></li>
+                <li class="com-guide-item com-guide-account-settings {{guide_account_settings_active}} "><a class="item-lnk item-account-settings" href="/account/settings/view"><span class="lbl">Account Settings</span></a></li>
+                <li class="com-guide-item com-guide-billing {{guide_billing_active}}"><a class="item-lnk item-billing" href="/billing-settlement"><span class="lbl">Billing and Settlement</span></a></li>
+                <li class="com-guide-item com-guide-packages {{guide_packages_active}}"><a class="item-lnk item-packages" href="/cart"><span class="lbl">Packages</span></a></li>
+            </ul>
+
+       </div>
+   </div>
+</div><!--.com-guide-->
+</section>
+{% end %}

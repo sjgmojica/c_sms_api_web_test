@@ -1,0 +1,28 @@
+{% extends theme_base.html %}
+
+{% block page_title %}Chikka API{% end %}
+
+{% block head_js%}
+    <script src="{{ static_url('js/libs/mootools-core-1.4.5.js') }}"></script>
+    <script src="{{ static_url('js/libs/mootools-more-1.4.0.1.js') }}"></script>
+    <script src="{{ static_url('js/common.js') }}"></script>
+    
+{% end %}      
+
+
+
+{% block nav_menu %}
+
+{% include nav-menu-primary.html %}
+{% include nav-menu-secondary.html %}
+
+{% end %}
+
+
+{% block trial_bar %}
+{% if current_user and current_user.package =='FREE' %}
+<div class="trial-message-cr">
+    <p class="trial-message">Trial account, <a class="upgrade-lnk" href="/cart"><span class="lbl">upgrade now</span></a>.</p>
+</div>   
+{% end %} 
+{% end %}

@@ -1,0 +1,63 @@
+<!-- Tutorial: Enroll number -->
+<div class="com-tutorial-enroll-number com-003v ui-dialog">
+    <div class="com-tutorial-enroll-number-cr">
+        <header>
+            <h1 class="assistive-text">Enroll a test mobile number</h1>
+            <p class="txt-title">Enroll a test mobile number</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-enroll-number-ct">
+            <div id="pc-enroll-number"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-enroll-number'), [
+						{
+							src: img_base_uri+'/tutorial_enroll-mobile_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">Enter your PH mobile number and click Verify.</p><p class="page">Page 1 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_enroll-mobile_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">We will send a combination of 6 alphanumeric PIN code to your mobile number.</p><p class="page">Page 2 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_enroll-mobile_03.png',
+							content: '[image three]',
+							caption: '<p class="caption">Enter the PIN code for verification.</p><p class="page">Page 3 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_enroll-mobile_04.png',
+							content: '[image four]',
+							caption: '<p class="caption">Your test number will be saved to your profile. You can change this number up to 3 times only.</p><p class="page">Page 4 of 4</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-enroll-number .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-enroll-number .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-enroll-number-->

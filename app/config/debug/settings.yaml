@@ -1,0 +1,107 @@
+signup:
+  verification_expiry_hours: 48
+
+# used in verification URL ( and other purposes as needed ) 
+website_base_url: 'http://10.11.2.225:50028'
+
+# port is different
+payment_gateway_callbak_base_url: http://10.11.2.225:50030/smart_payment_callback
+
+
+mysql_db: &mysql-db-entries
+  users: &mysql-db
+    type: mysqldb
+    host: 10.11.2.225
+    port: 3306
+    db: 'sms_api'
+    user: root
+    password: 
+
+fluent_logger:
+  general:
+    tag: 'sms_api.general'
+    host: '10.11.2.225'
+    port: 55566
+    verbose: True
+
+  payment:
+    tag: 'sms_api.payment'
+    host: '10.11.2.225'
+    port: 55566
+    verbose: True
+
+  scart:
+    tag: 'sms_api.shopping_cart'
+    host: '10.11.2.225'
+    port: 55566
+    verbose: True
+
+dragonpay:
+  host: 'test.dragonpay.ph'
+  uri: '/DragonPayWebService/MerchantService.asmx'
+  merchant_id: 'CHIKKA'
+  secret_key: 'Zm@K7uP3q'
+  api_url: 'http://api.dragonpay.ph/' 
+  api_get_token_url: 'http://api.dragonpay.ph/GetTxnToken' 
+  api_get_txn_status_url: 'http://api.dragonpay.ph/GetTxnStatus'
+  min_amount_peso: 500
+  payment_url: 'http://test.dragonpay.ph/Pay.aspx?tokenid=%s'
+
+paypal:
+  api_version: 112
+  merchant_user: 'a305165_api1.drdrb.net'
+  merchant_paassword: '1395730975'
+  merchant_signature: 'AWOmWV75G91wwq1eyy8WUO8r.QgIAOT.9M432qZiC24XqwS1tn.uuIlp'
+  paypal_website_domain: 'www.sandbox.paypal.com'
+  #merchant api service ; Name-Value Pair format ; by API Signature
+  api_endpoint_url: 'https://api-3t.sandbox.paypal.com/nvp'
+  min_amount_peso: 500
+  website_base_url: 'http://10.11.2.225:50028'
+  max_purchase_value_per_month: 3000
+  # amount of time to wait after previous paypal pending purchase, seconds 
+  purchase_waiting_time: 600
+
+mailer:
+  host: 'localhost'
+  port: 25
+  mail_from_address: 'developerapi@chikka.com'
+  
+mysql-db:
+  <<: *mysql-db-entries
+  sms_api_config: &mysql-db-profiles
+    type: mysqldb
+    host: 10.11.2.225
+    port: 3306
+    db: 'sms_api'
+    user: root
+    password: 
+      
+redis_servers:
+  sms_api:
+    host: 10.100.1.88
+    port: 6401
+
+verify_email_queue_key : 'debug:smsapi_signup_email_queue'
+checkout_queue_key: 'debug:checkout_queue'
+
+sms_credits:
+  redis_server:
+    host: 10.100.1.88
+    port: 6401
+
+text_api:
+  pincode_url: 'http://desdemona.internal.chikka.com:6501/smsapi/internal/mobile_verification'
+  mt_url: 'http://desdemona.internal.chikka.com:6501/smsapi/internal/request'
+  
+smart_payment_gateway:
+  redis_server:
+    host: 10.11.4.171
+    port: 6379
+    transaction_queue_key: 'pgw_smsapi_staging'
+  serviceid: 'cob16'
+  merchant_id : '00011'
+
+recaptcha:
+    public_key: '6LfapugSAAAAAAVLx2F4Ptm1yY-qIBiHpH2MdDgt'
+    private_key: '6LfapugSAAAAANO-Mz8llbXQFLGsFyH8gY7RRiuu'
+    verify_url: 'http://www.google.com/recaptcha/api/verify'

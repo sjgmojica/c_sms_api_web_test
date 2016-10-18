@@ -1,0 +1,56 @@
+<!-- 001i: verify-number component -->
+<div id="edit_min_class_mt" class="com-verify-number 001i">
+    <div class="com-verify-number {{'active' if not testmin else ''}}" id="com-verify-number-cr">
+        <header>
+            <h1 class="at">Verify Mobile Number</h1>
+            <p class="txt-ttl">Verify Mobile Number</p>
+
+        </header>
+        <div class="com-verify-number-ct">
+            <div class="com-verify-number-frm">
+                <fieldset>
+                    <legend>Verify Mobile Number</legend>
+                    
+                    <p class="txt-desc">[Verify Mobile Number description]</p>
+                
+           
+                <!-- Notification (error) -->
+<div id="notification_error" class="notification notification-error" style="display:none;">
+    <p id="notification_message" class="notification-message"></p>    
+</div>            
+
+    <div class="fld fld-txt fld-mn">
+                        <div class="psu-inp psu-inp-txt psu-inp-mn">
+                            <label>Mobile Number</label>
+                            <input id="testmin_mt" name="testmin" class="inp-txt" type="text" placeholder="{{testmin[-12:] if testmin else 'Mobile number'}}"  maxlength="13">
+                            <p class="hint">You can set this up to 3 times.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button id="verify_min_mt" class="btn-sub"><span class="lbl">Verify</span></button>
+                        </div>
+                        
+                        {% if testmin %}
+                            <div class="psu-btn psu-btn-neg psu-btn-cncl" id="cancel-new-mobile">
+                                <a class="cncl-lnk" href="#">
+                                    <span class="lbl">Cancel</span>
+                                </a>
+                            </div>
+                        {% end %}
+                    </div><!--.fld-axn-->
+                                        
+                    <section>
+                        <!-- 001j: PIN Code component -->
+<div id="ui_dialog" class="com-pin-code 001j ui-dialog">
+   
+   
+</div><!--.com-pin-code-->                    </section>
+
+                </fieldset>
+            </div>
+       </div>
+   </div>
+</div><!--.com-verify-number-->

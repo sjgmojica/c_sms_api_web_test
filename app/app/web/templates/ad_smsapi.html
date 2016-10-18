@@ -1,0 +1,56 @@
+{% extends theme_base.html %}
+
+
+{% block page_title %}Home{% end %}
+{% block body_classes %}page-home{%end%}
+
+
+
+{% block nav_menu %}
+
+
+
+{% set sms_ad_active='active' %}
+{% include nav-menu-sec.html %}
+
+
+
+{% end %}
+
+{% block docbody %}
+                            
+                                
+
+<section>
+    {% include components/003e_sms-banner.html %}
+</section>
+                            
+<section>
+    {% include components/003f_sms-features.html %}
+</section>
+                            
+<section>
+    {% include components/003h_sms-features-budget.html %}
+</section>
+
+<section>
+    {% include components/003i_sms-extra.html %}                            
+
+</section>
+
+{% end %}
+
+{% block custom_page_js %}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-46076418-1', 'chikka.com');
+    ga('send', 'pageview');
+    Utils.sendGoogleAnalytics({
+        'category': 'SMS page',
+        'action': 'View SMS page',
+        'label': 'SMS page'
+    });
+</script>
+{% end %}

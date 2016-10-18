@@ -1,0 +1,25 @@
+{% extends signin_base.html %}
+{% block body_classes %}page-sign-up page-not-signed-in{%end%}
+
+
+{% block page_title %}Sign up{%end%}
+
+{% block docbody %}
+<section>
+    <div class="com-sign-up-email com-003u">
+        <div class="com-sign-up-email-cr">
+            <header>
+                <h1 class="assistive-text">Sign up Email</h1>
+                <p class="txt-title">Check your email.</p>
+            </header>
+            <div class="com-sign-up-email-ct">            
+                
+                <div class="notification notification-success">
+    				<p class="notification-message">{{congrats_spiel}}</p>
+    			</div>
+                
+           </div>
+       </div>
+    </div><!--.com-sign-up-email-->
+</section>
+{% end %}

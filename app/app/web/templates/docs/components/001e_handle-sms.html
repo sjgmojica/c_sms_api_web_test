@@ -1,0 +1,36 @@
+<!-- Handle SMS -->
+<div class="com-handle-sms com-001e">
+    <div class="com-handle-sms-cr">
+        <header>
+            <h1 id="handle-sms" class="assistive-text">Handle SMS</h1>
+            <p class="txt-title">Handling Messages</p>
+        </header>
+        <div class="com-handle-sms-ct">
+        
+            <p>After registering and preparing your application, you are now ready to handle messages using the Chikka SMS API and do the following functions:</p>
+            
+            <ol>
+                <li><a href="#receive-sms">Receive SMS</a> from users</li>
+                <li><a href="#reply-sms">Reply to an SMS</a> sent by users</li>
+                <li><a href="#send-sms">Send SMS</a> to users</li>
+
+                <li><a href="#delivery-notifications">Receive delivery notifications</a></li>
+            </ol>
+            
+            <ol class="step-lst">
+                <li>
+                    {% include 001f_handle-sms-receive.html %}
+                </li>
+                <li>
+                    {% include 001k_handle-sms-reply.html %}
+                </li>
+                <li>
+                    {% include 001g_handle-sms-send.html %}
+                </li>
+                <li>
+                    {% include 001h_handle-sms-notifications.html %}
+                </li>
+            </ol>
+       </div>
+   </div>
+</div><!--.com-handle-sms-->

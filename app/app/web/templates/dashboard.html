@@ -1,0 +1,103 @@
+{% extends base.html %}
+
+
+{% block page_title %}Shopping Cart{% end %}
+
+
+{% block body_classes %}page-dashboard{%end%}
+
+
+{% block menu_dashboard_active%}active{% end %}
+
+{% block custom_page_js %}
+
+
+<script>
+
+(function(){ window.addEvent('domready', function(){
+    
+    if ( $('unlock-secret-key') ) {
+        
+        // script to unhide the current saved secret key
+        $('unlock-secret-key').addEvent('click', function( e ){
+            e.preventDefault()
+            $('visible-secret-key').toggle()
+            $('hidden-secret-key-display').toggle()
+        } )
+    }
+    else{
+        console.log('no key')
+        
+    }
+     
+
+
+})}());
+
+
+</script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');        
+        ga('create', 'UA-46076418-1', 'chikka.com');
+        ga('send', 'pageview');
+        Utils.sendGoogleAnalytics({
+            'category': 'Dashboard page',
+            'action': 'View Dashboard page',
+            'label': 'Dashboard page'
+        });
+    </script>
+{% end %}
+
+
+
+
+{% block no_shortcode_warning %}{%end%}
+
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+
+{% block docbody %}
+
+
+<section>
+<div class="notification notification-success notification-short-code" {% if not notification %}style="display:none"{% end %}>
+    <p class="notification-message">{{notification}}</p>
+</div>
+</section>
+
+
+
+{% if current_user.suffix  %}
+
+
+
+<section>
+{% include api_settings_current_credentials.html %}
+</section>
+
+<section>
+{% include components/003q_recent-transactions.html %}
+</section>
+
+{% else %}
+
+<section>
+{% include components/004f_dashboard-get-short-code.html %}
+</section>
+
+{% end %}
+
+
+<section>
+{% include components/002v_rates.html %}
+</section>                
+
+
+{% end %}

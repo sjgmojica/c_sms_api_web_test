@@ -1,0 +1,68 @@
+{% extends signin_base.html %}
+
+
+{% block mtaprops %}{% end %}
+
+
+{% block page_title %}Chikka API{% end %}
+
+{% block head_style_sheets %}
+
+<link rel="stylesheet" href="/static-svg/docs/docs_h5bp.css">
+<link rel="stylesheet" href="/static-svg/docs/css/style.css">
+<link rel="stylesheet" href="/static-svg/docs/css/theme.css">
+{% end %}
+
+
+{% block head_js%}
+    <script src="{{ static_url('js/libs/mootools-core-1.4.5.js') }}"></script>
+    <script src="{{ static_url('js/libs/mootools-more-1.4.0.1.js') }}"></script>
+    <script src="{{ static_url('js/common.js') }}"></script>
+{% end %}      
+
+
+
+
+{% block nav_menu %}
+
+<ul class="nav-menu-pri">
+    <li class="nav-menu-item nav-menu-overview ">
+        <a href="{{overview_uri}}">Overview</a>
+        <ul class="sub-nav-menu sub-nav-overview">
+            <li class="sub-nav-menu-item sub-nav-menu-why"><a href="{{overview_uri}}#why-use-the-chikka-sms-api">Why Use the Chikka SMS API?</a></li>
+        </ul>
+    </li>
+    <li class="nav-menu-item nav-menu-using ">
+        <a href="{{using_uri}}">Using the Chikka API</a>
+        <ul class="sub-nav-menu sub-nav-using">
+            <li class="sub-nav-menu-item sub-nav-menu-register"><a href="{{using_uri}}#register-your-application">Register</a></li>
+            <li class="sub-nav-menu-item sub-nav-menu-generate"><a href="{{using_uri}}#generate-private-and-public-keys-for-your-application">Generate Keys</a></li>
+            <li class="sub-nav-menu-item sub-nav-menu-sms"><a href="{{using_uri}}#handle-sms">Handle SMS</a></li>
+        </ul>
+    </li> 
+    <li class="nav-menu-item nav-menu-signature ">
+        <a href="{{signature_uri}}">Digital Signature</a>
+    </li>
+</ul>                             
+
+{% end %}
+
+
+
+{% block docbody %}
+
+doc bodye here
+
+
+{% end %}
+
+{% block custom_page_js %}
+{% end %}
+
+{% block foot_menu %}
+<ul class="menu">
+    <li class="menu-item"><a href="/contact-us" target="_blank">Contact Us</a></li>
+    <li class="menu-item"><a href="/privacy"target="_blank">Privacy Policy</a></li>
+    <li class="menu-item"><a href="/terms-conditions" target="_blank">Terms and Conditions</a></li>
+</ul>
+{% end %}

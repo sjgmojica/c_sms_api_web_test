@@ -1,0 +1,127 @@
+signup:
+  verification_expiry_hours: 48
+
+# used in verification URL ( and other purposes as needed ) 
+website_base_url: 'http://desdemona.internal.chikka.com:50028'
+
+# port is different
+payment_gateway_callbak_base_url: 'http://desdemona.internal.chikka.com:50028/smart_payment_callback'
+
+
+mysql_db: &mysql-db-entries
+  users: &mysql-db
+    type: mysqldb
+    host: plutonium.internal.chikka.com
+    port: 3306
+    db: 'sms_api'
+    user: chikka_sms_api
+    password: chikka_sms_api
+
+
+fluent_logger:
+  general:
+    tag: 'sms_api.general'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True
+
+  payment:
+    tag: 'sms_api.payment'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True
+
+  scart:
+    tag: 'sms_api.shopping_cart'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True
+
+  standalone_expired_checkout_deleter:
+    tag: 'sms_api.standalone.standalone_expired_checkout_deleter'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True    
+  
+  standalone_email_notification:
+    tag: 'sms_api.standalone.email_notification'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True   
+    
+  suffix_free_to_inactive:
+    tag: 'sms_api.standalone.suffix_free_to_inactive'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True   
+    
+  suffix_paid_to_inactive:
+    tag: 'sms_api.standalone.suffix_paid_to_inactive'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True   
+    
+  suffix_unpaid_to_inactive:
+    tag: 'sms_api.standalone.suffix_unpaid_to_inactive'
+    host: 'desdemona.internal.chikka.com'
+    port: 24224
+    verbose: True   
+
+mailer:
+  host: 'localhost'
+  port: 25
+  mail_from_address: 'sms_api_mailer@smsapi_domain'
+  
+mysql-db:
+  <<: *mysql-db-entries
+  sms_api_config: &mysql-db-profiles
+    type: mysqldb
+    host: plutonium.internal.chikka.com
+    port: 3306
+    db: 'sms_api'
+    user: chikka_sms_api
+    password: chikka_sms_api              
+      
+redis_servers:
+  sms_api:
+    host:  actinium.internal.chikka.com
+    port: 6401
+
+verify_email_queue_key : 'staging:smsapi_signup_email_queue'
+checkout_queue_key: 'staging:checkout_queue'
+
+sms_credits:
+  redis_server:
+    host: actinium.internal.chikka.com
+    port: 6401
+
+text_api:
+  pincode_url: 'http://desdemona.internal.chikka.com:6501/smsapi/internal/mobile_verification'
+  mt_url: 'http://desdemona.internal.chikka.com:6501/smsapi/internal/request'
+  
+smart_payment_gateway:
+  redis_server:
+    host: technetium.internal.chikka.com
+    port: 6388
+  serviceid: 'cobo3'
+  merchant_id : '00011'
+
+
+
+
+recaptcha:
+    public_key: '6LfapugSAAAAAAVLx2F4Ptm1yY-qIBiHpH2MdDgt'
+    private_key: '6LfapugSAAAAANO-Mz8llbXQFLGsFyH8gY7RRiuu'
+    verify_url: 'http://www.google.com/recaptcha/api/verify'
+
+dragonpay:
+  host: 'test.dragonpay.ph'
+  uri: '/DragonPayWebService/MerchantService.asmx'
+  merchant_id: 'CHIKKA'
+  secret_key: 'Zm@K7uP3q'
+  
+  api_url: 'http://api.dragonpay.ph/' 
+  api_get_token_url: 'http://api.dragonpay.ph/GetTxnToken' 
+  api_get_txn_status_url: 'http://api.dragonpay.ph/GetTxnStatus' 
+  
+  payment_url: 'http://test.dragonpay.ph/Pay.aspx?tokenid=%s'

@@ -1,0 +1,58 @@
+<!-- Tutorial: Transaction history -->
+<div class="com-tutorial-transaction-history com-003v ui-dialog">
+    <div class="com-tutorial-transaction-history-cr">
+        <header>
+            <h1 class="assistive-text">View transaction history</h1>
+            <p class="txt-title">View transaction history</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-transaction-history-ct">
+            <div id="pc-transaction-history"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-transaction-history'), [
+						{
+							src: img_base_uri+'/tutorial_transaction-history_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">You can filter your transactions per mobile number and specific month.</p><p class="page">Page 1 of 3</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_transaction-history_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">Click Inbox or Sent to view your message logs for the current month.</p><p class="page">Page 2 of 3</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_transaction-history_03.png',
+							content: '[image three]',
+							caption: '<p class="caption">You can also export your message logs in CSV file.</p><p class="page">Page 3 of 3</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-transaction-history .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-transaction-history .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-transaction-history-->

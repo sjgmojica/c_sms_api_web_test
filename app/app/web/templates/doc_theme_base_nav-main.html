@@ -1,0 +1,17 @@
+                    <div id="navbar" class="navbar">
+                        <nav id="site-navigation" class="navigation main-navigation" role="navigation">
+                            <h1 class="menu-toggle">Menu</h1>
+                            <a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>
+                            <div class="nav-menu">
+                                <ul class="nav-menu-sec">
+                                	<li class="nav-menu-item nav-menu-sms"><a href="/">SMS API</a>
+                                    <li class="nav-menu-item nav-menu-help"><a href="/help">Help</a>
+                                    <li class="nav-menu-item nav-menu-docs active"><a href="/docs/overview">Docs</a>
+                                    {% if not current_user%}
+                                    <li class="nav-menu-item nav-menu-sign-in"><a href="/dashboard">Log in</a>
+                                    <li class="nav-menu-item nav-menu-su"><a href="/signup">Sign up for free</a>
+                                    {% end %}
+                                </ul>
+                            </div><!-- .nav-menu -->
+                        </nav>
+                    </div><!-- .navbar -->

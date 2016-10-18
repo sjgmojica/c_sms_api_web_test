@@ -1,0 +1,39 @@
+<!-- 002f: Edit Name and Address -->
+<div class="com-edit-name-address com-002f ui-dialog">
+    <div class="com-edit-name-address-cr">
+        <header>
+            <h1 class="assistive-text">Edit Name</h1>
+            <p class="txt-title">Change Name</p>
+            {% include snippet_dismiss.html  %}
+        </header>
+        <div class="com-edit-name-address-ct">
+            <form class="com-edit-name-address-frm">
+                <fieldset>
+                    <legend>Edit Name</legend>
+
+                    <div class="notification notification-error" style="display:none" id="billing-settle-error-msg">
+                        <p class="notification-message" id="name-error-msg-box">[Error message]</p>
+                    </div>
+                    <p class="txt-desc">Your check will be addressed to your name or company name.</p>
+
+                    <div class="fld fld-name">
+                        <div class="psu-inp psu-inp-name">
+                            <label>Complete Name or Company Name</label>
+                            <input class="inp-name" type="text" placeholder="Complete name or company name" id="new_name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit" id="change-name-butt-submit">Save</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a class="cncl-lnk" href="#"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-edit-name-address-->

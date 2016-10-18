@@ -1,0 +1,211 @@
+'''
+    @author:  Jhesed Tacadena
+    @date: 2013-03
+    @description:
+        - offline dragonpay module to check if
+        the status of dragonpay is already successful
+        - if it is, updates neccessary DB
+'''
+from gevent.pool import Pool
+import xml.etree.ElementTree as ET
+from geventhttpclient import HTTPClient
+from geventhttpclient.url import URL
+from features.configuration import Configuration
+from features.payments.checkout import on_payment_success_dragonpay   
+from utils.sql_tools import SQLUtils
+import features.logging as sms_api_logger
+from models.lock_cache import LockCache
+from tornado.options import parse_command_line, options
+
+
+DRAGONPAY_TXN_PREFIX = 'CHKID_%s'
+
+class StatusUpdater(object):
+    
+    dbconn = None
+    
+    # --- queries that will be used in this feature ---
+    query_sel_dragonpay_pending_status = """SELECT id FROM checkout WHERE mode_of_payment='DRAGONPAY' and (status='PENDING') ORDER BY id ASC"""
+    query_update_dragonpay_status = """UPDATE dragonpay SET status='%s' WHERE txn_id='%s'"""
+   
+    def __init__(self):
+        '''
+            @description:  
+                - initializes DB connections 
+                and other configurations
+        '''
+        self.pool = Pool(1000) # used for spawning threads
+        
+        values = Configuration.values()       
+        
+        # -- initializes DB --
+        self.dbconn = SQLUtils(host=values['mysql-db']['sms_api_config']['host'],
+            port=values['mysql-db']['sms_api_config']['port'],
+            database=values['mysql-db']['sms_api_config']['db'],
+            user=values['mysql-db']['sms_api_config']['user'],
+            password=values['mysql-db']['sms_api_config']['password'])
+            
+        print '-------'
+        print 'DB:'
+        print 'port: %s' %values['mysql-db']['sms_api_config']['host']
+        print 'host: %s' %values['mysql-db']['sms_api_config']['port']
+        print 'db: %s' %values['mysql-db']['sms_api_config']['db']
+        print 'user: %s' %values['mysql-db']['sms_api_config']['user']
+        print 'password: %s' %values['mysql-db']['sms_api_config']['password']
+        print '-------'
+    
+        # -- initializes dragonpay related config --
+        self.api_url = values['dragonpay']['api_url']
+        self.merchant_id = values['dragonpay']['merchant_id']
+        self.secret_key = values['dragonpay']['secret_key']
+        self.host = values['dragonpay']['host']
+        self.api_get_txn_status_url = values['dragonpay']['api_get_txn_status_url']
+        self.uri = values['dragonpay']['uri']
+        
+        parse_command_line()
+        
+        if options.config == 'prod':
+            url = URL('https://%s' %values['dragonpay']['host'])
+        else:
+            url = URL('http://%s' %values['dragonpay']['host'])
+        
+        
+        self.http_conn = HTTPClient.from_url(url, concurrency=10)
+        
+    def main(self):
+        '''
+            @description:
+                - encapsulates the whole dragonpay
+                transaction status update process
+        '''
+        
+        payment_logger = sms_api_logger.PaymentLogger()
+        
+        pending_list = self.select_pending_status()
+        if pending_list:
+            for p in pending_list:
+                # status = self.pool.spawn(self.get_txn_status, checkout_id=p)
+                txn_id = DRAGONPAY_TXN_PREFIX % p['id']
+                lock_key = 'lock:%s' % str(txn_id)
+                
+        
+                if LockCache.lock(key=lock_key):
+                    # locks txn to avoid multiple processes
+                    return
+                
+                else:
+                    status = self.get_txn_status(txn_id)
+                    if status and status[0] == 'S':  # success,
+                        payment_logger.info('dragonpay success', {
+                            'txn_id': txn_id, 'status': status[0]})
+                        on_payment_success_dragonpay(txn_id=txn_id,
+                            good_response=True)
+                    elif status[0] in ['F', 'V']:  # failure, unknown, void
+                        payment_logger.info('dragonpay failed', {
+                            'txn_id': txn_id, 'status': status[0]})
+                        on_payment_success_dragonpay(txn_id=txn_id,
+                            good_response=False)
+                    else:
+                        # do nothing as of now
+                        # refund, chargeback, authorized
+                        pass
+                        
+                    # -- updates dragonpay status --
+                    self.update_dragonpay_status(txn_id=txn_id,
+                        status=status[0])
+            
+                    LockCache.unlock(key=lock_key)
+            
+            
+    def select_pending_status(self):
+        ''' 
+            @description:
+                - selects checkout ids from DB where status = 'PENDING' 
+                and mode of payment = 'DRAGONPAY'
+        '''
+        try:
+            return self.dbconn.run_query(query_type='select',
+                query=self.query_sel_dragonpay_pending_status,
+                fetchall=True)
+        except Exception:
+            import traceback
+            print traceback.format_exc()
+            
+    def get_txn_status(self, txn_id):
+        '''
+            @description:
+                - performs soap call to dragonpay
+                to know status of 
+                transaction
+        '''
+        print txn_id
+        
+        body = """<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetTxnStatus xmlns="%s">
+      <merchantId>%s</merchantId>
+      <password>%s</password>
+      <txnId>%s</txnId>
+    </GetTxnStatus>
+  </soap:Body>
+</soap:Envelope>""" %(self.api_url, self.merchant_id,
+        self.secret_key, txn_id)
+        
+        # print body
+        
+        headers = {
+            'Host': self.host,
+            'Content-Type': 'text/xml; charset=utf-8',
+            'Content-Length': "%d" % len(body),
+            'SOAPAction': self.api_get_txn_status_url
+        }
+         
+        # print headers 
+        
+        try:
+            response = self.__parse_soap_response(self.http_conn.post(
+                self.uri, body=body, headers=headers).read())
+        except Exception, e:
+            import traceback
+            print traceback.format_exc()
+            return None
+            
+        # return response.read()
+        print response
+        return response   
+    
+    def update_dragonpay_status(self, txn_id, status):
+        '''
+            @description:
+                - updates dragonpay table
+                using status
+        '''
+        
+        print self.query_update_dragonpay_status % (status, txn_id)
+        try:
+            return self.dbconn.run_query(query_type='update',
+                query=self.query_update_dragonpay_status % (status, txn_id))
+        except Exception:
+            import traceback
+            print traceback.format_exc()
+        
+        
+    def __parse_soap_response(self, xml_string):  
+        '''
+            @description:
+                - extracts the data from soap xml response
+            @returns list
+        '''
+        raw_list = []    
+        try :
+            element = ET.fromstring(xml_string)
+            response = element.getchildren()[0].getchildren()[0].getchildren()
+            for r_element in response :
+                raw_list.append(r_element.text)   
+        except :
+            raw_list = []
+         
+        return raw_list
+        
+    

@@ -1,0 +1,69 @@
+<!-- POP UP DIALOG  -->
+<!-- 001m: SMS API Settings -->
+<div id="ui_dialog" class="com-api-settings com-001m ui-dialog">
+    <div class="com-api-settings-cr">
+        <header>
+
+            <h1 class="assistive-text">Edit SMS API Settings</h1>
+            <p class="txt-title">Edit SMS API Settings</p>
+            <!-- Dismiss link -->
+            {% include snippets/dismiss.html  %}        
+        </header>
+        
+        <div class="com-api-settings-ct">
+            <form method="post" action="/api/settings" class="com-api-settings-frm">
+                <fieldset>
+                    <legend>Edit API Settings</legend>
+                    <!-- Inline Notification (error) -->
+
+                    <div class="fld fld-callback-url">
+                        <div class="psu-inp psu-inp-txt psu-inp-callback-url">
+                            <label>Notification Receiver URL</label>
+                            
+                            {% if cp_obj and 'DN_ENDPOINT' in cp_obj and cp_obj['DN_ENDPOINT'] != ' ' %}
+                                 <input id="callback_url" name="callback_url" class="inp-callback-url" type="text" value="{{cp_obj['DN_ENDPOINT']}}" >
+                            {% else %}
+                                 <input id="callback_url" name="callback_url" class="inp-callback-url" type="text" placeholder="Notification Receiver URL" >
+                            {% end %}
+
+                        </div>
+                        <!-- Inline Notification (error) -->
+                        <div class="notification notification-error notification-inline">
+                            <p id="callback_url_error" class="notification-message"></p>
+                        </div>                    
+                    </div>
+        
+        
+                    <div class="fld fld-mo-url">
+                        <div class="psu-inp psu-inp-mo-url">
+                            <label>Message Receiver URL</label>
+
+                             {% if cp_obj and 'MO_ENDPOINT' in cp_obj and cp_obj['MO_ENDPOINT'] != ' ' %}
+                                 <input id="mo_url" name="mo_url" class="inp-mo-url" type="text" value="{{cp_obj['MO_ENDPOINT']}}" >
+                            {% else %}
+                                 <input id="mo_url" name="mo_url" class="inp-mo-url" type="text" placeholder="Message Receiver URL" >
+                            {% end %}
+                            
+                        </div>
+                        <!-- Inline Notification (error) -->
+                        <div class="notification notification-error notification-inline">
+                            <p id="mo_url_error" class="notification-message"></p>
+                        </div>                    
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button id="api_settings_save" class="btn-sub" type="submit">Save</button>
+
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a id="dismiss_dialog" class="cncl-lnk" href="#"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>                    
+       </div>
+   </div>
+
+</div><!--.com-api-settings-->
+<!-- END POP UP DIALOG  -->

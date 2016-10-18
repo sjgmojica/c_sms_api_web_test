@@ -1,0 +1,53 @@
+<!-- Tutorial: Purchase history -->
+<div class="com-tutorial-purchase-history com-003v ui-dialog">
+    <div class="com-tutorial-purchase-history-cr">
+        <header>
+            <h1 class="assistive-text">View purchase history</h1>
+            <p class="txt-title">View purchase history</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-purchase-history-ct">
+            <div id="pc-purchase-history"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-purchase-history'), [
+						{
+							src: img_base_uri+'/tutorial_purchase-history_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">Click on the transaction ID to view your purchase details.</p><p class="page">Page 1 of 2</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_purchase-history_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">You will see the breakdown of your packages purchase under that specific transaction.</p><p class="page">Page 2 of 2</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-purchase-history .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-purchase-history .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-purchase-history-->

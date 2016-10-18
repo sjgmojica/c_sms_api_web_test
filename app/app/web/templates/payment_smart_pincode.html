@@ -1,0 +1,49 @@
+{% extends base.html%}
+
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+{% end %}
+
+{% block docbody %}
+
+<!-- 001j: PIN Code component -->
+<div class="com-pin-code 001j ui-dialog">
+    <div class="com-pin-code-cr">
+        <header>
+            <h1 class="at">PIN Code</h1>
+            <p class="txt-ttl">PIN Code</p>
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {% end %}
+            
+        </header>
+        <div class="com-pin-code-ct">
+            <form method="post" action="/cart/payment/smart/pincode" class="com-pin-code-frm">
+
+                <fieldset>
+                    <legend>PIN Code</legend>
+                    
+                    <p class="txt-desc">[PIN Code description]</p>
+                    
+                    <div class="fld fld-txt fld-pin">
+                        <div class="psu-inp psu-inp-txt pus-inp-pin">
+                            <label>PIN Code</label>
+                            <input name="checkout_id" type="hidden" value="{{checkout_id}}"/>
+                            <input name="mobile" type="hidden" value="{{mobile}}"/>
+                            <input name="pincode" class="inp-pin" type="text" placeholder="PIN Code">
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                      
+                    </div><!--.fld-axn-->
+              </fieldset>
+          </form>
+       </div>
+   </div>
+</div><!--.com-pin-code-->
+
+{% end %}

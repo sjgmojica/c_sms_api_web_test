@@ -1,0 +1,124 @@
+<!-- 003q: Recent Transactions -->
+<div class="com-recent-transactions com-003q">
+    <div class="com-recent-transactions-cr">
+        <header>
+            <h1 class="assistive-text">Recent Transactions</h1>
+            <p class="txt-title">Most recent transactions</p>
+        </header>
+        <div class="com-recent-transactions-ct">
+            <nav class="com-recent-transactions-nav">
+                <ul class="com-recent-transactions-nav-lst">
+                    <li class="sent-lnk-cr active"><a class="sent-lnk" href="#"><span class="lbl">Outgoing</span></a></li>
+                    <li class="inbox-lnk-cr"><a class="inbox-lnk" href="#"><span class="lbl">Incoming</span></a></li>
+                </ul>
+            </nav>                    
+
+            <div class="com-recent-transactions-inbox-sent-cr">
+                <div class="sent-cr active" id="dashboard-recent-trans-sent-content">
+                    {% set with_pagination = False %}
+                    {% include 002l_sent.html %}
+                </div>
+                <div id="dashboard-recent-trans-inbox-content" class="inbox-cr">
+                    {% set with_pagination = False %}
+                    {% include 002k_inbox.html %}
+                </div>
+            </div>            
+            
+            <div class="psu-btn psu-btn-sec">
+                <a class="load-more-lnk" href="/history/transaction"><span class="lbl">View more transactions</span></a>
+            </div>
+       </div>
+   </div>
+</div>
+<!--.com-recent-transactions-->
+<script type="text/javascript">
+
+
+
+function get_t_records( uri, page_number,  callback, in_out ){
+
+    var month_filter = ''; 
+    var opt_sms_type = 'all'
+    var sms_type = $$('.sent-cr select.inp-sel-transaction')[0].value
+    if ( sms_type ){
+        opt_sms_type = sms_type 
+    }    
+    
+    var mobile_filter ='' 
+    
+    var myRequest = new Request.JSON( {
+        url:uri,
+        data:{ 'json':'true', 'page':page_number, 'in_out': in_out, 'month_filter': month_filter, 'mobile_filter':mobile_filter, 'sms_type':opt_sms_type },
+        method:'GET',
+        onSuccess: function( response ){
+
+            callback( response, page_number )
+
+        }
+    }).send()
+
+}
+
+
+function t_page_sent_callback( data, page_number ){
+    // step 1 empty the table body
+    $$('.com-sent-table table tbody' ).dispose()
+
+
+	tbodyElement = new Element('tbody')
+    
+    // process
+    for (  var i = 0 ; i < data.transactions.length; i++ ){
+
+        date_col = new Element('td', {text:  data.transactions[i]['date_time'].substr( 0,data.transactions[i]['date_time'].length-3  )  , class:'datetime'  });
+        from_col = new Element('td', {text:data.transactions[i]['to'], class:'to' });
+        status_col = new Element('td', {text:data.transactions[i]['status'], class:'status'});
+        message_type_col = new Element('td', {text:data.transactions[i]['message_type'], class:'type'});
+        cost_col = new Element('td', {text: data.transactions[i]['cost'], class:'charge' });
+        trans_row = new Element( 'tr' );trans_row.grab( date_col );trans_row.grab( from_col );
+        trans_row.grab( status_col ); trans_row.grab( message_type_col ) ; trans_row.grab( cost_col );
+        tbodyElement.grab( trans_row )
+
+        }
+
+    //attach the completed tbody
+    $$('.com-sent-table table' ).grab(tbodyElement)
+
+}
+
+(function(){ window.addEvent('domready', function(){
+    
+    // pre-select items of concern
+    var trans_inbox_nav_item_link = $$('ul.com-recent-transactions-nav-lst a.inbox-lnk')
+    var trans_sent_nav_item_link= $$('ul.com-recent-transactions-nav-lst a.sent-lnk')
+    var trans_inbox_nav_item = $$('ul.com-recent-transactions-nav-lst li.inbox-lnk-cr')
+    var trans_sent_nav_item = $$('.com-recent-transactions-nav li.sent-lnk-cr')
+    var trans_set_content = $( 'dashboard-recent-trans-sent-content' )
+    var trans_inbox_content = $( 'dashboard-recent-trans-inbox-content' )
+    
+    var sent_mode = true 
+    
+    function toggle_sent_inbox(){
+        trans_inbox_nav_item.toggleClass('active'); trans_inbox_content.toggleClass('active')
+        trans_set_content.toggleClass('active'); trans_sent_nav_item.toggleClass('active')
+    }
+    
+    $$('.com-recent-transactions-nav-lst li a').addEvent( 'click', function( e ){
+        e.preventDefault();
+        if( ! this.getParent().hasClass('active') ) {
+            toggle_sent_inbox()
+        }
+    } )
+
+    $$('.sent-cr select.inp-sel-transaction').addEvent('change', function(e){
+      e.preventDefault()
+      get_t_records( '/history/transaction', 1,  t_page_sent_callback, 'out' )
+    })
+
+
+
+})}());
+
+
+
+</script>

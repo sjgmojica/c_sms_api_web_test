@@ -1,0 +1,17 @@
+<!-- Pagination -->
+<div class="page-nav">
+    <a class="prev-page" href="#" title="Previous"><span class="lbl">Previous</span></a>
+    <div class="psu-inp psu-inp-page">
+        <p class="txt-desc">Page</p>
+        <label>Page</label>
+        
+        {% set pages = range(1, total_pages+1) %}
+        
+        <select class="inp-sel" title="Page">
+            {% for page in pages %}
+            <option value="{{page}}">{{page}}</option>
+            {% end %}
+        </select>
+    </div>
+    <a class="next-page" href="#" title="Next"><span class="lbl">Next</span></a>
+</div>

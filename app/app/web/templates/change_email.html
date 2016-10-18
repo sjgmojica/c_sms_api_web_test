@@ -1,0 +1,30 @@
+{% extends current_logged_in_base.html %}
+
+{% block docbody %}
+
+<h1>Change Email</h1>
+
+
+
+{% try %}
+
+{{error_message}}
+
+{% except %}
+
+{% end %}
+
+
+<form method="post" action="/changeemail">
+
+<input type="email" name="new_email">
+
+
+<button type="submit">Get started</button>
+
+
+</form>
+
+
+
+{% end %}

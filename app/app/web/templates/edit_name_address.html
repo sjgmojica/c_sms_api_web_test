@@ -1,0 +1,74 @@
+{% extends current_logged_in_base.html %}
+
+{% block docbody %}
+
+<!-- 002f: Edit Name and Address -->
+<div class="com-edit-name-address com-002f ui-dialog">
+    <div class="com-edit-name-address-cr">
+        <header>
+            <h1 class="assistive-text">Edit Name and Address</h1>
+            <p class="txt-title">Edit Name and Address</p>
+        </header>
+        <div class="com-edit-name-address-ct">
+            <form method="post" action="/account/settings/change" class="com-edit-name-address-frm">
+
+                <fieldset>
+                    <legend>Edit Name and Address</legend>
+                    
+                    <p class="txt-desc">[Edit Name and Address description]</p>
+                    
+                    <div class="fld fld-name">
+                        <div class="psu-inp psu-inp-name">
+                            <label>First Name</label>
+                            <input name="firstname" class="inp-name" type="text" value="{{account_obj.first_name}}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-name">
+                        <div class="psu-inp psu-inp-name">
+                            <label>Last Name</label>
+                            <input name="lastname" class="inp-name" type="text" value="{{account_obj.last_name}}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-company">
+                        <div class="psu-inp psu-inp-company">
+                            <label>Company</label>
+                            {% if account_obj.company %}
+                                <input name="company" class="inp-company" type="text" value="{{account_obj.company}}">
+                            {% else %}
+                                <input name="company" class="inp-company" type="text" placeholder="Your company">
+                            {% end %}
+                        </div>
+                    </div>
+
+                    <div class="fld fld-address">
+                        <div class="psu-inp psu-inp-address">
+                            {{account_obj.address}}
+                            <label>Address</label>
+                            {% if account_obj.address %}
+                                <input name="address" class="inp-address" type="text" value="{{account_obj.address}}" required>
+                            {% else %}
+                                <input name="address" class="inp-address" type="text" placeholder="Your address" required>
+                            {% end %}
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a class="cncl-lnk" href="/account/settings/view"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+                    
+                </fieldset>
+            </form>
+
+       </div>
+   </div>
+</div><!--.com-edit-name-address-->
+
+{% end %}

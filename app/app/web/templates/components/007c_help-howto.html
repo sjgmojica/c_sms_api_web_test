@@ -1,0 +1,172 @@
+<script type="text/javascript">
+( function() {
+    window.addEvent( 'domready' , function() {
+        $$('.com.com-help-howto  ol.toc-lst li a').removeEvents()
+        // add click events to each toc item
+        $$('.com.com-help-howto  ol.toc-lst li a').addEvent('click', function( e ){
+            e.preventDefault()
+            theclass = this.getProperty('class').replace('toc-lnk', '').trim().replace('toc-', '')
+            //hide the other divs
+            $$('.com.com-help-howto .main-cr .faq-cr').setProperty('data-state', 'inactive')
+            // set target div to be active
+            $$('.com.com-help-howto .main-cr li[class*=faq-'+theclass+']').setProperty('data-state', 'active')
+
+            // the footer distance has to be reset
+            setFooter()
+        })
+})}());
+</script>
+
+<section class="com com-help-howto">
+	<div class="com-cr com-help-faq-cr">
+		<h2 class="com-heading com-help-faq-heading">How to's</h2>
+		<div class="com-ct com-help-faq-ct">
+
+            <div class="toc-cr">
+            	<div class="toc-ct">
+                	<ol class="toc-lst">
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-api-settings" href="#update-your-api-settings" data-state="active"><span class="lbl">Update your API settings</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-access-code" href="#get-short-code" data-state="inactive"><span class="lbl">Get your short code</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-enroll-number" href="#enroll-and-verify-your-test-mobile-number" data-state="inactive"><span class="lbl">Enroll a test mobile number</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-send-message" href="#send-a-free-test-text-message" data-state="inactive"><span class="lbl">Send a free test message</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-receive-message" href="#receive-test-text-message" data-state="inactive"><span class="lbl">Receive confirmation message</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-smart-payment" href="#buy-a-package-using-smart-payment" data-state="inactive"><span class="lbl">Buy a package using Smart mobile payment</span></a>
+                      <li class="toc-lnk-cr"><a class="toc-lnk toc-paymaya" href="#buy-a-package-using-paymaya" data-state="inactive"><span class="lbl">Buy a package using VISA/Mastercard</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-dragonpay" href="#buy-a-package-using-dragonpay" data-state="inactive"><span class="lbl">Buy a package using Dragonpay</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-paypal" href="#buy-a-package-using-paypal" data-state="inactive"><span class="lbl">Buy a package using Paypal</span></a>
+                        <li class="toc-lnk-cr"><a class="toc-lnk toc-manage-cart" href="#manage-your-shopping-cart" data-state="inactive"><span class="lbl">Manage your cart</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-transaction-history" href="#view-your-transaction-history" data-state="inactive"><span class="lbl">View transaction history</span></a>
+                    	<li class="toc-lnk-cr"><a class="toc-lnk toc-purchase-history" href="#view-your-purchase-history" data-state="inactive"><span class="lbl">View purchase history</span></a>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="main-cr">
+            	<div class="main-ct">
+                	<ol class="faq-lst">
+                        <li class="faq-cr faq-api-settings" data-state="active">
+                        	<div class="faq-ct">
+                                <a id="update-your-api-settings" class="faq-lnk" href="#"><span class="lbl">Update your API settings</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-api-settings.html %}
+                                    </section>
+                                </div>
+                            </div>
+                        <li class="faq-cr faq-access-code" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="get-short-code" class="faq-lnk" href="#"><span class="lbl">Get your short code</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-short-code.html %}
+                                    </section>
+                                </div>
+                            </div>
+                        <li class="faq-cr faq-enroll-number" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="enroll-and-verify-your-test-mobile-number" class="faq-lnk" href="#"><span class="lbl">Enroll a test mobile number</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-enroll-number.html %}
+                                    </section>
+                                </div>
+                            </div>
+                        <li class="faq-cr faq-send-message" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="send-a-free-test-text-message" class="faq-lnk" href="#"><span class="lbl">Send a free test message</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-send-message.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-receive-message" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="receive-test-text-message" class="faq-lnk" href="#"><span class="lbl">Receive confirmation message</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-receive-message.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-smart-payment" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="buy-a-package-using-smart-payment" class="faq-lnk" href="#"><span class="lbl">Buy a package using Smart mobile payment</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-smart-payment.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-paymaya" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="buy-a-package-using-paymaya" class="faq-lnk" href="#"><span class="lbl">Buy a package using VISA/Mastercard</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial_paymaya.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-dragonpay" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="buy-a-package-using-dragonpay" class="faq-lnk" href="#"><span class="lbl">Buy a package using Dragonpay</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-dragonpay.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-paypal" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="buy-a-package-using-paypal" class="faq-lnk" href="#"><span class="lbl">Buy a package using Paypal</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                       {% include 003v_tutorial-paypal.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-manage-cart" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="manage-your-shopping-cart" class="faq-lnk" href="#"><span class="lbl">Manage your cart</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-manage-cart.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-transaction-history" data-state="inactive" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="view-your-transaction-history" class="faq-lnk" href="#"><span class="lbl">View transaction history</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-transaction-history.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        <li class="faq-cr faq-purchase-history" data-state="inactive">
+                        	<div class="faq-ct">
+                                <a id="view-your-purchase-history" class="faq-lnk" href="#"><span class="lbl">View purchase history</span></a>
+                                <div class="faq-ans">
+                                    <section>
+                                        {% include 003v_tutorial-purchase-history.html %}
+                                    </section>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ol>
+
+                </div>
+            </div>
+
+       </div>
+   </div>
+</section>

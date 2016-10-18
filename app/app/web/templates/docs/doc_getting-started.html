@@ -1,0 +1,36 @@
+{% extends ../doc_theme_base.html %}
+
+{% block page_title %}Getting started{% end %}
+{% block body_classes%}page-getting-started{% end %}
+
+
+
+
+        <link rel="stylesheet" href="css/highlight/idea.css">
+
+
+
+
+{% block docs_content %}
+
+{% include components/001m_getting-started.html %}
+
+{% set page_uri='/docs/handling-messages'%}
+{% set page_title='Handling Messages'%}
+{% include snippet_next_page.html %}
+                         
+
+
+{% block custom_page_js %}
+<script src="{{static_url('js/highlight.pack.js')}}"></script>
+<script>
+    hljs.configure({
+        tabReplace: '    '
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+{% end %}
+
+
+
+{% end %}

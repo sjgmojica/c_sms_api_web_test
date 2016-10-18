@@ -1,0 +1,48 @@
+<!-- 005f: Edit Username-->
+<div id="edit_email" class="com-edit-username com-002g ui-dialog">
+    <div class="com-edit-username-cr">
+        <header>
+            <h1 class="assistive-text">Edit Username</h1>
+            <p class="txt-title">Change Username</p>
+            {% include snippet_dismiss.html  %}
+        </header>
+
+        <div class="com-edit-username-ct">
+            <form class="com-edit-username-frm">
+                <fieldset>
+                    <legend>Edit Username</legend>
+                    
+                    <p class="txt-desc">We will send you a verification link.</p>
+                    <!-- Notification (error) -->
+ 
+                    <div id="change-email-error-msg" style="display:none" class="notification notification-error">
+                        <p class="notification-message"></p>
+                    </div>
+
+                    <!-- Notification (success) -->
+
+                    <div id="change-email-success-msg" style="display:none" class="notification notification-success">
+                        <p class="notification-message"></p>
+                    </div>
+                    
+                    <div class="fld fld-username">
+                        <div class="psu-inp psu-inp-username">
+                            <label>Username</label>
+                            <input class="inp-username" type="text" placeholder="Email" id="change-email-field" required>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit" id="change-email-submit-butt" >Save</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+
+                            <a class="cncl-lnk" href="#" id="change-email-cancel-butt" ><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-edit-username-->

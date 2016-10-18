@@ -1,0 +1,152 @@
+{% extends base.html %}
+
+{% block extra_js %}  
+    <script src="{{ static_url('js/libs/picture-slider.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/update_settings.js') }}"></script>
+{% end %}
+
+
+{% block custom_page_js %}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-46076418-1', 'chikka.com');
+    ga('send', 'pageview');
+    Utils.sendGoogleAnalytics({
+        'category': 'API Settings page',
+        'action': 'View API Settings page',
+        'label': 'API Settings page'
+    });
+    
+
+    function call_generate_secret_key( onResponse ){
+        
+        var myRequest = new Request.JSON( {
+            url:'/secret-key-generate',
+            method:'GET',
+            onSuccess: function( response ){
+                var new_key = response.secretkey
+                onResponse( new_key )
+            },
+            onError : function( response ){
+                console.log('error')
+                console.log(response) 
+                
+            },
+
+            
+            
+        } ).send();
+    }
+    
+
+    (function(){ 
+        window.addEvent('domready', function(){ 
+            
+            // add event to "generate code" pop up the dialog box
+            $('generate-code-hyperlink').removeEvents();
+            $('generate-code-hyperlink').addEvent('click', function(e){
+                e.preventDefault();
+                
+                call_generate_secret_key( function( new_key ){
+                    
+                    $('new-secret-key-respose').set('text',new_key )
+                    $('hidden-secret-key-display').set('text', new_key)
+                    $('overlay').show()
+                    $('generated-secret-key-popup').show()    
+                } )
+            })
+            
+            // prepare the close event
+            var close_generate_popup = function(e){
+                e.preventDefault();
+                $('generated-secret-key-popup').hide()
+                $('overlay').hide()
+            }
+            
+            // add events to close the popup
+            //$('generated-secret-key-popup-dismiss-butt').removeEvents();
+            //$('generated-secret-key-popup-dismiss-butt').addEvent('click', close_generate_popup )
+            $('generated-secret-key-popup-ok-butt').removeEvents();
+            $('generated-secret-key-popup-ok-butt').addEvent('click', close_generate_popup )
+            
+            // script to unhide the current saved secret key
+            $('unlock-secret-key').addEvent('click', function( e ){
+                e.preventDefault()
+                $('visible-secret-key').toggle()
+                $('hidden-secret-key-display').toggle()
+            } )
+            
+            
+            // prepare the tutorial popup
+            $("tutorial-api-settings").removeEvents();
+            $("tutorial-api-settings").addEvent("click", function(e) {
+                e.preventDefault();
+                $$(".com-tutorial-api-settings")[0].show();
+                $$("#overlay").show();
+            });
+        })
+    }());    
+</script>
+{% end %}
+
+
+
+
+
+
+
+
+
+{% block guide_display %}
+{% set guide_title = 'API Settings' %}
+{% set guide_description = 'Manage your API details here. Set and edit your SMS URLs or generate a new Secret Key.' %}
+{% set guide_api_settings_active = 'active' %}
+{% include guide.html %}
+{% end %}
+
+
+
+
+
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+{% block docbody %}          
+
+{% if current_user.suffix %}
+         
+<section>
+    <!-- 001n: API Settings (Saved) -->
+    <div class="com-api-settings-saved com-001n">
+        <div class="com-api-settings-saved-cr">
+            <header>
+                <h1 class="assistive-text">API Settings</h1>
+                <p class="txt-title">API Settings</p>
+            </header>
+            <div class="com-api-settings-saved-ct">
+                <section>
+                {% include api_settings_current_credentials.html %}
+                </section>
+                
+                
+                {% include api_settings_current_saved.html %}
+    
+                <div class="info-cr">
+                    <p class="info"><span class="icon">Info</span><a href="#" class="info-lnk" id="tutorial-api-settings">How to update your API Settings?</a></p>
+                    <section>
+					{% include components/003v_tutorial-api-settings.html %}			
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div><!--.com-api-settings-saved-->
+</section>
+{% end %}
+<!-- api settings end  -->
+{% end %}

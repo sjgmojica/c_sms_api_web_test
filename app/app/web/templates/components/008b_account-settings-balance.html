@@ -1,0 +1,59 @@
+<!--
+
+data-state-threshold
+1. disabled (default) - don't send email
+2. edit - user is editing threshold value
+3. saved - user saved threshold
+
+-->
+
+<!-- 008a: Account Settings - Login Details -->
+<div class="com-account-settings-balance com-004b" data-state-threshold="{% if balance_notification_enabled  %}saved{% else %}disabled{% end %}">
+    <div class="com-account-settings-balance-cr">
+        <header>
+            <h1 class="assistive-text">Balance Threshold</h1>
+            <p class="txt-title">Balance Threshold</p>
+        </header>
+        <div class="com-account-settings-balance-ct">            
+            <form class="com-account-settings-balance-frm">
+                <fieldset>
+                    <legend>Balance Threshold</legend>
+
+                    <!-- Notification (error) -->
+                    <div class="notification notification-error" style="display:none">
+                            <p class="notification-message">[Error message]</p>
+                    </div>
+
+                    <div class="notification notification-success" style="display:none">
+                        <p class="notification-message">[Success message]</p>
+                    </div>
+                    
+                    <div class="fld fld-send-email">
+                        <div class="fld-item-send-email">
+                            <input id="send-email" type="checkbox" {% if balance_notification_enabled  %}checked="checked"{% end %}" >
+                            <label for="send-email">Email me when balance reaches the threshold.</label>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-threshold">
+                        <div class="psu-inp psu-inp-txt psu-inp-threshold">
+                            <label>Balance threshold</label>
+                            <input class="inp-threshold" type="text" placeholder="Balance threshold" value="{{balance_notif_threshold}}" disabled maxlength="5">
+                            <p class="hint">You can set your preferred threshold. The default and minimum is 50.</p>
+                        </div>
+                        {% include snippet_dismiss.html %}
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Save</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a class="cncl-lnk" href="#"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-account-settings-balance-->

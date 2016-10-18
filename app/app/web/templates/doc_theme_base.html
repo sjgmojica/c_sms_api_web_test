@@ -1,0 +1,36 @@
+{% extends html_base.html %}
+
+{% block extra_head_style_sheets %}
+
+<link rel="stylesheet" href="{{static_url('css/docs_style.css')}}">
+<link rel="stylesheet" href="{{static_url('css/docs_theme.css')}}">
+<link rel="stylesheet" href="{{static_url('css/highlight/idea.css')}}">
+
+{% end %}
+
+
+
+{% block nav_menu %}
+
+  {% if current_user %}
+    {% include nav-menu-primary.html %}
+    {% include nav-menu-secondary.html %}
+  {% else %}
+    {% include nav-menu-sec.html %}
+  {% end %}
+
+{% end %}
+
+
+
+{% block docbody %}
+
+<section>
+{% include docs/nav_contents.html %}
+{% block docs_content %}{% end %}
+</section>
+{% end %}
+
+{% block custom_back_to_top %}
+  {% include docs/back_to_top.html %}
+{% end %}

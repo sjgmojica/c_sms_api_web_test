@@ -1,0 +1,64 @@
+<!-- Tutorial: Short Code -->
+<div class="com-tutorial-short-code com-003v ui-dialog">
+    <div class="com-tutorial-short-code-cr">
+        <header>
+            <h1 class="assistive-text">Get your short code</h1>
+            <p class="txt-title">Get your short code</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-short-code-ct">
+            <div id="pc-short-code"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-short-code'), [
+						{
+							src: img_base_uri+'/tutorial_short-code_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">Go to Short Code tab to view the short code we generated for you or you may also opt to customize your own.</p><p class="page">Page 1 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_short-code_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">To customize your own short code, you need to input 3 to 6 alphanumeric characters.</p><p class="page">Page 2 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_short-code_03.png',
+							content: '[image three]',
+							caption: '<p class="caption">We will check the availability of your prefered short code and you can choose from the list of suggestions.</p><p class="page">Page 3 of 4</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_short-code_04.png',
+							content: '[image four]',
+							caption: '<p class="caption">You can use your short code for your SMS and MMS transactions.</p><p class="page">Page 4 of 4</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-short-code .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-short-code .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-short-code-->

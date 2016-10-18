@@ -1,0 +1,123 @@
+<!-- Receive SMS -->
+<div class="com-handle-sms-receive com-001f">
+    <div class="com-handle-sms-receive-cr">
+        <header>
+            <h1 id="receive-sms" class="assistive-text">Receive SMS</h1>
+            <p class="txt-title">Receive SMS</p>
+        </header>
+        <div class="com-handle-sms-receive-ct">
+            
+            <p class="note">You cannot receive SMS if you have not bought SMS credits yet.</p>
+            
+            <p>The Chikka SMS API relays ALL messages (sent by the users) via HTTP to the Message Receiver URL you have provided in the API Settings.</p>
+            
+            <div class="diagram-cr">
+                <ol class="diagram-list">
+                    <li class="diagram-item diagram-user"><span class="lbl">User sends message to your short code</span></li>
+                    <li class="diagram-item diagram-chikka"><span class="lbl">Chikka forwards message to your app</span></li>
+                    <li class="diagram-item diagram-message"><span class="lbl">Message receiver component receives the message</span></li>
+                </ol>
+            </div>
+            
+            <p>To receive messages, do the following:</p>
+            <ol>
+                <li>
+                    <p>Make sure that your application's <strong><a href="/docs/getting-started#message-receiver">Message Receiver</a></strong> component is coded in such a way that it expects an <strong>HTTP POST request</strong> from the Chikka SMS API. The request body contains the following parameters:</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Parameters</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><pre>message_type</pre></td>
+                                    <td>
+                                        <p>Indicates the message type of the message. Value is <strong>incoming</strong> for all the SMS you will receive from users.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>mobile_number</pre></td>
+                                    <td>
+                                        <p>Mobile number of the user who sent the message.</p>
+                                        <p><strong>Format:</strong> 6391xxxxxxxx</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>shortcode</pre></td>
+                                    <td>
+                                        <p>Access code where the message was sent to.</p>
+                                        <p><strong>Format:</strong> 29290xxxxxx</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>request_id</pre></td>
+                                    <td>
+                                        <p>Unique transaction ID that you have to use when <a href="#reply-sms">Replying To A Message</a>.</p>
+                                        <p><strong>Length:</strong> 128 alphanumeric characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>message</pre></td>
+                                    <td>
+                                        <p>Contents of the message.</p>
+                                        <p><strong>Length:</strong> 160 characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>timestamp</pre></td>
+                                    <td>
+                                        <p>Time when the message was sent to your Message Receiver application.</p>
+                                        <p><strong>Format:</strong> Epoch Timestamp in Seconds</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="sample-cr">
+                        <p>Here's an HTTP POST body example:</p>
+                        <samp>
+                        message_type=incoming&amp;mobile_number=639181234567&amp;shortcode=29290123456&amp;request_id=5048303030534D415254303030303032393230303032303030303030303133323030303036333933393932333934303030303030313331313035303735383137&amp;message=This+is+a+test+message&amp;timestamp=1383609498.44
+                        </samp>
+                    </div>
+                </li>
+                <li>
+                    <p>Make sure that your application's <strong><a href="/docs/getting-started#message-receiver">Message Receiver</a></strong> component returns an <strong>HTTP POST response</strong> which indicates if the message has successfully processed. The response must include one of the following statuses:</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Description</th>                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="status"><pre>Accepted</pre></td>
+                                    <td>Message has been successfully processed.</td>
+                                </tr>
+                                <tr>
+                                    <td class="status"><pre>Error</pre></td>
+                                    <td>Message has not been processed.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="note">For messages with an Error response, the Chikka SMS API will attempt to resend the message 3 times within one second.</p>
+                </li>
+            </ol>
+            
+            <h3 id="limitations-in-receiving-messages">Limitations in Receiving Messages</h3>
+            <p>Upon receiving a message, your <strong>Message Receiver</strong> component must send a REPLY (refer to <a href="#reply-sms">Reply to an SMS</a>). Otherwise, the mobile number will be restricted from sending messages to your short code for the next 24 hours.</p>
+            
+            <h3 id="multi-part-messages">Multi-part Messages</h3>
+            <p>The API sends a multi-part message separately depending on the number of message parts. For example, a 2-part message is equivalent to 2 messages that will be sent to your short code. Note that, if the user sent a message that has more than 1 part, you might not receive the succeeding ones, unless you send a reply. This is due to the limit imposed by the API in receiving messages (refer to <a href="#limitations-in-receiving-messages">Limitation in Receiving Messages</a>).</p>
+       </div>
+   </div>
+</div><!--.com-handle-sms-receive-->

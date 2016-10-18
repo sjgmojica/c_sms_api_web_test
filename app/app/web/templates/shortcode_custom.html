@@ -1,0 +1,73 @@
+{% extends base.html%}
+
+
+
+{% block body_classes %}page-custom-short-code{%end%}
+
+
+{% block page_title %}Custom Short Code{%end%}
+
+
+{% block extra_js %}
+    <script type="text/javascript" src="{{ static_url('js/shortcode.js') }}"></script>
+{% end %}
+
+
+{% block docbody %}
+
+
+                    
+<section>
+<!-- 001e: Custom Short Code component -->
+<div class="com-csc 001e">
+    <div class="com-csc-cr">
+        <header>
+            <h1 class="at">Custom Short Code</h1>
+
+            <!-- Dismiss link -->
+
+            <!-- <p class="dismiss-link-cr"><a id="dismiss_dialog" class="dismiss-link" href="#"><span class="lbl">Dismiss</span></a></p>    -->
+            <p class="txt-ttl">Customize Your Short Code</p>
+
+        </header>
+        <div class="com-csc-ct">            
+        	<p class="txt-desc">Customize your short code by inputing 3 to 6 digits or letters.</p>
+
+            {% if error_message %}
+            <!-- Notification (error) -->
+            <div class="notification notification-error">
+                <p class="notification-message">{{ error_message }}</p>
+            </div>
+            {% end %}
+
+
+            {% if success_message %}
+                <!-- removed from latest specs
+                    <div class="notification">
+                        <p class="notification-message">{{ success_message }}</p>
+                    </div>           
+                -->
+            {% end %}
+            <section>
+            
+                {% include shortcode_custom_search.html %}
+
+            </section>
+
+
+
+      {% if not error_message %}
+            {% if code_list %}
+            <p class="txt-desc">Here are the available Short Codes that match your search.</p>
+            <section>
+              {% include shortcode_custom_list.html  %}
+            </section>
+            {% end %}
+        {% end %}
+       </div>
+   </div>
+</div><!--.com-csc-->
+
+
+</section>
+{% end %}

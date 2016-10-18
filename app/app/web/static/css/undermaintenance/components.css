@@ -1,0 +1,1492 @@
+/*------------------------- Clearfix -------------------------*/
+.clearfix:before,
+.clearfix:after,
+li.sc-cr:before,
+li.sc-cr:after,
+.com-sci-ct:before,
+.com-sci-ct:after,
+.com-account-settings .user-info-cr:before,
+.com-account-settings .user-info-cr:after,
+.com-account-settings .user-email-cr:before,
+.com-account-settings .user-email-cr:after,
+.com-account-settings .user-password-cr:before,
+.com-account-settings .user-password-cr:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after,
+li.sc-cr:after,
+.com-sci-ct:after, 
+.com-account-settings .user-info-cr:after,
+.com-account-settings .user-email-cr:after,
+.com-account-settings .user-password-cr:after {
+    clear: both;
+}
+
+.clearfix,
+li.sc-cr,
+.com-sci-ct,
+.com-account-settings .user-info-cr,
+.com-account-settings .user-email-cr,
+.com-account-settings .user-password-cr {
+    *zoom: 1;
+}
+
+/*------------------------- Image replacement -------------------------*/
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*------------------------- Hide visually -------------------------*/
+.visuallyhidden,
+.com-rp label,
+.com-account-info .txt-title,
+.com-sc label,
+.com-transaction-history label,
+.com-inbox .txt-title,
+.com-sent .txt-title,
+.com-verify-public-key label,
+.com-purchase-package .com-rates .txt-title,
+.com-smart-payment label,
+.com-edit-email label,
+.com-scl .txt-ttl,
+.com-sci .txt-ttl,
+.com-verify-number .txt-ttl,
+.com-test-send label,
+.com-test-receive label,
+.pop-over .txt-title,
+a.sort-date .lbl,
+.sort-datetime-lnk .lbl,
+.sort-from-lnk .lbl,
+.sort-charge-lnk .lbl,
+.sort-to-lnk .lbl,
+.sort-status-lnk .lbl,
+.prev-page .lbl,
+.next-page .lbl,
+.com-upgrade-banner .txt-title,
+.srch-cr label,
+.com-test-mms-send .psu-inp-min label,
+.com-test-mms-send .psu-inp-mn label,
+.com-test-mms-send .psu-inp-upload label,
+.com-test-mms-receive label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.reverse,
+.com-pin-code .txt-ttl,
+.com-csc .txt-desc {
+    clip:rect(auto, auto, auto, auto);
+    height:auto;
+    margin:auto;
+    overflow:auto;
+    padding:inherit;
+    position:inherit;
+    width:auto;
+}
+
+.com-contact .txt-desc,
+.com-terms .txt-desc,
+.com-privacy-policy .txt-desc,
+.com-verify-number .txt-desc,
+.com-pin-code .txt-desc,
+.com-new-password .txt-desc,
+.com-edit-name-address .txt-desc,
+.com-edit-email .txt-desc,
+.com-edit-password .txt-desc,
+.com-rp .txt-desc,
+.com-checkout .payment-cr .txt-desc,
+.com-verify-public-key .txt-desc,
+.com-purchase-details .txt-desc,
+.com-rates .txt-desc {
+	display: none;
+}
+
+/*------------------------- Account info -------------------------*/
+.com-account-info {
+	text-align: right;
+}
+
+.toggled-on .com-account-info {
+	display: none;
+}
+
+.com-account-info .account-balance {
+	padding-left: 1.25em;
+	display: none;
+}
+
+/*------------------------- Settings menu -------------------------*/
+.com-settings-menu {
+	position: relative;
+	top: 3.5em;
+	right: 0;
+}
+
+/*------------------------- Home -------------------------*/
+.com-home-banner .banner-main {
+	margin: 1em auto;
+}
+
+.com-home-banner .banner-main .lbl {
+	display: none;
+}
+
+.com-sms-banner div.banner-main {
+	margin: 3em auto;
+}
+
+.com-sms-banner .txt-desc {
+	margin-top: 0.5em;
+}
+
+.com-home-banner .psu-btn,
+.com-sms-banner .psu-btn {
+	font-size: 1.25em;
+}
+
+.com-features ul,
+.com-sms-features ul,
+.com-sms-features-budget ul {
+	margin-top: 2.25em;
+}
+
+.com-features ul li,
+.com-sms-features ul li,
+.com-sms-features-budget ul li {
+	width: 30%;
+	max-width: 20em;
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+}
+
+.com-features ul li {
+	padding-top: 150px;
+}
+
+.com-sms-features ul li {
+	padding-top: 100px;
+}
+
+.com-sms-features-budget ul li {
+	width: 24.5%;
+	max-width: 14em;
+}
+
+.com-features ul li .feature-icon,
+.com-sms-features ul li .feature-icon {
+	position: absolute;
+	top: 0;
+	left: 50%;
+}
+
+.com-features ul li .feature-icon {
+	margin-left: -75px;
+}
+
+.com-sms-features ul li .feature-icon {
+	margin-left: -50px;
+}
+
+.com-feature,
+.com-sms-feature {
+	margin-top: 1.5em;
+	padding: 0 2em;
+}
+
+.com-extra .txt-desc {
+	margin-bottom: 0.25em;
+}
+
+.com-sms-extra * {
+	display: inline-block;
+}
+
+.com-sms-extra .psu-btn {
+	margin: 1em 1em 0;
+}
+
+/*------------------------- Dashboard -------------------------*/
+.com-dashboard-welcome-cr {
+	position: relative;
+}
+
+.com-dashboard-welcome .txt-desc {
+	margin-bottom: 1em;
+}
+
+.com-dashboard-welcome ul {
+	list-style-type: disc;
+	max-width: 99%;
+}
+
+.com-dashboard-welcome ul li {
+	width: 50%;
+	float: left;
+	list-style-position: inside;
+	margin: 0.5em 0 0;
+}
+
+.com-dashboard-welcome ul li {
+	font-size: 1.125em;
+}
+
+.site-content > section > div > div.com-upgrade-banner-cr {
+	padding-bottom: 1.75em;
+}
+
+.com-upgrade-banner-cr {
+	position: relative;
+}
+
+.com-upgrade-banner .txt-desc {
+	width: 60%;
+	margin-bottom: 1em;
+}
+
+.com-upgrade-banner .banner-main {
+	text-align: right;
+	position: absolute;
+	bottom: 1.5em;
+	right: 1.5em;
+}
+
+.site-content > section > div > div.com-dashboard-short-code-cr {
+	padding: 0.5em;
+}
+
+.com-dashboard-short-code * {
+	display: inline-block;
+	text-align: center;
+}
+
+.com-dashboard-short-code .txt-desc {
+	margin: 0 0.5em;
+}
+
+.com-recent-transactions .com-recent-transactions-ct,
+.com-recent-transactions table {
+	margin-top: 1.5em;
+}
+
+.com-recent-transactions .pagination-cr {
+	display: none;
+}
+
+.com-recent-transactions .psu-btn {
+	margin-top: 1.5em;
+}
+
+.com-dashboard-rates .com-dashboard-rates-ct {
+	margin-top: 0.5em;
+	text-align: justify;
+	margin-bottom: -1.25em;
+}
+
+.com-dashboard-rates .com-dashboard-rates-ct:after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+	line-height: 0;
+}
+
+.com-dashboard-rates table {
+	display: inline-block;
+	margin-top: 1em;
+	width: 48%;
+	background-color: #F7F7F7;
+}
+
+.com-dashboard-rates table td {
+	padding: 0.25em 1.5em;
+	width: 60%;
+}
+
+/*------------------------- Sign up -------------------------*/
+.com-su .fld-cpwd {
+	clear: both;
+}
+
+.com-su .form-footer {
+	margin-top: 2em;
+}
+
+.com-su .form-footer p {
+	margin-top: 1em;
+}
+
+.com-sign-up-email .notification {
+	margin-bottom: 0;
+}
+
+/*------------------------- Sign in -------------------------*/
+.com-si-form .psu-inp-pwd {
+	margin-bottom: 2em;
+}
+
+.com-si-form .fld-axn {
+	margin-top: 0;
+}
+
+.com-si-form .rst-pwd-lnk-cr {
+	float: right;
+}
+
+/*------------------------- Reset Password -------------------------*/
+.com-rp .fld-email {
+	margin-top: 1.5em;
+}
+
+/*------------------------- New Password -------------------------*/
+.com-new-password .fld-pwd-new-c {
+	clear: both;
+}
+
+/*------------------------- Short code -------------------------*/
+.com-sc .fld-axn {
+	margin-bottom: 0;
+}
+
+.com-sc .fld-axn,
+.com-sc .psu-btn-sec,
+.com-sc .psu-btn-sec > a {
+	width: 100%;
+	text-align: center;
+}
+
+.com-sc .fld-axn .psu-btn-sub {
+	float: right;
+	margin-top: -3.25em;
+}
+
+.com-sc .fld-axn .psu-btn-sub button {
+	width: 12em;
+}
+
+.com-sc .divider {
+	margin-bottom: 1em;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+}
+
+.com-sc .divider:before,
+.com-sc .divider:after {
+	content: " ";
+	display: inline-block;
+	width: 40%;
+	position: relative;
+	top: 0.75em;
+}
+
+.com-sc .divider:before {
+	float: left;
+}
+
+.com-sc .divider:after {
+	float: right;
+}
+
+.com-your-short-code {
+	text-align: center;
+}
+
+.com-your-short-code .your-short-code {
+	margin-top: 0.25em;
+}
+
+/*------------------------- Custom Short Code -------------------------*/
+.com-csc .srch-cr .fld-axn,
+.com-csc .com-sci .fld-axn {
+	width: auto;
+	margin-top: 0;
+}
+
+.srch-cr {
+	margin-top: 2em;
+	margin-bottom: 0.5em;
+	width: 100%;
+}
+
+.srch-cr .fld-kw,
+.srch-cr .fld-axn {
+	display: inline-block;
+}
+
+.srch-cr .fld-kw {
+	width: 20em;
+}
+
+.srch-cr .inp-txt-kw {
+	width: 100%;
+}
+
+.srch-cr .fld-axn {
+	float: right;
+}
+
+.srch-cr .psu-inp,
+.srch-cr .fld-axn .psu-btn-sub {
+	margin-top: 0;
+}
+
+.srch-cr .fld-axn .psu-btn-sub {
+	margin: 0 1em;
+}
+
+.srch-cr .fld-axn .psu-btn {
+	display: inline-block;
+}
+
+.srch-cr .fld-axn .psu-btn-sub,
+.srch-cr .fld-axn .psu-btn-sub button {
+	width: auto;
+}
+
+.com-sci .sc-cr {
+	display: inline-block;
+	width: 12.5em;
+}
+
+.com-sci .fld-axn {
+	margin-left: 1em;
+}
+
+.com-sci .fld-axn .psu-btn {
+	width: auto;
+	margin-top: 0;
+}
+
+li.sc-cr {
+	margin-bottom: 1em;
+}
+
+li.sc-cr:only-child,
+li.sc-cr:last-child {
+	margin-bottom: 0;
+}
+
+/*------------------------- Test -------------------------*/
+.test-content input[type],
+.test-content .verified-icon,
+.test-content .psu-inp-min {
+	display: inline-block;
+}
+
+.test-content .fld-mn {
+	display: inline-block;
+	margin-bottom: 2em;
+	margin-right: 1em;
+	vertical-align: top;
+}
+
+.test-content .fld-axn,
+.test-content .fld-min {
+	display: inline-block;
+}
+
+.test-content .com-verify-number .fld-axn,
+.test-content .psu-inp-mn {
+	margin-top: 0;
+}
+
+.test-content .psu-inp-msg,
+.test-content .psu-inp-msg textarea {
+	display: table-cell;
+	vertical-align: middle;
+	vertical-align: -webkit-baseline-middle
+}
+
+.test-content .psu-inp-msg textarea {
+	height: 4em;
+}
+
+.test-content .char-count {
+	display: table-cell;
+	padding: 0.75em;
+	vertical-align: baseline;
+}
+
+.test-content .com-verify-number .notification {
+	margin: 0 0 2em;
+}
+
+.test-content .com-pin-code .notification {
+	margin: 1.5em 0;
+}
+
+.com-test-mms-send .psu-inp-file {
+	margin-top: 0;
+}
+
+.com-test-mms-send .psu-inp-upload {
+	padding-left: 0.5em;
+	display: inline-block;
+	margin-top: 0;
+	vertical-align: middle;
+	overflow: hidden;
+	width: 13.5em;
+	box-sizing: border-box;
+}
+
+.com-test-mms-send .psu-inp-upload input {
+	padding: 0.25em 0;
+	text-indent: -5.75em;
+	width: 12em;
+	-webkit-margin-start: -1em;
+	-webkit-margin-before: 0.25em;
+	-webkit-margin-after: -0.1em;
+}
+
+.com-test-mms-send .psu-inp-upload input::-webkit-file-upload-button {
+	width: 0;
+}
+
+.com-test-mms-send .browse-lnk-cr {
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+.com-test-mms-send .psu-inp-msg {
+	display: inline-block;
+	vertical-align: bottom;
+	margin-top: 0;
+}
+
+.com-test-mms-send .char-count {
+	display: inline-block;
+	height: 4.75em;
+	margin-left: -3px;
+	vertical-align: bottom;
+}
+
+/*------------------------- MIN -------------------------*/
+.min-cr {
+	display: none;
+}
+
+.min-cr.active {
+	display: block;
+}
+
+.min-cr .psu-inp {
+	margin-top: 0.5em;
+	vertical-align: middle;
+}
+
+.min-cr .verified-icon {
+	margin-left: 1em;
+}
+
+.min-cr .edit-lnk-cr {
+	display: inline-block;
+	margin-left: 1em;
+	vertical-align: top;
+	margin-top: 0.75em;
+}
+
+/*------------------------- Verify Mobile Number -------------------------*/
+.com-verify-number {
+	display: none;
+}
+
+.com-verify-number.active {
+	display: block;
+}
+
+.com-verify-number .psu-btn-cncl {
+	margin-left: 1em;
+}
+
+/*------------------------- PIN Code -------------------------*/
+
+/*------------------------- Packages -------------------------*/
+.com-purchase-package .plan-lst {
+	width: 100%;
+	display: table;
+	margin: 2em 0 1em;
+}
+
+.com-purchase-package .plan-lst li {
+	padding: 1em 0;
+}
+
+.com-purchase-package .plan-lst li:first-child {
+	padding-left: 0;
+}
+
+.com-purchase-package .plan-lst li:last-child {
+	border-right: 0 none;
+	padding-right: 0;
+}
+
+/*------------------------- Plan -------------------------*/
+.com-plan header,
+.com-plan .com-plan-ct,
+.com-plan .fld-sel-qty,
+.com-plan .fld-axn {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.com-plan .txt-title {
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+
+.com-plan .psu-inp-sel-qty label {
+	display: inline-block;
+}
+
+.com-plan .fld-sel-qty,
+.com-plan .psu-inp-sel-qty,
+.com-plan .fld-axn {
+	margin: 0;
+}
+
+.com-plan .inp-sel-qty,
+.com-plan .fld-axn {
+	margin-left: 1em;
+}
+
+.com-plan .psu-btn .btn-sub {
+	padding: 0.75em 0.9em;
+}
+
+/*------------------------- Rates -------------------------*/
+.rates-cr {
+	margin: 1.5em 0 0;
+}
+.com-rates {
+	display: none;
+}
+
+.com-rates.active {
+	display: block;
+}
+
+.com-rates table {
+	margin-top: 1em;
+	text-align: left;
+}
+
+/*------------------------- Transaction History -------------------------*/
+.com-transaction-history .filter-options-cr,
+.com-transaction-history .fld,
+.com-transaction-history .results-header p {
+	display: inline-block;
+}
+
+.com-transaction-history .txt-desc {
+	margin-bottom: 1em;
+}
+
+.com-transaction-history .notification {
+	margin-bottom: 0.75em;
+}
+
+.com-transaction-history .filter-options-cr {
+	margin-top: 1em;
+	display: block;
+}
+
+.com-transaction-history .fld {
+	display: block;
+}
+
+.com-transaction-history .fld .psu-inp input,
+.com-transaction-history .fld .psu-inp select {
+	width: 100%;
+}
+
+.com-transaction-history .psu-inp {
+	margin-top: 0;
+}
+
+.com-transaction-history .fld-axn {
+	margin-right: 0;
+	vertical-align: top;
+}
+
+.com-transaction-history .fld input {
+	display: inline-block;
+}
+
+.com-transaction-history .results-cr {
+	margin-top: 1em;
+}
+
+.com-transaction-history .results-header {
+	margin: 1.5em 0;
+}
+
+.com-transaction-history .export-lnk-cr {
+	margin-left: 1em;
+}
+
+.com-transaction-history nav ul,
+.com-recent-transactions nav ul {
+	display: table;
+	width: 100%;
+	text-align: center;
+}
+
+.com-transaction-history nav ul li,
+.com-recent-transactions nav ul li {
+	display: table-cell;
+	width: 50%;
+}
+
+.com-transaction-history nav ul li a,
+.com-recent-transactions nav ul li a {
+	padding: 1em;
+	display: block;
+}
+
+.com-transaction-history table,
+.com-recent-transactions table {
+	text-align: center;
+	margin-top: 1.5em;
+}
+
+.com-transaction-history .com-transaction-history-inbox-sent-cr > div,
+.com-recent-transactions .com-recent-transactions-inbox-sent-cr > div {
+	display: none;
+	clear: both;
+}
+
+.com-transaction-history .com-transaction-history-inbox-sent-cr .active,
+.com-recent-transactions .com-recent-transactions-inbox-sent-cr .active {
+	display: block;
+}
+
+.com-transaction-history .pagination-cr {
+	float: right;
+	margin: 1em 0;
+}
+
+.com-transaction-history .pagination-cr .psu-inp-page {
+	display: inline-block;
+	vertical-align: bottom;
+	margin: 0 0.5em 0.5em;
+}
+
+.com-transaction-history .pagination-cr .txt-desc {
+	margin-bottom: 0;
+	margin-right: 0.5em;
+	display: inline-block;
+}
+
+.com-transaction-history .pagination-cr .prev-page,
+.com-transaction-history .pagination-cr .next-page {
+	float: none;
+	display: inline-block;
+}
+
+.com-transaction-history .com-sent-table table,
+.com-recent-transactions .com-sent-table table {
+	table-layout: fixed;
+}
+
+.com-transaction-history .com-sent-table table td,
+.com-recent-transactions .com-sent-table table td {
+	min-width: 3em;
+}
+
+.com-transaction-history .com-sent-table th.datetime,
+.com-recent-transactions .com-sent-table th.datetime { width: 6em; }
+.com-transaction-history .com-sent-table th.to,
+.com-recent-transactions .com-sent-table th.to { width: 7em; }
+.com-transaction-history .com-sent-table th.type,
+.com-recent-transactions .com-sent-table th.type { width: 2.75em; }
+
+/*------------------------- Monthly Summary -------------------------*/
+.com-monthly-summary .com-monthly-summary-table td {
+	text-align: right;
+}
+
+.com-monthly-summary .com-monthly-summary-table .month {
+	text-align: left;
+}
+
+/*------------------------- Purchase History -------------------------*/
+
+/*------------------------- Purchase Details -------------------------*/
+.com-purchase-details .com-purchase-details-table {
+	margin-top: 1.5em;
+}
+
+.com-purchase-details .com-purchase-details-table th:first-child {
+	text-align: left;
+}
+
+.com-purchase-details .com-purchase-details-table .qty {
+	text-align: center;
+}
+
+.com-purchase-details .com-purchase-details-table th:last-child,
+.com-purchase-details .com-purchase-details-table .amount {
+	text-align: right;
+}
+
+/*------------------------- Shopping Cart -------------------------*/
+.com-shopping-cart .cart-table th:first-child,
+.com-shopping-cart .cart-table .total .label {
+	text-align: left;
+}
+
+.com-shopping-cart .cart-table .qty {
+	text-align: center;
+}
+
+.com-shopping-cart .cart-table th:last-child,
+.com-shopping-cart .cart-table .total,
+.com-shopping-cart .cart-table .amount {
+	text-align: right;
+	padding-right: 3em;
+}
+
+.com-shopping-cart .cart-table .inp-qty {
+	width: 3em;
+	margin: 0 auto;
+}
+
+.com-shopping-cart .cart-table .remove {
+	display: none;
+}
+
+.com-shopping-cart .cart-table tr:hover .remove {
+	display: block;
+	position: absolute;
+	margin-top: 0.5em;
+	margin-left: -3em;
+}
+
+.com-shopping-cart .cart-table + .fld-axn .psu-btn {
+	margin-right: 1em;
+}
+
+.com-shopping-cart .cart-table + .fld-axn .psu-btn:last-child {
+	margin-right: 0;
+}
+
+.com-shopping-cart-empty .empty-shopping-cart-message {
+	margin: 2em 0 3em;
+}
+
+/*------------------------- Checkout -------------------------*/
+.com-checkout .checkout-table th:first-child,
+.com-checkout .checkout-table .total .label {
+	text-align: left;
+}
+
+.com-checkout .checkout-table .qty {
+	text-align: center;
+}
+
+.com-checkout .checkout-table th:last-child,
+.com-checkout .checkout-table .total,
+.com-checkout .checkout-table .amount {
+	text-align: right;
+}
+
+.com-checkout label {
+	padding-left: 1em;
+}
+
+.com-checkout .payment-cr {
+	margin: 2em 0;
+}
+
+.com-checkout .payment-cr .fld-item-payment:first-child {
+	margin-top: 1em;
+}
+
+.com-checkout .payment-cr input,
+.com-checkout .payment-cr label {
+	display: inline-block;
+}
+
+.com-checkout .fld-item-terms {
+	display: table;
+}
+.com-checkout .fld-item-terms input,
+.com-checkout .fld-item-terms label {
+	display: table-cell;
+}
+
+/*------------------------- SMART Payment -------------------------*/
+.com-smart-payment-pin div.fld-axn {
+	float: none;
+}
+
+/*------------------------- Account Settings -------------------------*/
+.com-account-settings .user-info-ct,
+.com-account-settings .user-email-ct,
+.com-account-settings .user-password-ct {
+	display: block;
+}
+
+.com-account-settings .user-email-cr,
+.com-account-settings .user-password-cr,
+.com-account-settings .user-info-cr,
+.com-account-settings .user-name-ct,
+.com-account-settings .user-company-ct,
+.com-account-settings .user-address-ct,
+.com-account-settings .user-email-ct,
+.com-account-settings .user-password-ct {
+	margin-top: 1.5em;
+}
+
+.com-account-settings .user-email-cr,
+.com-account-settings .user-info-cr,
+.com-account-settings .user-password-cr {
+	position: relative;
+}
+
+.com-account-settings .edit-lnk-cr {
+	display: block;
+	position: absolute;
+	top: 1.5em;
+	right: 0;
+}
+
+.com-account-settings span {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 74%;
+}
+
+.com-account-settings .label {
+	width: 25%;
+}
+
+/*------------------------- Edit Name and Address -------------------------*/
+
+/*------------------------- Edit Email -------------------------*/
+
+/*------------------------- Edit Password -------------------------*/
+.com-edit-password .fld-pwd-new-c {
+	clear: both;
+}
+
+/*------------------------- API Settings -------------------------*/
+.com-api-settings-saved .txt-title,
+.com-api-settings-saved .txt-title + section,
+.com-api-settings-saved .edit-lnk,
+.com-api-settings-saved .psu-inp-public-key label,
+.com-api-settings-saved .verify-public-key-lnk-cr,
+.com-api-settings-saved .verified .verified-icon,
+.com-api-settings-saved .edit-lnk-cr {
+	display: inline-block;
+}
+
+.com-api-settings-saved .txt-title {
+	vertical-align: middle;
+}
+
+.com-api-settings-saved .verify-public-key-lnk-cr {
+	margin-left: 0.5em;
+}
+
+.com-api-settings-saved .verified-icon,
+.com-api-settings-saved .verified .verify-public-key-lnk-cr {
+	display: none;
+}
+
+.com-api-settings-saved .verified .verified-icon {
+	margin-left: 0.5em;
+	vertical-align: text-bottom;
+}
+
+.com-api-settings-saved .edit-lnk-cr {
+	margin: 0 1em;
+	vertical-align: middle;
+}
+
+.com-api-settings-saved .tooltip-cr {
+	padding-left: 1em;
+	padding-right: 1em;
+	top: 0.5em;
+}
+
+.com-api-settings-saved .tooltip-cr .tooltip-ct {
+	width: 200px;
+	padding: 0.75em 1em;
+	bottom: 3em;
+	left: 3em;
+	position: relative;
+}
+
+.com-mms-api-settings-saved {
+	margin-top: 2em;
+	padding-top: 1.5em;
+}
+
+/*------------------------- Edit API Settings -------------------------*/
+.com-api-settings-frm {
+	margin-top: 0.5em;
+}
+
+/*------------------------- Help -------------------------*/
+.site-content > section > div.com-help > div {
+	width: 920px;
+}
+
+.com-help .com-help-ct {
+	padding-top: 1.25em;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.com-help .toc-cr,
+.com-help .main-cr {
+	display: table-cell;
+}
+
+.com-help .toc-lnk {
+	position: relative;
+	display: block;
+	padding: 0.25em 0;
+}
+
+.com-help .toc-lst.sub {
+	margin-left: 1em;
+}
+
+.com-help .toc-lnk.sub:after {
+	left: -1em;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-left-color: #BCC7CE;
+	border-width: 5px;
+	top: 0%;
+	margin-top: 0.65em;
+}
+
+.com-help .toc-cr {
+	padding: 0.5em 1em;
+	width: 13.5em;
+	background-color: #F7F7F7;
+}
+
+/*.com-help .toc-ct.sticky {
+	position: fixed;
+	max-width: 13.5em;
+	top: 0.25em;
+}*/
+
+.com-help .toc-lst:not(.sub) > li {
+	margin-bottom: 0.65em;
+}
+
+.com-help .main-cr {
+	padding-left: 1.5em;
+}
+
+.com-help ol {
+	list-style-type: none;
+}
+
+.com-help ul {
+	list-style-type: disc;
+	margin: 1em 2em;
+}
+
+.com-help .faq-lst > li:not(:first-child) .faq-ct {
+	margin-top: 2.75em;
+}
+
+.com-help .faq-lst > li:not(:first-child) .faq-ct.sub {
+	margin-top: 1.5em;
+}
+
+.com-help .faq-lst li p {
+	margin: 1em 0;
+	color: #666A6C;
+}
+
+/*------------------------- Tutorials -------------------------*/
+.com-help .ui-dialog p.txt-title {
+	margin: 0;
+}
+
+.com-help .picture-slider {
+	position: relative;
+	overflow: hidden;
+	width: 435px;
+	height: auto;
+	margin-top: 1em;
+	margin-bottom: -3em;
+}
+
+.com-help .ps-controls {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+
+.com-help .ps-sheet {
+	position: absolute;
+	top: 0;
+}
+
+.com-help .ps-frame {
+	position: absolute;
+	top: 0;
+	background-color: #F7F7F7;
+	height: auto;
+}
+
+.com-help .ps-frame-content {
+	position: absolute;
+	top: 0;
+	margin: 1em;
+	z-index: -1;
+}
+
+.com-help .ps-frame-image {
+	display: block;
+	position: static;
+	margin: 1em auto;
+	height: auto;
+	width: auto;
+}
+
+.com-help .ps-caption {
+	width: 100%;
+	margin-top: 21.5em;
+}
+
+.com-help .ps-caption .page {
+	font-size: 0.8em;
+	position: absolute;
+	bottom: 1.25em;
+	margin: 0;
+	color: #8A8E93;
+}
+
+.com-help .ui-dialog .fld-axn {
+	position: relative;
+	z-index: 1;
+}
+
+.com-help .ui-dialog .fld-axn .psu-btn-pri {
+	margin-left: 1em;
+}
+
+.com-help .ui-dialog p.dismiss-link-cr {
+	margin: 0;
+}
+
+.com-help .com-tutorial-api-settings .picture-slider { min-height: 27.5em; }
+.com-help .com-tutorial-api-settings .ps-frame { height: 20.5em; }
+.com-help .com-tutorial-api-settings .ps-caption { margin-top: 21.5em; }
+.com-help .com-tutorial-enroll-number .picture-slider { min-height: 22.5em; }
+.com-help .com-tutorial-enroll-number .ps-frame { min-height: 15.5em; }
+.com-help .com-tutorial-enroll-number .ps-caption { margin-top: 16.5em; }
+.com-help .com-tutorial-purchase-history .picture-slider { min-height: 19em; }
+.com-help .com-tutorial-purchase-history .ps-frame { min-height: 12em; }
+.com-help .com-tutorial-purchase-history .ps-caption { margin-top: 13em; }
+.com-help .com-tutorial-transaction-history .picture-slider { min-height: 24.75em; }
+.com-help .com-tutorial-transaction-history .ps-frame { min-height: 17.75em; }
+.com-help .com-tutorial-transaction-history .ps-caption { margin-top: 18.75em; }
+.com-help .com-tutorial-smart-payment .picture-slider { min-height: 25em; }
+.com-help .com-tutorial-smart-payment .ps-frame { min-height: 18em; }
+.com-help .com-tutorial-smart-payment .ps-caption { margin-top: 19em; }
+.com-help .com-tutorial-manage-cart .picture-slider { min-height: 21.5em; }
+.com-help .com-tutorial-manage-cart .ps-frame { min-height: 14.5em; }
+.com-help .com-tutorial-manage-cart .ps-caption { margin-top: 15.5em; }
+.com-help .com-tutorial-short-code .picture-slider { min-height: 21.5em; }
+.com-help .com-tutorial-short-code .ps-frame { min-height: 14.5em; }
+.com-help .com-tutorial-short-code .ps-caption { margin-top: 15.5em; }
+.com-help .com-tutorial-receive-message .picture-slider { min-height: 22.5em; }
+.com-help .com-tutorial-receive-message .ps-frame { min-height: 15.5em; }
+.com-help .com-tutorial-receive-message .ps-caption { margin-top: 16.5em; }
+.com-help .com-tutorial-send-message .picture-slider { min-height: 22em; }
+.com-help .com-tutorial-send-message .ps-frame { min-height: 15em; }
+.com-help .com-tutorial-send-message .ps-caption { margin-top: 16em; }
+
+/*------------------------- Back to top -------------------------*/
+.back-top-link-cr {
+	position: fixed;
+	right: 0;
+	bottom: 3.25em;
+	margin: 1.5em;
+	display: none;
+	z-index: 1;
+}
+
+.back-top-link-cr a {
+	display: block;
+	padding: 0.5em;
+	background-color: black;
+	border-radius: 0.25em;
+}
+
+/*------------------------- Contact Us -------------------------*/
+.com-contact p {
+	margin: 1em 0;
+}
+
+.com-contact .contact-map-cr {
+	margin-top: 1em;
+}
+
+.com-contact .contact-map-cr p {
+	margin: 0;
+}
+
+/*------------------------- Terms and Conditions -------------------------*/
+.com-terms header .txt-title {
+	margin-bottom: 0.75em;
+}
+
+.com-terms .com-terms-ct .txt-title {
+	margin: 1.75em 0 0;
+}
+
+.com-terms .com-terms-ct p {
+	margin: 1em 0;
+}
+
+.com-terms ol,
+.com-terms ul {
+	list-style-type: upper-latin;
+	margin-left: 1.5em;
+}
+
+.com-terms ul {
+	list-style-type: disc;
+}
+
+/*------------------------- Privacy Policy -------------------------*/
+.com-privacy-policy header .txt-title {
+	margin-bottom: 0.75em;
+}
+
+.com-privacy-policy .com-privacy-policy-ct .txt-title {
+	margin: 1.75em 0 0;
+}
+
+.com-privacy-policy .com-privacy-policy-ct p {
+	margin: 1em 0;
+}
+
+/*------------------------- Privacy Policy -------------------------*/
+.com-maintenance {
+	text-align: center;
+}
+
+.com-maintenance .txt-title {
+	margin: 0;
+}
+
+.com-maintenance .banner-cr {
+	display: inline-block;
+	margin: 1em 0;
+}
+
+.com-maintenance p {
+	margin: 0 0 2em;
+	
+}
+
+/*------------------------- Media Query -------------------------*/
+@media only screen and (min-width: 640px) {	
+	.com-transaction-history .filter-options-cr {
+		display: inline-block;
+	}
+	
+	.com-transaction-history .fld {
+		margin-right: 1em;
+		display: inline-block;
+	}
+	
+	.com-transaction-history .fld-axn {
+		margin-right: 0;
+	}
+	
+	.com-transaction-history .fld .psu-inp input,
+	.com-transaction-history .fld .psu-inp select {
+		width: auto;
+	}
+}
+
+@media only screen and (min-width: 768px) {	
+	.com-sms-extra .psu-btn {
+		margin: 0 1em;
+	}
+	
+	.com-transaction-history .fld-axn {
+		float: right;
+	}
+}
+
+@media only screen and (max-width: 320px) {	
+	.com-test-send .psu-inp-min input {
+		width: 8em;
+	}
+	
+	.com-test-send .psu-inp-msg textarea {
+		width: 10em;
+	}
+	
+	.com-test-send .psu-inp-min {
+		width: 75%;
+	}
+	
+	.min-cr .verified-icon {
+		margin: 0 0 0 1em;
+	}
+}
+
+@media only screen and (max-width: 767px) {	
+	.com-dashboard-welcome ul li {
+		width: auto;
+		float: none;
+	}
+
+	.com-purchase-package .plan-lst li {
+		display: inline-block;
+		padding: 1em 1.5em 1em 0;
+	}
+	
+	.com-dashboard-rates table {
+		display: table;
+		width: 100%;
+	}
+	
+	.com-upgrade-banner .txt-desc {
+		width: 100%;
+	}
+	
+	.com-upgrade-banner .banner-main {
+		z-index: -1;
+	}
+	
+	.com-si-form .rst-pwd-lnk {
+		float: none;
+	}
+
+	.com-sc .fld-axn .psu-btn-sub {
+		float: none;
+		display: block;
+		margin-top: 0;
+	}
+	
+	.com-sc .divider {
+		margin: 1em 0;
+		display: block;
+	}
+	
+	.srch-cr .fld-axn .psu-btn-neg,
+	.srch-cr .fld-axn .psu-btn-sub {
+		float: none;
+		display: inline-block;
+	}
+	
+	.srch-cr .fld-axn .psu-btn-neg {
+		margin: 0 1em 0 0;
+	}
+	
+	.com-csc .srch-cr .fld-axn,
+	.com-csc .com-sci .fld-axn {
+		float: none;
+	}
+	
+	.com-csc .srch-cr .fld-axn {
+		margin-bottom: 1em;
+	}
+	
+	.com-csc .com-sci .fld-axn {
+		margin-top: 1em;
+	}
+
+	.com-help .toc-cr,
+	.com-help .main-cr {
+		width: auto;
+		display: block;
+	}
+	
+	.com-help .main-cr {
+		padding-top: 1.5em;
+		padding-left: 0;
+	}
+	
+	.com-help .toc-ct.sticky {
+		position: relative;
+		max-width: 100%;
+		top: auto;
+	}
+	
+	.menu {
+		text-align: center;
+	}
+	
+	.menu .menu-item {
+		display: inline-block;
+	}
+	
+	.back-top-link-cr {
+		bottom: 0;
+		margin: 1em;
+	}
+	
+	.com-si .rst-pwd-lnk-cr {
+		float: none;
+		position: absolute;
+		margin-top: 3em;
+	}
+	
+	.com-si div.fld-axn {
+		margin-bottom: 2em;
+	}
+}
+
+@media only screen and (max-width: 479px) {	
+	.com-account-settings .label {
+		display: block;
+		width: auto;
+	}
+}
+
+@media only screen and (max-width: 767px) {	
+	.com-home-banner div.banner-main { height: 20em; }
+	.com-sms-banner div.banner-main { height: 11em; }
+}
+@media only screen and (max-width: 639px) {
+	.com-home-banner div.banner-main { height: 15em; }
+	.com-sms-banner div.banner-main { height: 8em; }
+}
+@media only screen and (max-width: 479px) {
+	.com-home-banner div.banner-main { height: 11em; }
+	.com-sms-banner div.banner-main { height: 6em; }
+}
+@media only screen and (max-width: 319px) {
+	.com-home-banner div.banner-main { height: 8em; }
+	.com-sms-banner div.banner-main { height: 4em; }
+}

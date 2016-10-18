@@ -1,0 +1,46 @@
+<!-- 002w: SMART Payment PIN Code -->
+<div class="com-smart-payment-pin com-002w">
+    <div class="com-smart-payment-pin-cr">
+        <header>
+            <h1 class="at">Purchase Verfication</h1>
+            <p class="txt-ttl">Purchase Verification</p>
+        </header>
+        <div class="com-smart-payment-pin-ct">
+            <form class="com-smart-payment-pin-frm" action="/cart/payment/smart/pincode" method="post">
+                <fieldset>
+                    <input type="hidden" value="{{checkout_id}}" name="checkout_id" id="checkoout_id_field">
+                    <legend>PIN Code</legend>
+                    
+                    <p class="txt-desc">Your PIN code was sent to {{'0'+mobile[2:]}} for Transaction ID: {{checkout_id}}. Please enter the code to verify your purchase.</p>
+                    
+                    <div class="notification notification-error" {% if not perror_message %}  style="display:none" {% end %}  >
+                        <p class="notification-message">{{perror_message}}</p>
+                    </div>
+                    
+                    
+                    <div class="notification notification-success" style="display:none">
+                        <p class="notification-message">[Success message]</p>
+                    </div>                    
+                    
+                    
+                    <div class="fld fld-txt fld-pin">
+                        <div class="psu-inp psu-inp-txt pus-inp-pin">
+                            <label>PIN Code</label>
+                            <input class="inp-pin" type="text" placeholder="Your PIN code" name="pincode">
+                            <p class="hint"><a class="resend-link" href="#">Resend PIN</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a class="cncl-lnk" href="/cart?notif-type=cancel-smart-payment"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+              </fieldset>
+          </form>
+       </div>
+   </div>
+</div><!--.com-smart-payment-pin-->

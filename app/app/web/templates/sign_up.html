@@ -1,0 +1,164 @@
+{% extends signin_base.html %}
+{% block body_classes %}page-sign-up page-not-signed-in{%end%}
+
+
+{% block page_title %}Sign up{%end%}
+
+
+{% block docbody %}
+<section>
+
+<!-- 001b: Sign up component -->
+
+
+
+
+<!-- 001b: Sign up component -->
+<div class="com-su 001b">
+    <div class="com-su-cr">
+        <header>
+            <h1 class="at">Sign up</h1>
+            <p class="txt-ttl">It's fast and free.</p>
+        </header>
+        <div class="com-su-ct">            
+            <form class="com-su-form" method="post" action="/signup">
+                <fieldset>
+                    <legend>Sign up</legend>
+                    <p class="txt-desc">Create an account to get started.</p>
+                    
+					{% try %}
+					
+					{% if error_message %}
+					<!-- Notification (error) --> 
+					<div class="notification notification-error">
+						<p class="notification-message">{{error_message}}</p>
+					</div>
+					{% end %}
+					{% except %}
+					{% end %}
+	
+	
+	
+		            <!-- Notification (success) 
+<div class="notification notification-success">
+	<p class="notification-message">[Success message]</p>
+</div>                    -->
+                    <div class="fld fld-email">
+                        <div class="psu-inp psu-inp-email">
+                            <label>Email</label>
+                            
+                            {% try %}
+                                {% set email_style='' %}
+                                {% if inline_errors and 'invalid_email' in inline_errors %}
+                                    {% set email_style="border: 1px solid red;" %}
+                                {% end %}
+                            {% except %}
+                            {% end %}
+                            
+                            {% try %}
+                                {% if email and email %}
+                                    <input type="text" title="Email" placeholder="" class="inp-txt-email" name="email" value="" style="{{email_style}}" required>
+                                {% else %} 
+                                    <input type="text" title="Email" placeholder="" class="inp-txt-email" name="email" style="{{email_style}}">
+                                {% end %}
+                            {% except %}
+                                <input type="text" title="Email" placeholder="" class="inp-txt-email" name="email" style="{{email_style}}">
+                            {% end %}
+                        
+                        </div>
+                        
+                        {% if email_style %}
+                            <!-- Inline Notification (error) -->
+                            <div class="notification notification-error notification-inline">
+                                <p class="notification-message">{{inline_errors['invalid_email']}}</p>
+                            </div>
+                        {% end %}
+
+                   </div>
+                    <div class="fld fld-pwd">
+                        <div class="psu-inp psu-inp-pwd">
+                            <label>Password</label>
+
+                            {% try %}
+                                {% set password_style='' %}
+                                {% if inline_errors and 'invalid_password' in inline_errors  %}
+                                    {% set password_style="border: 1px solid red;" %}
+                                {% end %}
+                            {% except %}
+                            {% end %}
+
+                            
+                            {% try %}
+                                {% if password %}
+                                    <input class="inp-txt-pwd" type="password" placeholder="" title="Password" name="password" style="{{password_style}}" required>
+                                {% else %} 
+                                    <input class="inp-txt-pwd" type="password" placeholder="" title="Password" name="password" style="{{password_style}}">
+                                {% end %}
+                            {% except %}
+                                <input class="inp-txt-pwd" type="password" placeholder="" title="Password" name="password" style="{{password_style}}">
+                            {% end %}
+                            
+                        </div>
+                        <p class="hint">Password should be at least 8 characters (a-z and 0-9)</p>
+                        
+                        
+                        {% if password_style %}
+                            <!-- Inline Notification (error) -->
+                            <div class="notification notification-error notification-inline">
+                                <p class="notification-message">{{inline_errors['invalid_password']}}</p>
+                            </div>
+                        {% end %}
+
+
+                    </div>
+                    <div class="fld fld-cpwd">
+                        <div class="psu-inp psu-inp-cpwd">
+                            <label>Confirm Password</label>
+                                      
+
+                            {% try %}
+                                {% set passwords2_style='' %}
+                                {% if inline_errors and 'passwords_dont_match' in inline_errors %}
+                                    {% set passwords2_style="border: 1px solid red;" %}
+                                {% end %}
+                            {% except %}
+                            {% end %}
+
+                            
+                            {% try %}
+                                {% if password_again %}
+                                    <input type="password" placeholder="" class="inp-txt-cpwd" name="password_again" style="{{passwords2_style}}" required>
+                                {% else %} 
+                                    <input type="password" placeholder="" class="inp-txt-cpwd" name="password_again" style="{{passwords2_style}}">
+                                {% end %}
+                            {% except %} 
+                                <input type="password" placeholder="" class="inp-txt-cpwd" name="password_again" style="{{passwords2_style}}">
+                            {% end %}
+                            
+                        </div>
+                        
+                        {% if passwords2_style %}
+                            <!-- Inline Notification (error) -->
+                            <div class="notification notification-error notification-inline">
+                                <p class="notification-message">{{inline_errors['passwords_dont_match']}}</p>
+                            </div>
+                        {% end %}
+</div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Get started</button>
+                        </div>
+                    </div><!--.fld-axn-->
+                    
+                    <div class="form-footer">
+                        <p class="terms-policy-cr">By clicking the button you agree to the <a class="terms-link" href="/terms-conditions">Terms of Use</a>, and <a class="privacy-policy-link" href="/privacy">Privacy Policy</a>.</p>
+                        <p class="log-in-cr">Already have an account? <a class="log-in-lnk" href="/signin">Log in</a>.</p>
+                    </div>
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-su-->
+</section>
+{% end %}

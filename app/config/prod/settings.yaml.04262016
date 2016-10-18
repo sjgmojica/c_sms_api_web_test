@@ -1,0 +1,108 @@
+signup:
+  verification_expiry_hours: 48
+
+# used in verification URL ( and other purposes as needed ) 
+website_base_url: 'https://api.chikka.com'
+
+# port is different
+payment_gateway_callbak_base_url: 'http://larissa.internal.chikka.com:50030/smart_payment_callback'
+
+
+mysql_db: &mysql-db-entries
+  users: &mysql-db
+    type: mysqldb
+    host: chromium.internal.chikka.com
+    port: 3306
+    db: 'chikka_sms_api'
+    user: 'chikka_sms_api'
+    password: 'chikka_sms_api'
+
+
+fluent_logger:
+  general:
+    tag: 'sms_api.general'
+    host: 'larissa.internal.chikka.com'
+    port: 24231
+    verbose: True
+
+  payment:
+    tag: 'sms_api.payment'
+    host: 'larissa.internal.chikka.com'
+    port: 24231
+    verbose: True
+
+  scart:
+    tag: 'sms_api.shopping_cart'
+    host: 'larissa.internal.chikka.com'
+    port: 24231
+    verbose: True
+
+dragonpay:
+  host: 'live.dragonpay.ph'
+  uri: '/DragonPayWebService/MerchantService.asmx'
+  merchant_id: 'CHIKKA'
+  secret_key: 'Zm@K7uP3q'
+  api_url: 'http://api.dragonpay.ph/' 
+  api_get_token_url: 'http://api.dragonpay.ph/GetTxnToken' 
+  api_get_txn_status_url: 'http://api.dragonpay.ph/GetTxnStatus'
+  min_amount_peso: 500 
+  payment_url: 'https://gw.dragonpay.ph/Pay.aspx?tokenid=%s'
+
+paypal:
+  api_version: 112
+  merchant_user: 'api_api1.chikka.com'
+  merchant_paassword: 'F72K7KPNP5NUH5UW'
+  merchant_signature: 'A2B2nVzSutpJIY0kdSajO8Epg3QiA0n3fmI.O.1MvzF0xZqR4KuqXL7M'
+  paypal_website_domain: 'www.paypal.com'
+  #merchant api service ; Name-Value Pair format ; by API Signature
+  api_endpoint_url: 'https://api-3t.paypal.com/nvp'
+  min_amount_peso: 500
+  website_base_url: 'https://api.chikka.com'
+  max_purchase_value_per_month: 300000
+  # amount of time to wait after previous paypal pending purchase, seconds 
+  purchase_waiting_time: 600
+
+mailer:
+  host: 'Astatine.internal.chikka.com'
+  port: 25
+  mail_from_address: 'developerapi@chikka.com'
+  
+mysql-db:
+  <<: *mysql-db-entries
+  sms_api_config: &mysql-db-profiles
+    type: mysqldb
+    host: chromium.internal.chikka.com
+    port: 3306
+    db: 'chikka_sms_api'
+    user: chikka_sms_api
+    password: chikka_sms_api              
+      
+redis_servers:
+  sms_api:
+    host: technetium.internal.chikka.com
+    port: 6401
+
+verify_email_queue_key : 'prod:smsapi_signup_email_queue'
+checkout_queue_key: 'prod:checkout_queue'
+
+sms_credits:
+  redis_server:
+    host: technetium.internal.chikka.com
+    port: 6401
+
+text_api:
+  pincode_url: 'http://chaldene.internal.chikka.com:6501/smsapi/internal/mobile_verification'
+  mt_url: 'http://chaldene.internal.chikka.com:6501/smsapi/internal/request'
+  
+smart_payment_gateway:
+  redis_server:
+    host: technetium.internal.chikka.com
+    port: 6388
+    transaction_queue_key: 'pgw_smsapi'
+  serviceid: 'COB16'
+  merchant_id : '00011'
+
+recaptcha:
+    public_key: '6LfapugSAAAAAAVLx2F4Ptm1yY-qIBiHpH2MdDgt'
+    private_key: '6LfapugSAAAAANO-Mz8llbXQFLGsFyH8gY7RRiuu'
+    verify_url: 'http://www.google.com/recaptcha/api/verify'

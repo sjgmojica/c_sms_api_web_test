@@ -1,0 +1,9 @@
+{% try %}
+{% if generic_notification %} 
+<!-- Notification -->
+<div class="notification notification-generic">
+        <p class="notification-message">{{generic_notification}}</p>
+</div>
+{% end %}
+{% except %}
+{% end %}

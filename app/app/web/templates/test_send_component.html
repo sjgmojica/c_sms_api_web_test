@@ -1,0 +1,71 @@
+<!-- 001h: Send Text component -->
+<div id="send_tab" class="com-test-send 001h">
+    <div class="com-test-send-cr">
+        <header>
+
+            <h1 class="at">Send Text Message</h1>
+        </header>
+        <div class="com-test-send-ct">
+            <form action="/testmt/send" method="post" class="com-test-send-frm">
+                <fieldset>
+                    <legend>Send Text</legend>
+
+                    <p class="txt-desc">Send a text message to your mobile number.</p>
+         
+                    {% if response %}
+                    <div class="notification notification-error">
+                        <p class="notification-message">{{response}}</p>
+                    </div>         
+                    {% end %}
+                                        <!-- Notification (success) -->
+                    <div id="mt_notification_success" class="notification notification-success" style="display:none;">
+                        <p id="mt_notification_success_message" class="notification-message"></p>
+                    </div>  
+                                        <!-- Notification (error) -->
+                    <div id="mt_notification_fail" class="notification notification-error" style="display:none;">
+                        <p id="mt_notification_fail_message" class="notification-message"></p>
+                    </div>            
+                    
+                    <section>
+                    {% include test_send_component-min.html %}
+                    </section>
+                              
+                    <section>
+                    {% include test_send_verify-number-component.html %}
+                    </section>
+                    
+                    <div class="fld fld-msg">
+                        <div class="psu-inp psu-inp-msg">
+                            <label>Message</label>
+                            <textarea id="testmin_message1" name='MT_message' placeholder="Welcome to Chikka API!" maxlength="118"></textarea>
+                        </div>
+                        <p id="testmin_char_count1" class="char-count">160</p>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Send</button>
+
+                        </div>
+                    </div><!--.fld-axn-->                    
+                </fieldset>
+            </form>
+            
+            <div class="info-cr info-enroll-number">
+                <p class="info"><span class="icon">Info</span><a href="#" class="info-lnk">How to enroll a mobile number?</a></p>
+                <section>
+                {% include components/003v_tutorial-enroll-number.html %}
+                </section>
+            </div>
+
+            <div class="info-cr info-send-message">
+                <p class="info"><span class="icon">Info</span><a href="#" class="info-lnk">How to send a free text message?</a></p>
+                <section>
+					{% include components/003v_tutorial-send-message.html %}
+				</section>
+            </div>
+
+            
+       </div>
+   </div>
+</div><!--.com-test-send-->

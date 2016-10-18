@@ -1,0 +1,38 @@
+{% include definitions.html %}
+{% include header.html %}
+            
+            
+<div id="main">
+    <div class="main-cr">
+
+        <div id="primary" class="content-area">
+            <div id="content" class="site-content" role="main">                            
+
+                <section class="main-content">
+                    <div class="main-content-cr">
+                        <header class="main-content-hr">
+                            <div class="main-content-hr-cr">                            
+                                <h2 class="main-content-title">
+                                    <span class="label">Primary Content:</span>
+                                    <span class="label-value">Textify</span>
+                                </h2>
+                            </div>
+                        </header>
+                        <div class="main-content-ct">
+                            {% include components/com-winners.html %}
+                            {% include components/com-finalists.html %}
+                            {% include components/com-mechanics.html %}
+                            {% include components/com-contact.html %}                            
+
+                        </div>
+                   </div>
+                </section><!-- main-content -->
+
+            </div>
+        </div><!-- primary -->
+
+    </div>
+</div><!-- main -->
+
+{% include footer.html %}
+

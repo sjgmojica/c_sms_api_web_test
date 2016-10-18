@@ -1,0 +1,27 @@
+<!-- Search -->
+<div class="srch-cr">
+
+    <form class="srch-frm" method="post" action="/shortcode/search/custom">
+        <fieldset>
+            <legend>Form</legend>
+            <div class="fld fld-txt fld-kw">
+            
+                <span class="pref">29290</span>
+                <div class="psu-inp psu-inp-kw">
+                    <input name="starts_with" class="inp-txt-kw" type="text" maxlength="6" placeholder="3 to 6 alphanumeric characters" value="{{starts_with if starts_with else ''}}" >
+                </div>
+            </div>
+            <div class="fld fld-axn">
+
+                <div class="psu-btn psu-btn-pri psu-btn-sub">
+                    <button id="submit_shortcode_search" class="btn-sub" type="submit">Check Availability</button>
+                </div>
+                
+                <div class="psu-btn psu-btn-neg">
+                    <a href="/shortcode">Cancel</a>
+                </div>
+
+            </div><!--.fld-axn-->
+        </fieldset>
+    </form>
+</div><!--.srch-cr-->

@@ -1,0 +1,326 @@
+{% extends base.html%}
+
+
+{% block page_title %}Transaction History{% end %}
+
+{% block body_classes %}page-transaction-history{%end%}
+
+
+{% block menu_logs_active%}active{% end %}
+
+
+{% block custom_page_js %}
+
+<script>
+
+month_filter=''
+mobile_filter = ''
+
+// initialize total page vars
+var sent_total_pages = {{total_pages_out}}
+var inbox_total_pages = {{total_pages_in}}
+
+// moved from domready function
+var current_page_inbox = 1
+var current_page_sent = 1
+
+function get_t_records( uri, page_number,  callback, in_out ){
+
+    
+    var opt_sms_type = 'all'
+    var sms_type = $$('.sent-cr select.inp-sel-transaction')[0].value
+    if ( sms_type ){
+        opt_sms_type = sms_type 
+    }    
+    
+    var mobile_filter = $('mobile_filter').value
+    
+    var myRequest = new Request.JSON( {
+        url:uri,
+        data:{ 'json':'true', 'page':page_number, 'in_out': in_out, 'month_filter': month_filter, 'mobile_filter':mobile_filter, 'sms_type':opt_sms_type },
+        method:'GET',
+        onSuccess: function( response ){
+
+        	callback( response, page_number )
+
+        }
+    }).send()
+
+}
+
+function t_page_inbox_callback( data, page_number ){
+
+    // step 1 empty the table body
+    $$('.com-inbox-table  table tbody').dispose()
+    
+
+     // create the new tbody and with new rows and inject to the table
+    tbodyElement = new Element('tbody')
+    for (  var i = 0 ; i < data.transactions.length; i++ ){
+        date_col = new Element('td', {text: data.transactions[i]['date_time'].substr( 0,data.transactions[i]['date_time'].length-3  )        , class:'datetime'});
+        
+        from_col = new Element('td', {text:data.transactions[i]['from'], class:'from' });
+        cost_col = new Element('td', {text:data.transactions[i]['cost'], class:'charge'});
+        trans_row = new Element( 'tr' );trans_row.grab( date_col );trans_row.grab( from_col );trans_row.grab( cost_col );
+        tbodyElement.grab( trans_row )
+
+        }
+        //attach the completed tbody
+        $$('.com-inbox-table table' ).grab(tbodyElement)
+
+        inbox_total_pages = data.total_pages
+        update_page( 'inbox-nav', 'inbox_page', inbox_total_pages, page_number )
+}
+
+
+
+
+function t_page_sent_callback( data, page_number ){
+    // step 1 empty the table body
+    $$('.com-sent-table table tbody' ).dispose()
+
+
+	tbodyElement = new Element('tbody')
+    
+    
+
+    // process
+    for (  var i = 0 ; i < data.transactions.length; i++ ){
+
+        date_col = new Element('td', {text:  data.transactions[i]['date_time'].substr( 0,data.transactions[i]['date_time'].length-3  )  , class:'datetime'  });
+        from_col = new Element('td', {text:data.transactions[i]['to'], class:'to' });
+        status_col = new Element('td', {text:data.transactions[i]['status'], class:'status'});
+        message_type_col = new Element('td', {text:data.transactions[i]['message_type'], class:'type'});
+        cost_col = new Element('td', {text: data.transactions[i]['cost'], class:'charge' });
+        trans_row = new Element( 'tr' );trans_row.grab( date_col );trans_row.grab( from_col );
+        trans_row.grab( status_col ); trans_row.grab( message_type_col ) ; trans_row.grab( cost_col );
+        tbodyElement.grab( trans_row )
+
+        }
+
+    //attach the completed tbody
+    $$('.com-sent-table table' ).grab(tbodyElement)
+
+    sent_total_pages = data.total_pages
+    update_page( 'sent-nav', 'sent_page', sent_total_pages, page_number )
+}
+
+// updates sent/inbox items
+function update_page( nav_id, select_box_id, total_pages, page_number )
+{
+    $('' + nav_id).show();
+
+    if (!total_pages) {
+        $('' + nav_id).hide();
+    }
+    if (page_number == 1) {
+        current_page_inbox = 1
+        current_page_sent = 1
+
+        // update page select box options
+        $('' + select_box_id).set('html', '');
+        for (i = 1; i <= total_pages; i++) {
+            var opt =  new Element( 'option', {value : i} );
+            opt.inject($('' + select_box_id));
+            opt.appendText(i);
+        }
+    }
+}
+
+
+(function(){ window.addEvent('domready', function(){
+
+    if (!sent_total_pages && $('sent-nav') ) {
+        $('sent-nav').hide();
+    }
+
+    if (!inbox_total_pages && $('inbox-nav')) {
+        $('inbox-nav').hide();
+    }
+
+	/*
+	add event for sent tab
+	*/
+	$('trans-history-tab-sent').addEvent( 'click', function( e ){
+	      e.preventDefault();
+		  $('trans-history-tab-inbox').removeClass('active');
+		  $$('.inbox-cr').removeClass('active');
+		  
+		  $('trans-history-tab-sent').addClass('active');
+		  $$('.sent-cr').addClass('active');
+		  
+		} )
+
+    /*
+    add event for inbox tab
+    */
+    $('trans-history-tab-inbox').addEvent( 'click', function( e ){
+          e.preventDefault();
+          $('trans-history-tab-sent').removeClass('active');
+          $$('.sent-cr').removeClass('active');
+          
+          $('trans-history-tab-inbox').addClass('active');
+          $$('.inbox-cr').addClass('active');
+        } )
+
+
+        {% if allow_inbox_prev is True %}
+        
+	
+        //transaction history inbox pagination
+	    $$('.com-inbox.com-002k a.prev-page').addEvent('click', function( e ){
+            e.preventDefault();
+            if ( current_page_inbox >= 2){
+                current_page_inbox-=1
+                $('inbox_page').value = current_page_inbox
+                get_t_records( '/history/transaction',  current_page_inbox, t_page_inbox_callback , 'in' )
+            }
+        })
+        
+        
+        
+        
+        
+        {% end %}
+
+        {% if allow_inbox_next is True %}
+        $$('.com-inbox-cr a.next-page').addEvent('click', function( e ){
+            e.preventDefault();
+            // add if current page sent is < total_pages
+            if (current_page_inbox < inbox_total_pages) {
+                current_page_inbox += 1
+                $('inbox_page').value = current_page_inbox
+                get_t_records( '/history/transaction',  current_page_inbox, t_page_inbox_callback, 'in'  )
+            }
+        })
+        {% end %}
+
+    {% if allow_sent_next is True %}
+    $$('.com-sent-cr a.next-page').addEvent('click', function( e ){
+        e.preventDefault();
+    	// add if current page sent is < total_pages
+        if (current_page_sent < sent_total_pages) {
+            current_page_sent += 1
+            $('sent_page').value = current_page_sent
+        	get_t_records( '/history/transaction',  current_page_sent, t_page_sent_callback, 'out'  )
+        }
+    })
+    {% end %}
+
+    {% if allow_sent_prev is True %}
+    $$('.com-sent-cr a.prev-page').addEvent('click', function( e ){
+        e.preventDefault();
+    	if ( current_page_sent >= 2){
+    		current_page_sent-=1
+    		get_t_records( '/history/transaction',  current_page_sent, t_page_sent_callback, 'out'  )
+    	}
+        $('sent_page').value = current_page_sent
+    } )
+    {% end %}
+
+    // add event to filter button
+    $('filter-trans-butt').addEvent('click', function( e ){
+    	e.preventDefault();
+
+        //reset sms type filter
+        $$('select.inp-sel-transaction')[0].value = 'all'
+    	
+    	$('csv-download-display').set('text', $('month-sel').getElement(':selected').text)
+
+    	var mobile_filter = ''
+    	if ( $('mobile_filter').value ){
+    	    mobile_filter = '/'+$('mobile_filter').value
+    	}
+    	
+    	
+    	// modify the export URLs
+    	month_filter = $('month-sel').value
+    	mobile_filter = $('mobile_filter').value
+    	
+    	var export_mobile_filter_param = ''
+    	
+    	if( mobile_filter ){
+    	    export_mobile_filter_param = '/'+ mobile_filter
+    	}
+    	
+    	$$('a.export-lnk.export-lnk-csv').set('href', '/download-transactions/csv/'+ $('month-sel').getElement(':selected').value + export_mobile_filter_param  )
+    	$$('a.export-lnk.export-lnk-xls').set('href', '/download-transactions/xls/'+ $('month-sel').getElement(':selected').value + export_mobile_filter_param  )
+
+
+    	
+    	
+    	get_t_records( '/history/transaction',  1, t_page_inbox_callback, 'in'  )
+    	get_t_records( '/history/transaction',  1, t_page_sent_callback, 'out'  )
+
+    })
+    // default
+    month_filter = $('month-sel').value
+    mobile_filter = $('mobile_filter').value
+
+    // add change event handler for page select box
+    $('sent_page').addEvent('change', function(){
+        current_page_sent = sent_page_selected = this.options[this.selectedIndex].value * 1
+        get_t_records( '/history/transaction',  sent_page_selected, t_page_sent_callback, 'out'  )
+    })
+
+    $('inbox_page').addEvent('change', function(){
+        current_page_inbox = inbox_page_selected = this.options[this.selectedIndex].value * 1
+        get_t_records( '/history/transaction',  inbox_page_selected, t_page_inbox_callback, 'in'  )
+    })
+    
+    // add behavior to the "sms type" filter
+    $$('.sent-cr select.inp-sel-transaction').addEvent('change', function(e){
+      e.preventDefault()
+      filterBySmsType()
+    })
+    
+    
+// end of dom ready event handler
+}  ) }());
+
+
+function filterBySmsType(){
+    
+    //console.log('filter by sms type '+month_filter+' mobile_filter '+ mobile_filter)
+    get_t_records( '/history/transaction',  1, t_page_sent_callback, 'out'  )
+    
+}
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-46076418-1', 'chikka.com');
+ga('send', 'pageview');
+Utils.sendGoogleAnalytics({
+'category': 'Transaction History page',
+'action': 'View Transaction History page',
+'label': 'Transaction History page'
+});
+
+</script>
+
+
+
+{% end %}
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+{% block guide_display %}
+    {% set guide_description = 'Here are some tasks for you.' %}
+    {% include guide.html %}
+{% end %}
+
+{% block docbody %}
+
+{% if current_user.suffix  %}
+
+<section>
+{% include components/002j_transaction-history.html  %}
+</section>
+
+{% end %}
+{% end %}

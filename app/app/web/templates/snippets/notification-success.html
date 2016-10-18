@@ -1,0 +1,14 @@
+{% set notif_success_message = '' %}
+{% try %}
+  {% if success_message %}
+  yey {{success_message}}
+    {% set notif_success_message = success_message %}
+    
+    --{{notif_success_message}}--
+  {% end %}
+{% except %}
+{% end %}
+<!-- Notification (success) -->
+<div class="notification notification-success" style="display: {% if notif_success_message %}block{% else %}none{% end %}" >
+    <p class="notification-message">{{notif_success_message}}</p>
+</div>

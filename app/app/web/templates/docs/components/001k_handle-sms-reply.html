@@ -1,0 +1,200 @@
+<!-- Reply SMS -->
+<div class="com-handle-sms-reply com-001g">
+    <div class="com-handle-sms-reply-cr">
+        <header>
+            <h1 id="reply-sms" class="assistive-text">Reply to an SMS</h1>
+            <p class="txt-title">Reply to an SMS</p>
+        </header>
+        <div class="com-handle-sms-reply-ct">
+        
+            <p>Upon receiving a message, you may send a reply from your application to the Chikka SMS API. This can be done by allowing your application's <strong><a href="/docs/getting-started#message-receiver">Message Receiver</a></strong> component to send HTTP POST request to the Chikka URL via HTTP.</p>
+            
+            <p class="note"><strong>Chikka URL:</strong> <a href="https://post.chikka.com/smsapi/request">https://post.chikka.com/smsapi/request</a></p>
+            
+            <div class="diagram-cr">
+                <ol class="diagram-list">
+                    <li class="diagram-item diagram-message"><span class="lbl">Message receiver component replies to a message</span></li>
+                    <li class="diagram-item diagram-chikka"><span class="lbl">Chikka forwards the message to user</span></li>
+                    <li class="diagram-item diagram-user"><span class="lbl">User receives the message</span></li>
+                </ol>
+            </div>
+            
+            <p>To reply to a message, do the following:</p>
+            <ol>
+                <li>
+                    <p>Make sure that your application's <strong><a href="/docs/getting-started#message-receiver">Message Receiver</a></strong> component can send an <strong>HTTP POST request</strong> to the Chikka URL via HTTP.</p>
+                </li>
+                <li>
+                    <p>Create an <strong>HTTP POST Request Body</strong> and make sure it contains all REQUIRED parameters below:</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Parameters</th>
+                                    <th>Required/Optional</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><pre>message_type</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Indicates the message type of the message. Value is <strong>REPLY</strong> for replying to an SMS.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>mobile_number</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Mobile number of the user whom you want to send the reply to.</p>
+                                        <p><strong>Format:</strong> 6391xxxxxxxx</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>shortcode</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Access code you have provided during <a href="/docs/getting-started#register-your-application">registration</a>.</p>
+                                        <p><strong>Format:</strong> 29290xxxxxx</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>request_id</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Same transaction ID indicated in the <a href="#receive-sms">message you received</a> from Chikka.</p>
+                                        <p><strong>Length:</strong> 128 alphanumeric characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>message_id</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Unique ID (for at least 24 hours) you need to generate. This will be used in tracking your <a href="#delivery-notifications">Delivery Notifications</a>.</p>
+                                        <p><strong>Length:</strong> 32 characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>message</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Contents of the message to be replied to the user.</p>
+                                        <p><strong>Length:</strong> 420 characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>request_cost</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Amount you desire to charge the user who will receive the message. This will be deducted from the user's actual load.</p>
+                                        <div>
+                                            <p><strong>Possible values:</strong></p>
+                                            <ul>
+                                                <li><strong>For SMART &amp; Globe:</strong> FREE, P1.00, P2.50, P5.00, P10.00, P15.00</li>
+                                                <li><strong>For SUN:</strong> FREE</li>
+                                            </ul>
+                                        </div>
+										<p>If FREE will be used for charging, credits will be deducted based on the originating carrier of the user. It is Php 0.40 for Smart/Sun and Php 0.50 for Globe.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>client_id</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Public key used for authentication. Your OWN client_id provided by Chikka can be viewed in your Dashboard and API Settings.</p>
+                                        <p><strong>Length:</strong> 64 alphanumeric characters</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>secret_key</pre></td>
+                                    <td>Required</td>
+                                    <td>
+                                        <p>Private key used for authentication. Your OWN secret_key provided by Chikka can be viewed in your Dashboard and API Settings.</p>
+                                        <p><strong>Length:</strong> 64 alphanumeric characters</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="sample-cr">
+                        <p>Here's an HTTP POST body example:</p>
+                        <samp>
+                            message_type=REPLY&mobile_number=639181234567&shortcode=2929request_id=5048303030534D415254303030303032393230303032303030303030303133323030303036333933393932333934303030303030313331313035303735383137&message_id=ccc81279fcc048d1a6fcc52ed4c13255&message=You+are+now+registered+to+Chikka%21&request_cost=FREE&client_id=abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz00&secret_key=001122334455aabbccddeeffgghh66778899iijjkkllmmnnooppqqrrssttuuvv
+                        </samp>
+                    </div>
+                </li>
+                <li>
+                    <p>Send the message to the Chikka URL via HTTP.</p>
+                </li>
+                <li>
+                    <p>Expect for an <strong>HTTP POST Response</strong> from Chikka. The format is in JSON String: <var>{"status": <status>,"message":<message>}</var>.</p>
+                    
+                    <div class="table-cr">
+                        <table cellpadding="5" border="0">
+                            <thead>
+                                <tr>
+                                    <th><pre>&lt;status&gt; &lt;message&gt;</pre></th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><pre>200 ACCEPTED</pre></td>
+                                    <td>
+                                        <p>Transaction has been successfully processed.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>400 BAD REQUEST</pre></td>
+                                    <td>
+                                        <p>Invalid Request; If this status is returned, the cause of error will be described as well. Here are the possible causes:</p>
+                                        <ol>
+                                            <li>Missing Required Fields: <pre><missing parameters></pre></li>
+                                            <li>Invalid Message ID</li>
+                                            <li>Message Body Exceeded Allowed Length</li>
+                                            <li>Insufficient Trial Credits</li>
+                                            <li>Insufficient Credits</li>
+                                            <li>Invalid/Used Request ID</li>
+                                            <li>Inactive/Invalid Shortcode</li>
+                                            <li>Invalid Message Type</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>401 UNAUTHORIZED</pre></td>
+                                    <td>
+                                        <p>Unauthorized access to the API; could possibly be caused by an invalid access code or invalid signature.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>403 METHOD NOT ALLOWED</pre></td>
+                                    <td>
+                                        <p>HTTP Request Method used was not POST.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>404 NOT FOUND</pre></td>
+                                    <td>
+                                        <p>The URI being accessed is invalid or not available.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><pre>500 ERROR</pre></td>
+                                    <td>
+                                        <p>General System Error</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="note">Aside from the HTTP POST Response, the Chikka SMS API will also send a <a href="#delivery-notifications">Delivery Notification</a> to the <strong>Notification Receiver URL</strong> you have provided in the API Settings.</p>
+                </li>
+            </ol>
+                 
+       </div>
+   </div>
+</div><!--.com-handle-sms-reply-->

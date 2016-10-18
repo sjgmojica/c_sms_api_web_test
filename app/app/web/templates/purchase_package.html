@@ -1,0 +1,58 @@
+{% extends base.html%}
+
+
+{% block page_title %}Packages – Chikka API - Integrate web to mobile connectivity for your apps{% end %}
+
+{% block body_classes %}page-packages{%end%}
+
+
+{% block package_active%}active{% end %}
+
+
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/libs/picture-slider.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/shopping_cart.js') }}"></script>
+{% end %}
+
+
+
+{% block guide_display %}
+{% set guide_title = 'Packages' %}
+{% set guide_description = 'Purchase a plan to start using the Chikka SMS API. Alright, you\'re good to go!' %}
+{% set guide_packages_active = 'active' %}
+{% include guide.html %}
+{% end %}
+
+
+
+{% block custom_docbody1 %}
+  {% include snippets/notification_short-code.html %}
+{% end %}
+
+
+
+{% block docbody %}
+
+
+{%  if current_user.suffix  %}
+<section>
+    {% include components/002d_purchase-package.html %}                         
+</section>
+
+{% end %}
+{% end %}
+
+{% block custom_page_js %}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-46076418-1', 'chikka.com');
+    ga('send', 'pageview');
+    Utils.sendGoogleAnalytics({
+        'category': 'Upgrade/Packages page',
+        'action': 'View Upgrade/Packages page',
+        'label': 'Upgrade/Packages page'
+    });
+</script>
+{% end %}

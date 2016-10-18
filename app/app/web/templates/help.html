@@ -1,0 +1,122 @@
+{% extends base.html %}
+
+{% block page_title %}Help{% end %}
+
+{% block page_title %}Chikka API{% end %}
+
+{% block menu_help_active %}active{% end %}
+
+{% block body_classes %}page-help{%end%}
+
+{% block custom_page_js %}
+<script>
+
+( function() {
+	window.addEvent( 'domready' , function() {
+    		      window.onscroll = function( ){
+    		    	  if ( $(window).getScroll().y > 210 ) {
+    		    		  $$('.com-help .toc-ct').addClass('sticky');
+    		    	  }
+    		    	  else{
+    		    		  $$('.com-help .toc-ct').removeClass('sticky');
+    		    	  }
+    		      }
+    		      
+    		      
+    		      // add events to help tabs
+    		      $$('.com-help.com-003m .help-list li a').removeEvents();
+    		      $$('.com-help.com-003m .help-list li a').addEvent('click', function( e ){
+    		          
+    		          var theparent = this.getParent()
+    		          var theclass = theparent.getProperty('class').substr(5)
+    		          
+    		          console.log(theclass)
+    		          
+    		          //remove active state oof other list items
+    		          $$('.com-help.com-003m .help-list li').set('data-state', 'inactive')
+    		          
+    		          e.preventDefault();
+    		          theparent.setProperty('data-state', 'active')
+    		          
+    		          
+    		          // remove active state of oter data items
+    		          $$('.com-help.com-003m .help-cr .data-cr div[class^=data]').setProperty('data-state', 'inactive')
+    		          
+    		          $$('.com-help.com-003m .help-cr .data-cr div.data-'+theclass).setProperty('data-state', 'active')
+    		          
+    		          // the footer distance has to be reset
+    		          setFooter()
+    		      })
+		      }
+    )
+}());
+
+</script>
+
+
+<script src="{{ static_url('js/libs/picture-slider.js') }}"></script>
+<script src="{{ static_url('js/help-tutorial.js') }}"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-46076418-1', 'chikka.com');
+    ga('send', 'pageview');
+    Utils.sendGoogleAnalytics({
+        'category': 'Help page',
+        'action': 'View Help page',
+        'label': 'Help page'
+    });
+</script>
+    
+{% end %}
+
+
+{% block docbody %}
+
+<section>
+    <!-- 003m: Help -->
+    <div class="com-help com-003m">
+        <div class="com-help-cr">
+            <header>
+                <h1 class="assistive-text">Help</h1>
+                <p class="txt-title">Help</p>
+            </header>
+            <div class="com-help-ct">
+                <div class="help-cr">
+                    <ul class="help-list">
+                        <li class="help-basics" data-state="active">
+                            <a href="#"><span class="lbl">Basics</span></a>
+                        <li class="help-faq" data-state="inactive">
+                            <a href="#"><span class="lbl">FAQs</span></a>
+                        <li class="help-howto" data-state="inactive">
+                            <a href="#"><span class="lbl">How to's</span></a>
+                    </ul>
+                    <div class="data-cr">
+                        <div class="data-basics" data-state="active">
+                            {% include components/007a_help-basics.html %}
+                        </div>
+                        <div class="data-faq" data-state="inactive">
+                            {% include components/007b_help-faq.html %}
+                        </div>
+                        <div class="data-howto" data-state="inactive">
+                            {% include components/007c_help-howto.html %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--.com-help-->
+</section>
+
+
+<section>
+    <!-- Back to Top -->
+    <p class="back-top-link-cr">
+        <a class="back-top-link" href="#" title="Back to top"><span class="lbl">Back to Top</span></a>
+    </p>
+</section>
+
+
+{% end %}

@@ -1,0 +1,58 @@
+<!-- Tutorial: Receive message -->
+<div class="com-tutorial-receive-message com-003v ui-dialog">
+    <div class="com-tutorial-receive-message-cr">
+        <header>
+            <h1 class="assistive-text">Receive confirmation message</h1>
+            <p class="txt-title">Receive confirmation message</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-receive-message-ct">
+            <div id="pc-receive-message"></div>
+        	<script>
+				document.addEvent('domready', function() {
+				    var img_base_uri = '/static/img'
+					var pc = new PictureSlider($('pc-receive-message'), [
+						{
+							src: img_base_uri+'/tutorial_receive-msg_01.png',
+							content: '[image one]',
+							caption: '<p class="caption">Create a message and send it to your Short Code.</p><p class="page">Page 1 of 3</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_receive-msg_02.png',
+							content: '[image two]',
+							caption: '<p class="caption">You will receive a confirmation message from your Short Code.</p><p class="page">Page 2 of 3</p>',
+						},
+						{
+							src: img_base_uri+'/tutorial_receive-msg_03.png',
+							content: '[image three]',
+							caption: '<p class="caption">You can change the confirmation message on the API site via the Receive Text Message tab.</p><p class="page">Page 3 of 3</p>',
+						}
+					], {
+							caption:
+							{
+								opacity: 1,
+							}
+						}
+					);
+					
+					var next = $(document.body).getElement('.com-tutorial-receive-message .next-lnk');
+					var prev = $(document.body).getElement('.com-tutorial-receive-message .prev-lnk');
+					
+					next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+					prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+				});
+			</script>
+            <div class="fld fld-axn">
+            	<div class="psu-btn psu-btn-pri psu-btn-next">
+                	<a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                	<a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+            	<div class="psu-btn psu-btn-neg">
+                	<a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-receive-message-->

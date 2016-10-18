@@ -1,0 +1,40 @@
+<!-- 002g: Edit Email-->
+<div class="com-edit-email com-002g ui-dialog">
+    <div class="com-edit-email-cr">
+        <header>
+            <h1 class="assistive-text">Edit Email</h1>
+            <p class="txt-title">Change Email Address</p>
+            {% include snippet_dismiss.html  %}
+        </header>
+            
+        <div class="com-edit-email-ct">
+            <form class="com-edit-email-frm">
+                <fieldset>
+                    <legend>Edit Email</legend>
+                    
+                    <p class="txt-desc">Your settlement report will be sent to this email address.</p>
+                    
+                    <!-- Notification (error) -->
+                    <div class="notification notification-error" style="display:none" id="change-email-error-msg-box">
+                        <p class="notification-message" id="change-email-error-msg">[Error message]</p>
+                    </div>                    <!-- Notification (success) -->
+                    <div class="fld fld-email">
+                        <div class="psu-inp psu-inp-email">
+                            <label>Email</label>
+                            <input class="inp-email" type="text" placeholder="Email address" id="new_email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit" id="update-email-submit-butt">Save</button>
+                        </div>
+                        <div class="psu-btn psu-btn-neg psu-btn-cncl">
+                            <a class="cncl-lnk" href="#"><span class="lbl">Cancel</span></a>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-edit-email--> 

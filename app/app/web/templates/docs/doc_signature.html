@@ -1,0 +1,56 @@
+{% extends ../doc_base.html %}
+
+
+{% block docbody %}
+ 
+                            <section>
+                                <!-- Digital Signature -->
+<div class="com-digital-signature com-001i">
+    <div class="com-digital-signature-cr">
+        <header>
+            <h1 id="digital-signature" class="assistive-text">Digital Signature</h1>
+            <p class="txt-title">Digital Signature</p>
+        </header>
+        <div class="com-digital-signature-ct">
+        
+			<h2 id="how-to-digitally-sign-a-request-body">How to Digitally Sign a Request Body</h2>
+            
+            <ol class="sign-request-lst">
+            	<li class="sign-request-lst-item">
+                	<p>Make sure that a Public Key and Private Key have already been generated. (See <a href="/docs/using#generate-private-and-public-keys-for-your-application">Generation of Public and Private Keys</a>)</p>
+                </li>
+                <li class="sign-request-lst-item">
+                	<p>Prepare the plain-text HTTP POST Request body to be signed.</p>
+					
+					<div class="sample-format-cr">
+						<h3>Sample HTTP POST Request body:</h3>
+						<samp>URI=/api/request.php&USERNAME=METROBANK2929&PASSWORD=ABC123&MESSAGE_TYPE=PULL&SUB_TYPE=START&MESSAGE_ID=MSG00000000000000000000000000001&TRANSID=01FB96AC1234D54ERYRYTR7YRTUGFJHNVHRYRHUGJNFY546576IHJGHFY576HJFTG4565UJRFT65476TUJGH65867YI687IKHGJNRTY658UYJNMTU6IKGYHJK67I9YI7&HEADER=0B00030A020205045B5000&MSISDN=639211234567&SUFFIX=21&ENCODING=SPECIALBIN&BODY=Welcome+to+METROBANK%21&SERVICE=METROBANK&TEST=0
+						</samp>
+					</div>
+				</li>
+                <li class="sign-request-lst-item">
+                	<p>Using the generated Private Key, sign the string above with SHA512.</p>
+                    <div class="sample-format-cr">
+                    	<h3>Sample Commands for signing a string with SHA512:</h3>
+                        <script>
+                            console.log($)
+                        </script>
+                        <code>
+                            openssl dgst -sha512 \ <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-sign my_private_key.pem \ <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-out messagefile.txt.sha512 \ <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messagefile.txt
+                        </code>
+                    </div>
+                </li>
+                <li class="sign-request-lst-item">
+                	<p>Include the digitally signed HTTP POST body as a parameter to the HTTP POST Header for the request.</p>
+                </li>
+			</ol>
+            
+       </div>
+   </div>
+</div><!--.com-digital-signature-->                            </section>
+
+
+{% end %}

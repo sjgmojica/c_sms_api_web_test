@@ -1,0 +1,354 @@
+{% extends base.html %}
+
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/update_settings.js') }}"></script>
+{% end %}
+
+{% block guide_display %}
+{% set guide_title = 'Account Settings' %}
+{% set guide_description = 'Set a username and password.' %}
+{% set guide_account_settings_active = 'active' %}
+{% include guide.html %}
+{% end %}
+
+{% block custom_page_js %}
+<script>
+
+
+var balance_threshold_settings_error = $$('.com-account-settings-balance.com-004b .notification.notification-error')
+var balance_threshold_settings_success = $$('.com-account-settings-balance.com-004b .notification.notification-success')
+
+function change_password_ajax( old_password, new_password, new_password_again ){
+    var myRequest = new Request.JSON( { 
+        url:'/ajax/edit_password', 
+        data:{ 'old_password': old_password, 'new_password': new_password , 'new_password_again': new_password_again }, 
+        method:'POST', 
+        onSuccess: function( response ){
+            if ( response.success == false ) {
+            	if ( response.old_password_error ){
+            		$$( '#old-password-error-msg p').set('text',response.old_password_error)
+                    $( 'old-password-error-msg').setStyle('display', 'block')
+            	}
+            	if ( response.new_password_error ){
+                    $$( '#new-password-error-msg p').set('text',response.new_password_error)
+                    $( 'new-password-error-msg').setStyle('display', 'block')
+                }
+            	if ( response.new_password_again_error ){
+                    $$( '#new-password-again-error-msg p').set('text',response.new_password_again_error)
+                    $( 'new-password-again-error-msg').setStyle('display', 'block')
+                }
+            	$('profile-success-messge-display').setStyle('display', 'none')
+            }
+            else{
+            	$('profile-success-messge-display').setStyle('display', 'block')
+            	// hide dialog
+            	$('edit_password').setStyle('display', 'none')
+            	$('overlay').setStyle('display','none')
+            }
+        	clear_password_fields()
+        }
+    }).send()	
+}
+
+
+function change_email_ajax(){
+    var new_email = $('change-email-field').value
+    if (new_email == ''){
+        $$('#change-email-error-msg p').set( 'html', 'You can’t leave this empty.' )
+        $('change-email-error-msg').setStyle('display', 'block')
+        
+        return
+    }
+    
+	var myRequest = new Request.JSON( {
+	    url : '/ajax/changeemail',
+	    data : { 'new_email': new_email   },
+	    method : 'POST',
+	    onSuccess: function( response ){
+	    	__hide_change_email_messages()
+	    	if ( response.success == true ){
+	    		$$('#change-email-success-msg p').set( 'text',  response.success_message )
+	            $('change-email-success-msg').setStyle('display', 'block')
+	    	}
+	    	else {
+	    		$$('#change-email-error-msg p').set( 'html', response.error_message )
+	    		$('change-email-error-msg').setStyle('display', 'block')
+	    	}
+	    },
+	    onFailure : function( xhr ){  
+	        if ( xhr.status == 403 ){
+	            window.location.href = '/'
+	        }
+	    }
+	}).send()
+}
+
+
+function change_email_ajax_resend( code ){
+    var myRequest = new Request.JSON( {
+        url : '/changeemail/verify/ajax-resend/'+code,
+        data : { 'new_email': $('change-email-field').value   },
+        method : 'GET',
+        onSuccess: function( response ){
+            __hide_change_email_messages()
+            
+            if ( response.success == true ){
+                $$('#change-email-success-msg p').set( 'text',  response.success_message )
+                $('change-email-success-msg').setStyle('display', 'block')
+            }
+                
+            else {
+                $$('#change-email-error-msg p').set( 'html', response.error_message )
+                $('change-email-error-msg').setStyle('display', 'block')
+            }
+        }
+    }).send()
+    
+}
+
+
+function clear_password_fields(){
+    $('field-old-password').set('value',  '')
+    $('field-new-password').set('value',  '')
+    $('field-new-password-again').set( 'value', '')
+    
+	
+}
+
+
+function __hide_change_email_messages(){
+    $('change-email-error-msg').setStyle('display', 'none')
+    $('change-email-success-msg').setStyle('display', 'none')	
+	
+}
+
+function clear_change_email_fields(){
+	
+	__hide_change_email_messages()
+	$$('#change-email-success-msg p').set( 'text',  '' )
+	$$('#change-email-error-msg p').set( 'text', '' )
+	$('change-email-field').set('value', '')
+	
+}
+
+function close_change_email_dialog( ){
+    $('edit_email').setStyle('display', 'none')
+    $('overlay').setStyle('display','none')
+    clear_change_email_fields()
+}
+
+
+
+function display_balance_threshold_setting_error( message ){
+    __hide_balance_threshold_notif()
+    balance_threshold_settings_error.getElement('p').set('text', message )
+    balance_threshold_settings_error.show()    
+}
+
+
+function display_balance_threshold_setting_success( message ){
+    __hide_balance_threshold_notif()
+    balance_threshold_settings_success.getElement('p').set('text', message)
+    balance_threshold_settings_success.show()    
+}
+
+
+function __hide_balance_threshold_notif(){
+    $$('.com-account-settings-balance.com-004b .notification').hide()
+}
+
+
+
+(function(){ 
+    
+    spiel_invalid_threshold = 'Please enter a valid amount. You can set a threshold with up to five (5) digits without a comma.'
+    spiel_successful_threshold_set = 'You have successfully changed your account threshold.' 
+
+    
+    var current_threshold = {{balance_notif_threshold}}
+    var min_threshold = 50
+    
+	window.addEvent('domready', function(){ 
+	    
+	    var closedialog = function( e ){ 
+	        e.preventDefault();
+	        $$('.com-edit-username.com-002g.ui-dialog, .com-edit-password.com-002h.ui-dialog').hide()
+	        $('overlay').hide()
+	    }
+
+	    $$('.dismiss-link').addEvent('click', closedialog)
+	    
+		$('change-pass-submit-butt').removeEvents();
+        $('change-pass-submit-butt').addEvent('click', function(e){
+        	e.preventDefault();
+        	// hide error messages if any
+        	$( 'old-password-error-msg').setStyle('display', 'none')
+        	$( 'new-password-error-msg').setStyle('display', 'none')
+        	change_password_ajax( $('field-old-password').value  , $('field-new-password').value, $('field-new-password-again').value )
+        })
+        
+        
+        // add event to change email to cancel button
+        $('change-email-cancel-butt').addEvent('click', function( e ){
+            close_change_email_dialog()
+        })
+        
+        $('change-email-submit-butt').addEvent('click', function( e ){
+        	e.preventDefault();
+        	
+        	change_email_ajax()
+        })
+        
+        // add event to threshold checkbox
+        $$(".com-account-settings .fld-item-send-email #send-email").addEvent('click', function(e){
+            if ( this.checked ){
+                __call_toggle_balance_notif( true )
+            }
+            else{
+                __call_toggle_balance_notif( false )
+            }
+            return false
+        });
+
+        // add event to threshold save button
+        $$(".com-account-settings-balance .fld-axn .btn-sub").addEvent( 'click', function(event) {
+            event.preventDefault();
+            update_balance_threshold( $$('input.inp-threshold')[0].value )
+        });        
+        
+        $$(".com-account-settings-balance .fld-threshold .dismiss-link").addEvent( 'click', function(event) {
+            event.preventDefault();
+            $$(".com-account-settings-balance").set("data-state-threshold", "edit");
+            $$(".com-account-settings .fld-threshold .psu-inp-threshold input").set('disabled', false)
+        });
+        
+        $$('.com-account-settings-balance-ct a.cncl-lnk').removeEvents()
+        $$('.com-account-settings-balance-ct a.cncl-lnk').addEvent('click', function(e){
+            e.preventDefault();
+            // put value back to original
+            $$('.com-account-settings-balance.com-004b input.inp-threshold').set('value', current_threshold)
+            //hide errors
+            __hide_balance_threshold_notif()
+            // lock display
+            lock_balance_threshold_display();
+        })
+	})
+	
+
+
+	function update_balance_threshold( threshold_value ){
+	    uri = '/ajax/update-balance-threshold'
+	    // if the attempted value to save is the same as current value, just respond
+	    if ( threshold_value == current_threshold ){
+	        lock_balance_threshold_display()
+	        balance_threshold_settings_success.getElement('p').set('text', spiel_successful_threshold_set )
+	        balance_threshold_settings_success.show()
+	        
+	    }
+	    else{
+	        // check if characters are valid
+	        
+	        
+	        if ( /^\d+$/.test( threshold_value )  == true &&  threshold_value >= min_threshold ){
+	            
+
+	            var myRequest = new Request.JSON( {
+	                url : uri,
+	                data: {'new_threshold':threshold_value},
+	                method : 'POST',
+	                onSuccess: function( response ){
+	                    if ( response.result ){
+	                        display_balance_threshold_setting_success( spiel_successful_threshold_set )
+	                        current_threshold=threshold_value
+	                        lock_balance_threshold_display();
+	                    }
+	                    else{
+	                        // display error
+	                        display_balance_threshold_setting_error( 'Unable to process request. Please try again' )
+	                    }
+	                },
+	                onFailure : function( xhr ){  
+	                    if ( xhr.status == 403 ){
+	                        window.location.href = '/'
+	                    }
+	                }
+	            }).send()            
+	        }
+	        else{
+	            // diusplay error spiel
+	            display_balance_threshold_setting_error( spiel_invalid_threshold )
+	        }
+	    }
+	}
+
+	
+	function __call_toggle_balance_notif( enable ){
+	    var uri = '/ajax/balance-notif/';
+	    var callback;
+	    
+	    if   ( enable ){
+	        uri += 'enable';
+	        callback = function(){ $$(".com-account-settings .fld-item-send-email #send-email").set('checked', true)}
+	    } 
+	    else {
+	        uri += 'disable'
+	        callback = function(){ $$(".com-account-settings .fld-item-send-email #send-email").set('checked', '')}
+	    }
+
+	    var myRequest = new Request.JSON( {
+	        url : uri,
+	        method : 'POST',
+	        onSuccess: function( response ){
+	            if  ( response.result ){
+	                // in case messages are present
+	                __hide_balance_threshold_notif()
+	                callback()
+	            }
+	            else{
+	                // display error
+	                balance_threshold_settings_error.getElement('p').set('text', 'Unable to process request. Please try again')
+	                balance_threshold_settings_error.show()
+	                // do not check/uncheck 
+	            }
+	        },
+	        onFailure : function( xhr ){  
+
+	            if ( xhr.status == 403 ){
+	                window.location.href = '/'
+	            }
+	        }
+	    }).send()    
+	}
+	
+	
+	function lock_balance_threshold_display(){
+	    $$(".com-account-settings-balance").set("data-state-threshold", "saved");
+	    $$(".com-account-settings .fld-threshold .psu-inp-threshold input").set("disabled", "true");
+	}
+
+}());
+
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-46076418-1', 'chikka.com');
+    ga('send', 'pageview');
+    Utils.sendGoogleAnalytics({
+        'category': 'Account Settings page',
+        'action': 'View Account Settings page',
+        'label': 'Account Settings page'
+    });
+</script>
+{% end %}
+
+
+
+{% block docbody %}
+<section>
+    {% include components/002e_account-settings.html %}
+</section>
+{% end %}

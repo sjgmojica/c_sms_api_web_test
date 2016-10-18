@@ -1,0 +1,77 @@
+{% extends base.html%}
+
+{% block docbody %}
+
+<!-- 001j: PIN Code component -->
+<div class="com-pin-code 001j ui-dialog">
+    <div class="com-pin-code-cr">
+        <header>
+            <h1 class="at">PIN Code</h1>
+            <p class="txt-ttl">PIN Code</p>
+            {% if response %}
+                <p>{{response}}</p>
+            {% end %}
+            
+        </header>
+        <div class="com-pin-code-ct">
+            <form method="post" action="/testmin/verify" class="com-pin-code-frm">
+
+                <fieldset>
+                    <legend>PIN Code</legend>
+                    
+                    <p class="txt-desc">[PIN Code description]</p>
+                    
+                    {% if not hide_pincode_box %}
+                    <div class="fld fld-txt fld-pin">
+                        <div class="psu-inp psu-inp-txt pus-inp-pin">
+                            <label>PIN Code</label>
+             
+                            <input name="code" class="inp-pin" type="text" placeholder="PIN Code">
+                            <input id="testmin" name="testmin" type="hidden" value="{{testmin}}"/>
+                            <input name="max_code_request" type="hidden" value="{{max_code_request}}"/>
+                            <input name="ver_id" type="hidden" value="{{ver_id}}"/>
+                            <input name="captcha" type="hidden" value="{{captcha}}"/>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                    
+                    {% end %}
+                    
+                        {% if not max_code_request or max_code_request == "False" %}
+                            <p class="resend-pin-lnk-cr"><a class="resend-pin-lnk" href="/testmin/resendcode/{{ver_id}}"><span class="lbl">Resend PIN Code</span></a></p>
+                        {% end %}
+                        
+                        
+                    {% if not hide_pincode_box %}
+                    
+                    </div><!--.fld-axn-->
+
+              </fieldset>
+              
+              {% if captcha or captcha == "True" %}
+              <script type="text/javascript"
+                    src="http://api.recaptcha.net/challenge?k={{recaptcha_public}}">
+                    </script>
+
+                <noscript>
+                   <iframe src="http://api.recaptcha.net/noscript?k={{recaptcha_public}}"
+                       height="300" width="500" frameborder="0"></iframe><br>
+                   <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+                   </textarea>
+                   <input type="hidden" name="recaptcha_response_field" 
+                       value="manual_challenge">
+                </noscript>
+            {% end %}
+            
+          </form>
+          {% end %}
+       </div>
+   </div>
+</div><!--.com-pin-code-->
+
+{% end %}

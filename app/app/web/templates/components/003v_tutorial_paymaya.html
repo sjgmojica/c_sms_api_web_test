@@ -1,0 +1,84 @@
+<!-- Tutorial: Paymaya -->
+<div class="com-tutorial-paymaya com-003v ui-dialog">
+    <div class="com-tutorial-paymaya-cr">
+        <header>
+            <h1 class="assistive-text">Buy a package using VISA/Mastercard</h1>
+            <p class="txt-title">Buy a package using VISA/Mastercard</p>
+            {% include ../snippets/dismiss.html  %}
+        </header>
+        <div class="com-tutorial-paymaya-ct">
+            <div id="pc-paymaya"></div>
+          <script>
+        document.addEvent('domready', function() {
+            var img_base_uri = '{{ static_url('img') }}'
+
+          var pc = new PictureSlider($('pc-paymaya'), [
+            {
+              src: img_base_uri + '/paymaya_checkout/01_PCP.png',
+              content: '[image one]',
+              caption: '<p class="caption">Choose a package with quantity and add to your cart. Review the summary of your packages to check the items in your cart.</p><p class="page">Page 1 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/02_PCP.png',
+              content: '[image two]',
+              caption: '<p class="caption">Upon reviewing, you can proceed to checkout.</p><p class="page">Page 2 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/03_PCP.png',
+              content: '[image three]',
+              caption: '<p class="caption">Choose VISA/Mastercard if you wish to buy your package using this method.</p><p class="page">Page 3 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/04_PCP.png',
+              content: '[image four]',
+              caption: '<p class="caption">You must read and agree to the Terms and Conditions before using the service.</p><p class="page">Page 4 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/05_PCP.png',
+              content: '[image five]',
+              caption: '<p class="caption">Click Proceed to Payment.</p><p class="page">Page 5 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/06_PCP.png',
+              content: '[image six]',
+              caption: '<p class="caption">Enter required details and confirm payment</p><p class="page">Page 6 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/07_PCP.png',
+              content: '[image seven]',
+              caption: '<p class="caption">A confirmation message will appear after a successful purchase.</p><p class="page">Page 7 of 8</p>',
+            },
+            {
+              src: img_base_uri + '/paymaya_checkout/08_PCP.png',
+              content: '[image eight]',
+              caption: '<p class="caption">Your balance will be updated to include your new credits</p><p class="page">Page 8 of 8</p>',
+            }
+          ], {
+              caption:
+              {
+                opacity: 1,
+              }
+            }
+          );
+
+          var next = $(document.body).getElement('.com-tutorial-paymaya .next-lnk');
+          var prev = $(document.body).getElement('.com-tutorial-paymaya .prev-lnk');
+
+          next.addEvent('click', function(event) { event.preventDefault(); pc.right(); });
+          prev.addEvent('click', function(event) { event.preventDefault(); pc.left(); });
+        });
+      </script>
+            <div class="fld fld-axn">
+              <div class="psu-btn psu-btn-pri psu-btn-next">
+                  <a class="next-lnk" href="#"><span class="lbl">Next</span></a>
+                </div>
+                <div class="psu-btn psu-btn-sec psu-btn-prev">
+                  <a class="prev-lnk" href="#"><span class="lbl">Back</span></a>
+                </div>
+              <div class="psu-btn psu-btn-neg">
+                  <a class="skip-lnk" href="#"><span class="lbl">Skip</span></a>
+                </div>
+            </div>
+       </div>
+   </div>
+</div><!--.com-tutorial-paypal-->

@@ -1,0 +1,250 @@
+#content {
+    padding: 1em 1.5em 1.5em;
+    display: table;
+    table-layout: fixed;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.site-content > section > div > div {
+    padding: 0;
+    display: block;
+}
+
+.nav-lst {
+    list-style-type: none;
+    margin: 0;
+}
+
+.step-lst {
+    list-style-type: none;
+    margin: 0;
+}
+
+.diagram-cr {
+    overflow-x: auto;
+    display: block;
+    margin: 1rem 0px;
+}
+
+.diagram {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.txt-title {
+    margin: 1rem 0;
+}
+
+li .txt-title {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+ol {
+    margin-top: 1em;
+    margin-left: 2.5em;
+}
+
+ul {
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-left: 2.5em;
+}
+
+.toc-lst {
+    list-style-type: none;
+    margin: auto;
+}
+
+.lang-lst {
+    margin: auto;
+}
+
+.examples-cr {
+    margin: 1em 0px;
+}
+
+.nav-lst {
+    counter-reset: li;
+    font-size: 0.9em;
+    list-style-type: none;
+}
+
+.nav-lst {
+    margin: 2rem 0px;
+}
+
+.nav-lst li {
+    margin-right: 1em;
+    padding-right: 1.5em;
+    position: relative;
+    display: inline-block;
+}
+
+.lang-lst {
+    margin-top: 1rem;
+}
+
+.lang-lst > li {
+    display: inline-block;
+    margin-bottom: 0px;
+}
+
+.lang-lst > li.lang-python,
+.lang-lst > li.lang-java {
+    display: none;
+}
+
+.codes-cr > div.active {
+    display: block;
+}
+
+.codes-cr > div {
+    display: none;
+    max-height: 15em;
+    overflow-y: auto;
+}
+
+.note:before {
+    content: "Note";
+    display: inline-block;
+    margin-left: -5em;
+    width: 5em;
+}
+
+.note, div > p.note:first-child,
+div > p.note:last-child {
+    margin: 1em auto 1em 4em;
+    display: inline-block;
+    padding: 0.6em 1em;
+}
+
+.next-lnk-cr {
+    margin-top: 1.5em;
+}
+
+table {
+    margin: 0.75em 0px;
+}
+
+.sample-cr {
+    margin: 0.5em 0px 1.5em;
+}
+
+.sample-cr > samp {
+    margin: 0.5em 0px;
+}
+
+h2 {
+    margin: 1.5em 0px 0.5em;
+}
+
+h3 {
+    margin: 1em 0px 0.5em;
+}
+
+p {
+    margin: 0.5em 0px;
+}
+
+pre {
+    margin: 0;
+}
+
+.diagram-list {
+    margin: 0;
+    list-style-type: none;
+    display: table;
+    text-align: center;
+}
+
+.diagram-item {
+    display: table-cell;
+    position: relative;
+    width: 33%;
+    padding-left: 0;
+}
+
+.diagram-item:not(:first-child) {
+    padding-left: 0.6rem;
+}
+
+.diagram-item .lbl {
+    display: block;
+    margin: 0.5rem 0.5rem 0;
+    font-weight: bold;
+}
+
+.diagram-item:not(:last-child):after {
+	left: 100%;
+	border:solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-left-color: #11AFCA;
+	border-width: 0.6rem;
+	top: 25%;
+	margin-top: 0px;
+}
+
+@media only screen and (min-width: 480px) {
+    .site-content > section > div > div {
+        padding: 0;
+    }
+    
+    #content {
+        padding: 3em;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .site-content > section > div > div {
+        margin: 0;
+    }
+    
+    #content {
+        margin: 3em auto;
+        max-width: 46em;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    
+    .txt-title {
+        margin-top: 0px;
+    }
+    
+    #content {
+        max-width: 52rem;
+    }
+    
+    .toc-cr {
+        max-width: 13.5em;
+    }
+    
+    .toc-cr,
+    .com-overview,
+    .com-getting-started,
+    .com-reference,    
+    .com-handle-sms {
+        display: table-cell;
+        vertical-align: top;
+    }
+    
+    .com-overview,
+    .com-getting-started,
+    .com-reference,    
+    .com-handle-sms {
+        padding-left: 1.5em;
+        padding-top: 0.5em;
+        max-width: 31.25rem;
+    }
+    
+    .site-content > section > div > div {
+        width: auto;
+    }
+}

@@ -1,0 +1,43 @@
+{% extends base.html%}
+
+{% block docbody %}
+
+<!-- 001i: verify-number component -->
+<div class="com-verify-number 001i">
+    <div class="com-verify-number-cr">
+        <header>
+            <h1 class="at">Verify Mobile Number</h1>
+            <p class="txt-ttl">Verify Mobile Number</p>
+            {% if response %}
+                {{response}}
+            {% end %}
+        </header>
+        <div class="com-verify-number-ct">
+            <form method="post" action="/testmin/change/submit" class="com-verify-number-frm">
+
+                <fieldset>
+                    <legend>Verify Mobile Number</legend>
+                    
+                    <p class="txt-desc">[Verify Mobile Number description]</p>
+                    
+                    <div class="fld fld-txt fld-mn">
+                        <div class="psu-inp psu-inp-txt psu-inp-mn">
+                            <label>Mobile Number</label>
+                            
+                            <input name="testmin" class="inp-txt" type="text" placeholder="Mobile Number" maxlength="13" />
+
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Verify</button>
+                        </div>
+                    </div><!--.fld-axn-->
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-verify-number-->
+
+{% end %}

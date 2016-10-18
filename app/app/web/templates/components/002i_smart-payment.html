@@ -1,0 +1,34 @@
+<!-- 002i: SMART Payment -->
+<div class="com-smart-payment com-002i">
+    <div class="com-smart-payment-cr">
+        <header>
+            <h1 class="assistive-text">SMART Payment</h1>
+            <p class="txt-title">SMART Payment</p>
+        </header>
+        <div class="com-smart-payment-ct">
+            <form method="post" action="/cart/payment/smart/mobile" class="com-smart-payment-frm" id="send-code-form">
+                <fieldset>
+                    <legend>SMART Payment</legend>
+                    <p class="txt-desc">Please enter a mobile number. We will send a PIN code to verify this transaction.</p>
+                    {% if error_message %}
+                    <!-- Notification (error) -->
+                    <div class="notification notification-error">
+                        <p class="notification-message">{{error_message}}</p>
+                    </div>
+                    {% end %}
+                    <div class="fld fld-mn">
+                        <div class="psu-inp psu-inp-mn">
+                            <label>Mobile Number</label>
+                            <input name="mobile" class="inp-mn" type="text" placeholder="Mobile Number" maxlength="13" />
+                        </div>
+                    </div>
+                    <div class="fld fld-axn">
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Submit</button>
+                        </div>
+                    </div><!--.fld-axn-->
+            </fieldset>
+            </form>
+        </div>
+    </div>
+</div><!--.com-smart-payment-->

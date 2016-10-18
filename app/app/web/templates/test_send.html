@@ -1,0 +1,69 @@
+{% extends base.html%}
+
+{% block extra_js %}  
+    <script type="text/javascript" src="{{ static_url('js/poll.js') }}"></script>
+{% end %}
+    
+{% block docbody %}
+
+<!-- 001h: Send Text component -->
+<div class="com-test-send 001h">
+    <div class="com-test-send-cr">
+        <header>
+            <h1 class="at">Send Text</h1>
+            <p class="txt-ttl">Send Text</p>
+        </header>
+        <div class="com-test-send-ct">
+            <form action="/testmt/send" method="post" class="com-test-send-frm">
+
+                <fieldset>
+                    <legend>Send Text</legend>
+                    
+                    <p class="txt-desc">[Send Text description]</p>
+                    
+                    <section>
+                        <!-- MIN -->
+<div class="min-cr">
+    <div class="min-ct">
+        <div class="fld fld-txt fld-min">
+
+            <div class="psu-inp psu-inp-txt psu-inp-min">
+                <label>MIN</label>
+                <input id="testmin" class="inp-min" type="text" value="{{testmin[-12:]}}" disabled>
+                {% if message_id %}
+                    <input id="message_id" type="hidden" value="{{message_id}}">
+                {% end %}
+            </div>
+        </div>
+        <div class="fld fld-axn">
+            <div class="psu-btn psu-btn-pri psu-btn-sub">
+                <a class="edit-lnk" href="/testmin/enroll"><span class="lbl">Edit</span></a>
+
+            </div>
+        </div><!--.fld-axn-->
+    </div>
+</div>                    </section>
+                   
+                    
+                    <div class="fld">
+                        <div class="psu-inp psu-inp-msg">
+                        	<label>Message</label>
+                            <textarea id="testmin_message" name='MT_message' placeholder="Your message" maxlength="120"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="fld fld-axn">
+
+                        <div class="psu-btn psu-btn-pri psu-btn-sub">
+                            <button class="btn-sub" type="submit">Send</button>
+                        </div>
+                        <p id="testmin_char_count" class="char-count">120</p>
+                    </div><!--.fld-axn-->                    
+                </fieldset>
+            </form>
+       </div>
+
+   </div>
+</div><!--.com-test-send-->
+
+{% end %}

@@ -1,0 +1,18 @@
+
+{% if testmin %}
+<!-- MIN -->
+<div class="min-cr active" id="saved-min-mt">
+    <div class="min-ct">        
+        <div class="fld fld-txt fld-min">
+
+            <div class="psu-inp psu-inp-txt psu-inp-min">
+                <label>MIN</label>
+                <input class="inp-min" type="text" value="{{testmin[-12:] if testmin else 'Mobile number'}}" disabled>
+                <p class="hint">You can set this up to 3 times.</p>
+            </div>
+            {% include snippets/dismiss.html  %}
+            <p class="verified-icon" title="Verified"><span class="icon"><span class="lbl">Verified</span></span></p>
+        </div>
+    </div>
+</div>  
+{% end %}

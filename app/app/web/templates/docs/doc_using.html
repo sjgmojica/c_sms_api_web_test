@@ -1,0 +1,620 @@
+{% extends ../doc_base.html %}
+
+
+
+{% block page_title %}Chikka API{% end %}
+
+{% block doc_menu_active_using %} active {% end%}
+
+
+
+{% block docbody %}
+
+     
+                            <section>
+                                <!-- Using Chikka API -->
+<div class="com-using-chikka-api com-001b">
+    <div class="com-using-chikka-api-cr">
+        <header>
+            <h1 id="using-the-chikka-api" class="assistive-text">Using the Chikka SMS API</h1>
+            <p class="txt-title">Using the Chikka SMS API</p>
+        </header>
+        <div class="com-using-chikka-api-ct">
+            
+            <div class="howto-lst-cr">
+                <ol class="howto-lst">
+                
+                    <li class="howto-lst-item">
+                        <!-- Register Application -->
+<div class="com-register-application com-001c">
+    <div class="com-register-application-cr">
+        <header>
+            <h1 id="register-your-application" class="assistive-text">Register Application</h1>
+            <p class="txt-title">Register your application.</p>
+        </header>
+        <div class="com-register-application-ct">
+            <p>If you already have registered to try the service for free, simply complete the information in your	Dashboard. For new registrants, sign up and create an account. You will need to provide the following details:</p>
+            <ul>
+                <li>Name</li>
+                <li>Email</li>
+                <li>MO URL (?  - A web accessible script that will accept and process SMS messsages from mobile phone users.)</li>
+                <li>DN URL  (?  - A web accessible script that will accept delivery notification status sent from the Chikka SMS API for any SMS message sent by the application.)</li>
+            </ul>
+            <p>You will receive an account verification code via SMS from Chikka in the Test numbers you have provided.</p>
+       </div>
+   </div>
+</div><!--.com-register-application-->                    </li>
+                    
+                    <li class="howto-lst-item">
+                        <!-- Generate Keys -->
+<div class="com-generate-keys com-001d">
+    <div class="com-generate-keys-cr">
+        <header>
+            <h1 id="generate-private-and-public-keys-for-your-application" class="assistive-text">Generate Keys</h1>
+            <p class="txt-title">Generate private and public keys for your application.</p>
+        </header>
+        <div class="com-generate-keys-ct">
+        
+            <p>Private and Public Keys will be used in digitally signing your requests. This keeps all transactions between your application and the Chikka API secure. Both Public and Private Keys should be in X.509 format and Private Keys must support a 4096-bit RSA Private Key. To generate, do the following in Linux:</p>
+            
+            <ol class="generate-lst">
+                <li class="generate-lst-item">
+                    <h2 id="generate-private-key">Generate a Private Key.</h2>
+                    <div class="sample-format-cr">
+                        <h3>Sample Command for generating a Private Key:</h3>
+                        <code>openssl genrsa -out my_private_key.pem 4096</code>
+                    </div>
+                </li>
+                <li class="generate-lst-item">
+                    <h2 id="generate-public-key">Generate the Public Key by extracting it from the Private Key.</h2>
+                    <div class="sample-format-cr">
+                        <h3>Sample Command for extracting the Public Key from the Private Key:</h3>
+                        <code>openssl rsa -in my_private_key.pem -pubout > my_public_key.pem</code>
+                    </div>
+                </li>
+                <li class="generate-lst-item">
+                    <h2 id="provide-public-key">Keep Private Key safe and provide Public Key to Chikka.</h2>
+                </li>
+            </ol>
+            
+            <div class="note-cr">
+            	<div class="note-ct">
+                    <p>OpenSSL is an open source toolkit that:</p>
+                    <ul>
+                        <li>implements the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS1)</li>
+                        <li>is a full-strength general purpose cryptography library</li>
+                    </ul>
+                    <p>It is the recommended library for generating public and private keys, encrypting and signing messages for use with the Chikka API.</p>
+                    <p>How to Install OpenSSL in Linux:</p>
+                    <ul>
+                        <li>
+                            <p>On Ubuntu/Debian:</p>
+                            <code>sudo apt-get install openssl</code>
+                        </li>
+                        <li>
+                            <p>On RedHat/CentOs/Fedora:</p>
+                            <code>sudo yum install openssl</code>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+       </div>
+   </div>
+</div><!--.com-generate-keys-->                    </li>
+                    
+                    <li class="howto-lst-item">
+                    	<!-- Handle SMS -->
+<div class="com-handle-sms com-001e">
+    <div class="com-handle-sms-cr">
+        <header>
+            <h1 id="handle-sms" class="assistive-text">Handle SMS</h1>
+            <p class="txt-title">Handle SMS.</p>
+        </header>
+        <div class="com-handle-sms-ct">
+        
+            <p>After registering and generating your public and private keys, you are now ready to handle SMS using the Chikka API.</p>
+            <p>Below are some of the functions you can do using the API:</p>
+            
+            <ul class="api-functions-lst">
+                <li class="api-function receive-sms">
+					<!-- Receive SMS -->
+<div class="com-handle-sms-receive com-001f">
+    <div class="com-handle-sms-receive-cr">
+        <header>
+            <h1 id="receive-sms" class="assistive-text">Receive SMS</h1>
+            <p class="txt-title">Receive SMS</p>
+        </header>
+        <div class="com-handle-sms-receive-ct">
+
+            <p>The Chikka API relays all pull (user-initiated) messages to the MO URL you have provided via HTTP.</p>
+            <p>General pull messages</p>
+            <p>(e.g. IDOL_Jessica to 29290123456)</p>
+            
+            <div class="request-cr">
+                <h2 id="receive-sms-http-post-request">HTTP POST Request</h2>
+                <p>The HTTP POST body relayed by the API contains the following parameters:</p>
+                
+                <div class="parameters-cr">
+                    <h3>Parameters</h3>
+                    <table class="request parameters-tbl" cellpadding="5" border="0">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="parameter">message_type</td>
+                                <td class="description">Indicates the message type of the body; Value is always MO.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">transid</td>
+                                <td class="description">Unique 128-character transaction ID</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">sender</td>
+                                <td class="description">Mobile number of the requestor</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">suffix</td>
+                                <td class="description">The suffix where the message was sent.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">body</td>
+                                <td class="description">The contents of the message (URL-encoded in UTF-8 format)</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">timestamp</td>
+                                <td class="description">Time when the message was sent by the API; Timestamp in epoch.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter">access_code</td>
+                                <td class="description">Value is always 29290</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample POST body format:</h3>
+                    <samp>body=IDOL_Jessica&amp;sender=639181234567&amp;timestamp=1383609498.44&amp;access_code=29290&amp;transid=5048303030534D415254303030303032393230303032303030303030303133323030303036333933393932333934303030303030313331313035303735383137&amp;message_type=MO&amp;suffix=123456</samp>
+                </div>
+            </div>
+            
+            <div class="response-cr">
+                <h2 id="receive-sms-http-post-response">HTTP POST Response</h2>
+                <p>The body of the expected HTTP POST response usually contains the status of the MO request, where the value can be:</p>
+                
+                <table class="response parameters-tbl" cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="parameter">Accepted</td>
+                            <td class="description">Message has been successfully processed.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">Error</td>
+                            <td class="description">Message has not been processed successfully; The API will attempt to resend the message within one second for 3 times.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="sample-format-cr">
+                    <h3>MO Sample Code (PHP)</h3>
+                    <code>&lt;?php
+    &nbsp;&nbsp;&nbsp;/* A Simple MO message processor - */
+    &nbsp;&nbsp;&nbsp;$txnid = $_POST['transid']; //important!
+    &nbsp;&nbsp;&nbsp;$message = $_POST['body']; //message
+    &nbsp;&nbsp;&nbsp;$serviceName = $_POST['service']; //service name
+    &nbsp;&nbsp;&nbsp;$mobileNumber = $_POST['msisdn']; //mobile number
+    &nbsp;&nbsp;&nbsp;$messageType = $_POST['message_type'];
+    &nbsp;&nbsp;&nbsp;$timestamp = $_POST['timestamp'];
+    &nbsp;&nbsp;&nbsp;$shortC = $_POST['shortcode']; <br/>
+	
+    &nbsp;&nbsp;&nbsp;//Process the message
+    &nbsp;&nbsp;&nbsp;saveToDB($txnid, $message, $serviceName, $mobileNumber,$messageType, $timestamp, $shortCode);
+?&gt;</code>
+                </div>
+            </div>
+            
+       </div>
+   </div>
+</div><!--.com-handle-sms-receive-->                </li>
+                <li class="api-function send-sms">
+					<!-- Send SMS -->
+<div class="com-handle-sms-send com-001g">
+    <div class="com-handle-sms-send-cr">
+        <header>
+            <h1 id="send-sms" class="assistive-text">Send SMS</h1>
+            <p class="txt-title">Send SMS</p>
+        </header>
+        <div class="com-handle-sms-send-ct">
+        
+            <p>Sending SMS to mobile subscribers from your application through the Chikka API are made via HTTP POST Request.</p>
+            <ul>
+                <li>broadcast messages to mobile subscribers</li>
+                <li>reply to messages</li>
+            </ul>
+            
+            <div class="sample-format-cr">
+                <h3>URL:</h3>
+                <code>post.chikka.com</code>
+            </div>
+        
+            <div class="request-cr">
+                <h2 id="send-sms-http-post-request">HTTP POST Request</h2>
+                <p>The HTTP POST body relayed by your application contains the following parameters in lowercase format with no particular order:</p>
+                
+                <table class="request parameters-tbl" cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Mandatory/Optional</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="parameter">message_id</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">Unique(for at least 24 hours) 32-character client-generated ID</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">receiver</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">
+                                <p>Mobile to where the message will be sent;</p>
+                                <p>Both international number format (6391xxxxxxxx) and local number format (091xxxxxxxx) are acceptable.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">encoding</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">
+                                <p>Type of encoding used for the BODY</p>
+                                <p>Possible Values:</p>
+                                <ul>
+                                    <li>SMS - for regular text messages</li>
+                                    <li>UCS2 - for Unicode messages</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">message_type</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">
+                                <p>String that indicates the message type of the BODY</p>
+                                <p>Possible Values:</p>
+                                <ul>
+                                    <li>PUSH - for broadcasting messages to subscribed users</li>
+                                    <li>PULL - for sending replies to MO</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">body</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">
+                                <p>Message to be sent to the mobile phone.</p>
+                                <p>Format:</p>
+                                <p>If ENCODING == "SMS"</p>
+                                <ul>
+                                    <li>Maximum Length: 420 characters</li>
+                                    <li>Maximum Length Per Message Part: 140 characters</li>
+                                    <li>Maxmimum Number of Message Parts: 3 parts</li>
+                                    <li>Allowed Character Set: GSM Character Set</li>
+                                </ul>
+                                <p>If ENCODING == "UCS2"</p>
+                                <ul>
+                                    <li>Maximum Length: 744 characters</li>
+                                    <li>Maximum Length Per Message Part: 248 characters</li>
+                                    <li>Maxmimum Number of Message Parts: 3 parts</li>
+                                    <li>Allowed Character Set: UTF-8/UCS2 Character Set</li>
+                                    <li>Additional Requirements: Must be Hex Encoded</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">charge</td>
+                            <td class="required">Mandatory (for PULL requests only)</td>
+                            <td class="description">
+                                <p>The code for the amount to be charged to the requestor</p>
+                                <p>Additional Info: Only applicable</p>
+                                <p>if MESSAGE_TYPE == "PULL"</p>
+                                <ul>
+                                    <li>Allowed Values: P1.00, P2.50, P5.00, P10.00, P15.00</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">transid</td>
+                            <td class="required">Mandatory (for PULL requests only)</td>
+                            <td class="description">Same 128-alphanumeric transaction ID set from the corresponding MO;</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">dn_params</td>
+                            <td class="required">Optional</td>
+                            <td class="description">
+                                <p>URL-encoded list of parameter names and values in this format:</p>
+                                <p>&amp;param1=value1&amp;param2=value2...</p>
+                                <p>This parameter will be included as additional parameters in the delivery notification that will be sent back to the client.</p>
+                                <p>This may be used if the client requires additional information to be returned in the delivery notification.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample (PUSH):</h3>
+                    <samp>body=You+won+free+tickets+to+IDOL+Jessica%27s+concert%21&amp;message_type=PUSH&amp;message_id=MSGID000000000000000000000000002&amp;receiver=639181234567&amp;encoding=SMS&amp;charge=FREE</samp>
+                </div>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample (PULL):</h3>
+                    <samp>body=Thank+you+for+subscribing+to+IDOL%21&amp;encoding=SMS&amp;charge=P1.00&amp;receiver=639181234567&amp;transid=5048303030534D415254303030303032393230303032303030303030303133323030303036333933393932333934303030303030313331313035303735383137&amp;message_type=PULL&amp;message_id=MSGID000000000000000000000000001</samp>
+                </div>
+            </div>
+        
+            <div class="request-header-cr">
+                <h2 id="send-sms-http-post-request-header">HTTP POST Request Header</h2>
+                <p>All requests made to the Chikka API should be hashed and signed with your generated 4096-bit RSA Private Key (See <a href="/docs/signature">Digital Signature</a>). The digitally signed HTTP body should be included as a parameter to the HTTP POST Request Header.</p>
+                
+                <table class="request parameters-tbl" cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Mandatory/Optional</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="parameter">sig</td>
+                            <td class="type">String</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">
+                                <p>Base-64 encoded, digitally signed SHA512 hash of the plain HTTP body text</p>
+                                <p>The HTTP body can be optionally encrypted.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">suffix</td>
+                            <td class="type">String</td>
+                            <td class="required">Mandatory</td>
+                            <td class="description">The suffix assigned to the Content Provider.</td>                                    
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample POST body format:</h3>
+                    <samp>body=You+won+free+tickets+to+IDOL+Jessica%27s+concert%21&amp;message_type=PUSH&amp;message_id=MSGID000000000000000000000000002&amp;receiver=639181234567&amp;encoding=SMS&amp;charge=FREE</samp>
+                </div>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample Signature:</h3>
+                    <samp>QwsSAQgVcYjQYPM19KDRBU32cR4BiAqcxZvkk+uG3M//FjlyTKsSjVRMtqFpB4ZdlyuLqrym0JB8S5/wZDhpO6mX2CeylmjfjST3o6lrIh2Z+gPCsD6HUR544ofFk+sANJHTrfWtyK5D+EZz4dAClDRcScWDgNyRR/c7YR5OAoCnMSEJLNFg8XM8Qh27y3fCuB2eiWKVvfQyMF8Wl0FGzRxxuklFEt0+t9EWvATKUuPQhCm6irEfRR/JI9jCaL9Y8yrVSDz9uBspEyLjUA/xLiwOxHvYKuSx2hgFsITF/ubDxpKKA8LLtCcN4lyQ/nt06IBW951rWFG1tyJrejZVoiOBROygJs2VlbAutscrPRMwoOSdXE2OUDFi1TwSrX30v/oVDyMppt4fbJJxQWIzdm4/QLq2F3Dra2ChtrZ3cdfM8UrVlAJaeYUa5sSNKM5yQ8eibfyJduv2Y2juEhKkN7xE95xEiJLc8wB3J+NKLZwCaFwZ9voe+JqjTT+eJVgE1xZ8RRdq2ethtbonsZfsg94RiPKr9ROCay67zZioWrkVqxcDEt2wLQ//h3Rg2NpZ5rcy/QkkGEVKdMe3VtIHGsscwf0S0Cl82tiX8X9d2GbczJPlDX/FPKcgdMzKVfoJ4obaEVlsArmLXQHy6dO/CTvcNhIxHkUKVNfweMDmUuI=</samp>
+                </div>
+            </div>
+        
+            <div class="response-cr">
+                <h2 id="send-sms-http-post-response">HTTP POST Response</h2>
+    			
+                <div class="json-cr">
+                    <h3>JSON string:</h3>
+                    <code>{"status": &lt;status&gt;,"message":&lt;message&gt;}</code>
+                    
+                    <table class="response parameters-tbl" cellpadding="5" border="0">
+                        <thead>
+                            <tr>
+                                <th>Status/Message</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="status">200 ACCEPTED</td>
+                                <td class="description">Transaction has been successfully processed.</td>
+                            </tr>
+                            <tr>
+                                <td class="status">400 BAD REQUEST</td>
+                                <td class="description">
+                                    <p>Invalid Request; could possibly be caused by any of the following:</p>
+                                    <ol>
+                                        <li>Incomplete Required Parameters</li>
+                                        <li>Invalid Values</li>
+                                        <li>Insufficient API Credits</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="status">401 UNAUTHORIZED</td>
+                                <td class="description">Unauthorized access to the API; could possibly be caused by an invalid suffix or invalid signature.</td>
+                            </tr>
+                            <tr>
+                                <td class="status">403 METHOD NOT ALLOWED</td>
+                                <td class="description">HTTP Request Method used was not POST.</td>
+                            </tr>
+                            <tr>
+                                <td class="status">404 NOT FOUND</td>
+                                <td class="description">The URI being accessed is invalid or not available.</td>
+                            </tr>
+                            <tr>
+                                <td class="status">500 ERROR</td>
+                                <td class="description">General System Error</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+       </div>
+   </div>
+</div><!--.com-handle-sms-send-->                </li>
+                <li class="api-function delivery-notifications">
+					<!-- Delivery Notifications -->
+<div class="com-handle-sms-notifications com-001h">
+    <div class="com-handle-sms-notifications-cr">
+        <header>
+            <h1 id="delivery-notifications" class="assistive-text">Delivery Notifications</h1>
+            <p class="txt-title">Delivery Notifications</p>
+        </header>
+        <div class="com-handle-sms-notifications-ct">
+
+            <p>Delivery Notifications are relayed to your application using an HTTP POST request which contains the message delivery-related parameter values.</p>
+            
+            <div class="note">
+                <p>Since the API is asynchronous, it is possible that the Client receives the DN or multiple DNs before the HTTP POST Response in a single transaction. For this reason, use the message_id to match transactions.</p>
+            </div>
+            
+            <div class="request-cr">
+                <h2 id="notifications-http-post-request">HTTP POST Request</h2>
+                <p>The HTTP POST body relayed by the API contains the following parameters:</p>
+
+                <table class="request parameters-tbl" cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="parameter">message_type</td>
+                            <td class="description">Indicates the message type of the body; Value is always DN.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">access_code</td>
+                            <td class="description">Value is always 29290.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">suffix</td>
+                            <td class="description">The suffix where the message was sent.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">message_id</td>
+                            <td class="description">Unique ID from the Client for the corresponding MT transaction</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">transid</td>
+                            <td class="description">Unique 128-character transaction ID for PULL Transactions.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">receiver</td>
+                            <td class="description">Mobile number from where the message was sent</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">status</td>
+                            <td class="description">
+                                <p>Status of the previous MT that corresponds to this DN</p>
+                                <p>(See <a href="#possible-values-of-status-field">possible status values and their description</a>)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">additional DN parameters</td>
+                            <td class="description">Corresponds to the DN_PARAMS parameter in the HTTP POST Request of the MT that corresponds to this DN</td>
+                        </tr>                                    
+                    </tbody>
+                </table>
+                
+                <div class="values-cr">
+                    <h3 id="possible-values-of-status-field">Possible Values of <var>status</var> Field:</h3>
+                    <table class="request parameters-tbl" cellpadding="5" border="0">
+                        <thead>
+                            <tr>
+                                <th>Response</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="response">Sent</td>
+                                <td class="description">The message has been successfully delivered to the mobile phone number and usually, it only indicates that the charge was successful. True delivery notification is dependent on the mobile operator's settings.</td>
+                            </tr>
+                            <tr>
+                                <td class="response">Failed</td>
+                                <td class="description">Transaction encountered an error.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="sample-format-cr">
+                    <h3>Sample POST Body format:</h3>
+                    <samp>status=Sent&amp;suffix=123456&amp;timestamp=1383612765.87&amp;credits=0.2&amp;receiver=639181234567&amp;message_type=DN&amp;message_id=MSGID000000000000000000000000001</samp>
+                </div>
+            </div>
+            
+            <div class="response-cr">
+                <h2 class="notifications-http-post-response">HTTP POST Response</h2>
+                <p>The body of the expected HTTP POST response usually contains the status of the MT request, where the value can be:</p>
+                
+                <table class="response parameters-tbl" cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="parameter">Accepted</td>
+                            <td class="description">Message has been successfully processed.</td>
+                        </tr>
+                        <tr>
+                            <td class="parameter">Error</td>
+                            <td class="description">Message has not been processed successfully; The API will attempt to resend the message within one second for 3 times.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="sample-format-cr">
+                	<h3>DN Sample Code (PHP)</h3>
+                    <code>&lt;?php
+    &nbsp;&nbsp;&nbsp; //Delivery notification POST data passed by Chikka API
+    &nbsp;&nbsp;&nbsp; $status = $_POST['status']; //Delivery status
+    &nbsp;&nbsp;&nbsp; $serviceName = $_POST['service']; //service name, app name
+    &nbsp;&nbsp;&nbsp; $mobileNumber = $_POST['msisdn']; //mobile number
+    &nbsp;&nbsp;&nbsp; $messageType = $_POST['message_type'];
+    &nbsp;&nbsp;&nbsp; $msgId = $_POST['msg_id'];
+    &nbsp;&nbsp;&nbsp; $txnId = $_POST['transid'];
+    &nbsp;&nbsp;&nbsp; $shortCode = $_POST['shortcode'];
+    &nbsp;&nbsp;&nbsp; $errorText = $_POST['err_text']; <br/>
+    
+    &nbsp;&nbsp;&nbsp; //Deal with the notification
+    &nbsp;&nbsp;&nbsp; if ($status == 'Delivered') {
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .//TODO
+    &nbsp;&nbsp;&nbsp; } else if ($status == 'Charged') {
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  .//TODO
+    &nbsp;&nbsp;&nbsp; } else {
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  .//TODO
+    &nbsp;&nbsp;&nbsp; }
+?&gt;</code>
+                </div>
+            </div>
+            
+       </div>
+   </div>
+</div><!--.com-handle-sms-notifications-->                </li>
+            </ul>
+       </div>
+   </div>
+</div><!--.com-handle-sms-->                    </li>
+                </ol>            
+            </div>
+       </div>
+   </div>
+</div><!--.com-using-chikka-api-->                            </section>
+
+                            	<!-- Back to Top -->
+<p class="back-top-link-cr"><a class="back-top-link" href="#" title="Back to top"><span class="lbl">Back to Top</span></a></p> 
+
+{% end %}

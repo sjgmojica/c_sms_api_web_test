@@ -1,0 +1,15 @@
+make sure that the application's database has the following sql database table
+
+use the followiung db create table
+
+CREATE TABLE `paypal_tokens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `checkout_id` int(11) NOT NULL,
+  `token` varchar(20) NOT NULL,
+  `status` enum('PENDING','CHARGING','PAID','FAIL') DEFAULT NULL,
+  `token_date_created` datetime NOT NULL,
+  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `trans_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token` (`token`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1

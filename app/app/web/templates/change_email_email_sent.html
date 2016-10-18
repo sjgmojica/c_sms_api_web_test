@@ -1,0 +1,21 @@
+{% extends current_logged_in_base.html %}
+
+{% block docbody %}
+
+<h1>Change Email</h1>
+
+
+
+{% try %}
+
+{{error_message}}
+
+{% except %}
+
+{% end %}
+
+
+We have sent you an email. Please check your email and confirm the link.
+
+
+{% end %}

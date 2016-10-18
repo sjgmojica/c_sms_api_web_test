@@ -1,0 +1,342 @@
+'''
+views transaction history
+
+
+'''
+
+from models.transaction_history import TransactionHistory
+
+from datetime import datetime
+
+from utils import xlwt as excel_generator
+import xlsxwriter
+
+from datetime import datetime
+import random
+import os
+
+def get_mo_paginated( account_object, page=1, m_filter=None, y_filter=None, mobile_filter=None ):
+    suffix=account_object.suffix
+    client_id=account_object.client_id
+
+    result = { 'records' : [], 'next':False , 'prev':False, 'total_pages':1}
+
+    mobile_filter = _filter_mobile( mobile_filter )
+
+    from_datetime, to_datetime = _get_date_range( m_filter=m_filter, y_filter=y_filter  )
+
+
+    # check total pages first
+    result['total_pages'] = TransactionHistory.get_mo_total_pages( client_id=client_id, from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter  )
+
+    # do not query further if total pages is zero
+    if not result['total_pages'] :
+        return result
+
+    records = TransactionHistory.get_mo_history( client_id=client_id, from_datetime=from_datetime, to_datetime=to_datetime, page=page, mobile_filter=mobile_filter, extra_row=1 )
+
+    if len(records) > TransactionHistory.max_item_per_page :
+        result['next'] = True
+
+        # pop out extra row
+        try:
+            records.pop()
+        except:
+            pass
+
+
+    if page >= 2 :
+        result['prev'] = True
+
+
+
+    result['records'] = records
+    return result
+
+def get_mt_paginated( account_object, page=1, m_filter=None, y_filter=None, mobile_filter=None, sms_type_filter='all' ):
+    '''
+    retrieves mt records based on parameters
+    ''' 
+    
+
+    suffix=account_object.suffix
+    client_id=account_object.client_id
+
+    result = { 'records' : [], 'next':False , 'prev':False,'total_pages':1}
+
+    from_datetime, to_datetime = _get_date_range( m_filter=m_filter, y_filter=y_filter  )
+
+    mobile_filter = _filter_mobile( mobile_filter )
+
+    # get total pages first
+    result['total_pages'] = TransactionHistory.get_mt_total_pages( client_id=client_id, from_datetime=from_datetime, to_datetime=to_datetime, items_per_page= 5, mobile_filter=mobile_filter, sms_type_filter=sms_type_filter )
+    trasactions_records = TransactionHistory.get_mt_history( client_id=client_id, page=page, from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter, sms_type_filter=sms_type_filter )
+
+    if len(trasactions_records) > TransactionHistory.max_item_per_page :
+        result['next'] = True
+
+        # pop out extra row
+        try:
+            trasactions_records.pop()
+        except:
+            pass
+
+    result['records'] = trasactions_records
+    return result
+    #return trasactions_records
+
+
+
+
+
+def get_latest_mo_transactions( account_object ):
+
+
+    client_id = account_object.client_id
+
+    trasactions_records = TransactionHistory.get_mo_history( client_id )
+
+    return trasactions_records
+
+
+def get_latest_mt_transactions( account_object ):
+
+    client_id = account_object.client_id
+
+    trasactions_records = TransactionHistory.get_mt_history( client_id )
+
+    return trasactions_records
+
+
+def _get_date_range( m_filter, y_filter ):
+
+    try:
+        # be sure that filters are int
+        m_filter = int(m_filter)
+        y_filter = int(y_filter)
+    except Exception, e:
+        raise Exception( 'exception rasied while trying to create date range: %s' % e )
+
+    try :
+        if m_filter and y_filter :
+            from_datetime = datetime( y_filter, m_filter, 1   )
+
+            if m_filter == 12 :
+                y_filter+=1 # next year
+                m_filter = 1 # start month
+            else:
+                m_filter+=1 # just the next month
+
+            to_datetime = datetime( y_filter, m_filter, 1   )
+
+
+        else :
+            to_datetime = None
+            from_datetime = None
+
+    except Exception, e:
+        raise Exception( 'exception rasied while trying to create date range: %s' % e )
+
+    return from_datetime, to_datetime
+
+
+
+
+def _filter_mobile( mobile_filter ):
+
+    #check the format used
+    # possible accepted formats
+    #    09XXXXXXXXX
+    #  +639XXXXXXXXX
+    #     9XXXXXXXXX
+    if mobile_filter and len(mobile_filter) <= 13  :
+
+        # filter invalid characters in mobile filter
+        # should only accept format 639XXXXXXXXX
+        for mobile_char in mobile_filter :
+
+            if mobile_char not in '+1234567890':
+                mobile_filter=None
+                raise Exception('invalid mobile filter')
+
+                break
+        if len(mobile_filter) == 11 and mobile_filter[0:2] == '09':
+            mobile_filter = '63%s' % mobile_filter[1:]
+        elif len(mobile_filter) == 13 and mobile_filter[0:4] == '+639':
+            mobile_filter = mobile_filter[1:]
+        elif len(mobile_filter) == 12 and mobile_filter[0:3] == '639':
+            #mobile_filter = mobile_filter
+            pass
+        elif len(mobile_filter) == 10 and mobile_filter[0:1] == '9':
+            mobile_filter = '63%s' % mobile_filter[1:]
+        else :
+            mobile_filter=None
+    else:
+        mobile_filter = None
+
+    return mobile_filter
+
+
+
+def generate_csv( account_object, month, year, mobile=None ):
+    '''
+    geneats CSV formatd cotent
+    '''
+
+    mobile_filter = None
+    if mobile:
+        mobile_filter = _filter_mobile( mobile )
+
+    csv_data = ''
+    from_datetime, to_datetime = _get_date_range( m_filter=month, y_filter=year  )
+
+    mo_records = TransactionHistory.get_mo_history( account_object.client_id, items_per_page=-1, from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter )
+
+    if mo_records :
+        csv_data = 'RECEIVED\nDate/Time,From,Cost\n'
+        for record in mo_records :
+
+            formatted = '%s, %s, %s' % ( '%s %s'% (record['date_sent'], record['time_sent'])  ,  record['from'], record['cost']  )
+
+
+            csv_data = '%s %s \n' % (csv_data, formatted)
+
+    mt_records = TransactionHistory.get_mt_history( account_object.client_id, items_per_page=-1,from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter )
+    if mt_records :
+        csv_data = '%s\n\n SENT\nDate/Time,To,Status,Cost\n' % csv_data
+
+        for mt_record in mt_records :
+
+            formatted = '%s, %s, %s, %s' % (  '%s %s' % ( mt_record['date_received'], mt_record['time_received']),  mt_record['receiver'], mt_record['status'], mt_record['cost']    )
+
+
+            csv_data = '%s%s\n' % (csv_data, formatted)
+
+
+
+    return csv_data
+
+
+
+
+def get_monthly_summary( account_object, month_duration=3 ):
+
+
+    client_id = account_object.client_id
+
+    summary = TransactionHistory.get_month_summary( client_id=client_id )
+
+    return summary
+
+
+
+
+
+def gennerate_xls_file( account_object, month, year, mobile=None ):
+    '''
+    generates an ms excel (xls) file and saves it in temporary directory
+    
+    returns the full system path of the generated file for reading by the handler
+        
+    '''
+
+    mobile_filter = None
+    if mobile:
+        mobile_filter = _filter_mobile( mobile )
+    
+    try:
+        temporary_filename = ''.join([random.choice('abcdefghijklmnopqrstuvwzyz1234567890') for x in range(16)])
+    
+        # this is where the temporary file is stored
+        temp_directory = '/tmp/'
+        
+        # this tag makes sure that admins identify garbage files
+        file_tag = '%s_chikka_api_client_trans_history_tmp_' % datetime.now().strftime('%Y-%m-%d_%H%M')
+        
+        
+        full_file_path = "%s%s%s" % (temp_directory, file_tag, temporary_filename) 
+
+
+
+	workbook  = xlsxwriter.Workbook(full_file_path)
+	sheet1 = workbook.add_worksheet('Outgoing')
+	sheet2 = workbook.add_worksheet('Incoming')
+
+
+        
+        #workbook = excel_generator.Workbook(encoding="utf-8")
+        #sheet1 = workbook.add_sheet("Outgoing")
+        #sheet2 = workbook.add_sheet("Incoming")
+
+        # sheet 1 headers
+        sheet1.write(0, 0, "Date" )
+        sheet1.write(0, 1, "Time" )
+        sheet1.write(0, 2, 'To' )
+        sheet1.write(0, 3,  'Status' )
+        sheet1.write(0, 4,  'Type' )
+        sheet1.write(0, 5, 'Cost' )
+
+        
+        # sheet 2 header
+        sheet2.write(0, 0, "Date"  )
+        sheet2.write(0, 1, "Time"  )
+        sheet2.write(0, 2,  "From" )
+        sheet2.write(0, 3, "Cost")
+
+        from_datetime, to_datetime = _get_date_range( m_filter=month, y_filter=year  )
+    
+        mo_records = TransactionHistory.get_mo_history( account_object.client_id, items_per_page=-1, from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter )
+    
+        print 'generate xls file mo...'
+        if mo_records :
+            mo_row = 1
+            for record in mo_records :
+    
+                # sheet 2 is for mobile originating (incoming)        
+                sheet2.write(mo_row, 0, str(record['date_sent']) ) #      '%s %s'% (record['date_sent'], record['time_sent'])  )
+                sheet2.write(mo_row, 1, str(record['time_sent']) )
+                sheet2.write(mo_row, 2,  record['from'] )
+                sheet2.write(mo_row, 3, record["cost"])
+                
+                mo_row+=1
+
+
+        print 'done generate xls file mo...'
+        print 'generate xls file mt...'
+        mt_records = TransactionHistory.get_mt_history( account_object.client_id, items_per_page=-1,from_datetime=from_datetime, to_datetime=to_datetime, mobile_filter=mobile_filter )
+        print 'done retrieving of data...', len(mt_records)
+        if mt_records :
+            mt_row=1
+    
+            for mt_record in mt_records :
+                # sheet 1 is for mobile terminated (outgoing)
+                sheet1.write(mt_row, 0, str(mt_record['date_received']) ) #0, '%s %s' % ( mt_record['date_received'], mt_record['time_received']) )
+                sheet1.write(mt_row, 1, str(mt_record['time_received']) )    # '%s %s' % ( mt_record['date_received'], mt_record['time_received']) )
+                sheet1.write(mt_row, 2, mt_record['receiver'] )
+                sheet1.write(mt_row, 3,  mt_record['status'] )
+                sheet1.write(mt_row, 4,  mt_record['message_type'] )
+                sheet1.write(mt_row, 5, mt_record['cost'] )
+    
+                mt_row+=1
+
+        #workbook.save( full_file_path )
+	workbook.close()
+        
+        
+        print 'done generate xls file mt...'
+
+    except Exception, e:
+        
+        raise Exception('unable to generate excel file: %s' % e )
+    
+    else :
+        
+        # returns the full system path of the file to read and then later clean up
+        return full_file_path
+    
+def cleanup_xls_file( full_path ):
+    
+    try:
+        os.remove(full_path )
+    except Exception, e:
+        raise Exception( 'unable to delete xls export file: %s' % e )

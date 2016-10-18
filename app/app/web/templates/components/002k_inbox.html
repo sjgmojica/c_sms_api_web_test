@@ -1,0 +1,71 @@
+<!-- 002k: Inbox -->
+<div class="com-inbox com-002k">
+    <div class="com-inbox-cr">
+        <header>
+            <h1 class="assistive-text">Incoming</h1>
+            <p class="txt-title">Incoming</p>
+        </header>
+        <div class="com-inbox-ct">
+            {% try %}
+
+            {% set total_pages_in = total_number_of_pages %}
+            
+            {% except Exception, e %}
+            
+            {% set total_pages_in = 1 %}
+            {% end %}
+            <div class="pagination-cr">
+                <!-- Pagination -->
+                {% set pages = range(1, total_pages_in +1 ) %}
+                <div class="page-nav" id="inbox-nav"{% if len(pages) <= 1 %} style="display: none;" {% end %}>
+                    <a class="prev-page" href="#" title="Previous" ><span class="lbl">Previous</span></a>
+
+                    <div class="psu-inp psu-inp-page">
+                        <p class="txt-desc">Page</p>
+                        <label>Page</label>
+                        <select title="Page" class="inp-sel"  id="inbox_page">
+                        {% for page in pages %}
+                            <option value="{{page}}">{{page}}</option>
+                        {% end %}
+                        </select>
+                    </div>
+
+                    <a class="next-page" href="#" title="Next"><span class="lbl">Next</span></a>
+                </div>
+            </div>
+            <div class="com-inbox-table">
+                
+                <table cellpadding="5" border="0">
+                    <thead>
+                        <tr>
+                            <th class="datetime">Date/Time<span class="sort-datetime"><a class="sort-datetime-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="from">From<span class="sort-from"><a class="sort-from-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="charge">Cost<span class="sort-charge"><a class="sort-charge-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                            <th class="type">Type<span class="sort-type"><a class="sort-type-lnk" href="#"><span class="lbl">Sort</span></a></span></th>
+                        </tr>
+                    </thead>
+                    {% if transactions['inbox'] %}
+                    <tbody>
+                    {% for latest_trans_in in transactions['inbox'] %}
+                        <tr>
+                            <td class="datetime">{{latest_trans_in['date_sent'].strftime('%m/%d/%Y')}} - {{latest_trans_in['time_sent'][:5]}}</td>
+                            <td class="from">{{latest_trans_in['from']}}</td>
+                            <td class="charge"> 
+                            {% try %}
+                            {{ "P%.2f" % float(latest_trans_in['cost'])  }}
+                            {% except %}
+                            {{latest_trans_in['cost']}}
+                            
+                            {% end %}
+                            </td>
+                            <td class="type">SMS</td>
+                        </tr>
+                     {% end %}
+                    </tbody>
+                    {% end %}
+                </table>
+                
+            </div>
+       </div>
+   </div>
+</div><!--.com-inbox-->

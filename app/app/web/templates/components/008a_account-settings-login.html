@@ -1,0 +1,54 @@
+<!-- 008a: Account Settings - Login Details -->
+<div class="com-account-settings-login com-004b">
+    <div class="com-account-settings-login-cr">
+        <header>
+            <h1 class="assistive-text">Login Details</h1>
+            <p class="txt-title">Login Details</p>
+        </header>
+        <div class="com-account-settings-login-ct">
+            <!-- Notification -->
+                        
+            {% if notification_message %}         
+            <div class="notification notification-generic">
+                <p class="notification-message"></p>
+            </div>           
+            {% end %}
+            
+             <!-- Notification (success) -->
+            {% if success_message %}
+            <div class="notification notification-success">
+                <p class="notification-message">{{success_message}}</p>
+            </div>            
+            {% end %}
+            
+            
+            <div style="display:none" id="profile-success-messge-display" class="notification notification-success">
+                <p class="notification-message">You have successfully changed your password.</p>
+            </div>
+
+             <form class="com-account-settings-login-frm">
+                <fieldset>
+                    <legend>Login Details</legend>
+
+                    <div class="fld fld-username">
+                        <div class="psu-inp psu-inp-txt psu-inp-username">
+                            <label>Username</label>
+                            <p class="edit-lnk-cr edit-username"><a id="edit_email_settings" class="edit-lnk" href="#" title="Edit username"><span class="lbl">Edit</span></a></p>
+                            <input class="inp-username" type="text" placeholder="Email" disabled value="{{account_obj.email}}">
+                            {% include 005f_edit-username.html %}
+                        </div>
+                    </div>
+
+                    <div class="fld fld-password">
+                        <div class="psu-inp psu-inp-password">
+                            <label>Password</label>
+                            <p class="edit-lnk-cr edit-password"><a id="edit_password_settings" class="edit-lnk" href="#" title="Edit password"><span class="lbl">Edit</span></a></p>
+                            <input class="inp-email" type="password" placeholder="Password" disabled>
+                            {% include 002h_edit-password.html  %}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+       </div>
+   </div>
+</div><!--.com-account-settings-login-->
