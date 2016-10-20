@@ -244,7 +244,7 @@ class CartCheckoutHandler(BaseHandlerSession):
         account_id = self.get_current_user().account_id
         plan_quantities = self.get_argument('plan_quantities')
         plan_quantities = plan_quantities.split('|,') or []
-
+        print(account_id)
         """
         # retrieves all the updated quantities plans in cart
         # based on user inputs from the form
@@ -278,7 +278,8 @@ class CartCheckoutHandler(BaseHandlerSession):
             'cart_items': [],
             'total_cost': 0,
             'enable_dragon_pay' : False,
-            'enable_paypal' : False
+            'enable_paypal' : False,
+            'enable_paymaya' : False
         }
 
         try:
@@ -289,7 +290,6 @@ class CartCheckoutHandler(BaseHandlerSession):
             response['enable_dragon_pay'] = is_allowed_for_amount( response['total_cost'] )
 
             # determine if paypal will be allowed
-
             response['has_pending_paypal_purchase'] = paypal_main.has_pending_paypal_purchase( account_id=current_user.account_id )
 
             response['current_paypal_purchases'] = paypal_main.get_total_paypal_purchases_for_current_month( account_id=current_user.account_id )
@@ -304,7 +304,6 @@ class CartCheckoutHandler(BaseHandlerSession):
 
             #check if paymaya / credit card option payment is allowed
             response['enable_paymaya'] = paymaya_main.is_allowed_for_amount( response['total_cost'] )
-
 
         except Exception, e:
             print e
@@ -832,7 +831,8 @@ class CheckoutHookSuccessHandler (BaseHandlerSession):
         }
 
         #get checkout_id in paymaya_checkout
-        checkout_id = paymaya_main.get_checkout_id(data['id']);
+        checkout_id = None
+        checkout_id = paymaya_main.get_checkout_id_by_paymaya_checkout(data['id']);
         _checkout_id = checkout_id['checkout_id']
         params.update({'checkout_id': _checkout_id})
         print _checkout_id
@@ -844,8 +844,10 @@ class CheckoutHookSuccessHandler (BaseHandlerSession):
             print "update purchase history"
 
             #get account_id in purchase_history
-            account_id = paymaya_main.get_account_id_by_purchase_history(_checkout_id)
+            account_id = None
+            account_id = paymaya_main.get_account_id_by_checkout(_checkout_id)
             params.update({'id': account_id})
+            print account_id
 
             #update purchase history to success
             paymaya_main.on_payment_webhook_success(_checkout_id, account_id)
@@ -856,6 +858,7 @@ class CheckoutHookSuccessHandler (BaseHandlerSession):
 
 @route('/paymaya/webhooks/failed')
 class CheckoutHookFailedHandler (BaseHandlerSession):
+
     def post(self):
         logger = sms_api_logger.GeneralLogger()
         data = json.loads(self.request.body)
@@ -863,6 +866,7 @@ class CheckoutHookFailedHandler (BaseHandlerSession):
         print '=============='
         print type(data)
         print '=============='
+
         params = {
             'receipt_number' : data['receiptNumber'] or  "",
             'transaction_reference_number' : data['transactionReferenceNumber'] or "",
@@ -871,7 +875,8 @@ class CheckoutHookFailedHandler (BaseHandlerSession):
         }
 
         #get checkout_id in paymaya_checkout
-        checkout_id = paymaya_main.get_checkout_id(data['id']);
+        checkout_id = None
+        checkout_id = paymaya_main.get_checkout_id_by_paymaya_checkout(data['id'])
         _checkout_id = checkout_id['checkout_id']
         params.update({'checkout_id': _checkout_id})
         print _checkout_id
@@ -880,12 +885,14 @@ class CheckoutHookFailedHandler (BaseHandlerSession):
         paymaya_main.update_paymaya_checkout_details(_checkout_id, params)
 
         #get account_id in purchase_history
-        account_id = paymaya_main.get_account_id_by_purchase_history(_checkout_id)
+        account_id = None
+        account_id = paymaya_main.get_account_id_by_checkout(_checkout_id)
         params.update({'id': account_id})
 
         #update purchase history to failed
         paymaya_main.on_payment_webhook_failed(_checkout_id, account_id)
 
         # logger.info('end :: CheckoutHookFailedHandler')
+        print "end of webhooks failed"
         self.write(json.dumps(params))
         self.finish()

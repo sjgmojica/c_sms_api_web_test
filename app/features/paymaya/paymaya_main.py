@@ -17,6 +17,8 @@ from features.payments.notification import *
 from dao.purchase_history_mysql import *
 from datetime import datetime
 
+from models.checkout import Checkout
+from models.account import Account
 paymaya_min_amount_peso = 500
 paymaya_amount_limit = 300000
 
@@ -100,14 +102,12 @@ def save_paymaya_checkout (checkout_id, paymaya_checkout_id, status, payment_sta
   paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
   return paymaya_checkout_dao.create( checkout_id, paymaya_checkout_id, status, payment_status )
 
-
-
-
 def get_payamaya_checkout_details (checkout_id):
   paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
   return paymaya_checkout_dao.get_by_checkout_id( str(checkout_id) )
 
-def get_checkout_id (checkout_id):
+#get checkout_id in paymaya checkout that used for webhooks success/failed
+def get_checkout_id_by_paymaya_checkout (checkout_id):
     paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
     return  paymaya_checkout_dao.get_paymaya_checkout_id( str(checkout_id) )
 
@@ -191,9 +191,9 @@ def on_payment_success (checkout_id, account_id):
   ###### STEP 5 ######
   payment_notif_tool.notify_payment_successful( account_object, checkout_object )
 
-
-def get_account_id_by_purchase_history (checkout_id):
+def get_account_id_by_checkout (checkout_id):
     checkout_object = Checkout.get( checkout_id=checkout_id)
+    return checkout_object.account_id
 
 def on_payment_failed (checkout_id, account_id):
 
@@ -214,15 +214,15 @@ def on_payment_failed (checkout_id, account_id):
 
 def on_payment_webhook_success (checkout_id, account_id):
 
-  #get checkout OBJECT
+  #get checkout object in checkout db
   checkout_object = Checkout.get( checkout_id=checkout_id)
   print checkout_object
 
-  print "============================paymayamain=================="
-  #get account OBJECT
+  #get account object in account db
   account_object = Account.get( account_id=account_id )
   print account_object
 
+  #paymaya_checkout db initilize
   paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
 
   ###### STEP 1 ######
@@ -252,16 +252,20 @@ def on_payment_webhook_success (checkout_id, account_id):
   payment_notif_tool.notify_payment_successful( account_object, checkout_object )
 
 
-# def on_payment_webhook_failed (checkout_id, account_id):
-#
-#   #get checkout OBJECT
-#   checkout_object = Checkout.get( checkout_id=checkout_id)
-#
-#   paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
-#
-#   #update checkout status as failed
-#   paymaya_checkout_dao.update_checkout_status( checkout_id, 'FAILURE' )
-#
-#   #update purchase history
-#   checkout_object.status = Checkout.STATUS_FAILURE
-#   checkout_object.write_to_purchase_history()
+def on_payment_webhook_failed (checkout_id, account_id):
+
+  #get checkout object in checkout db
+  checkout_object = Checkout.get( checkout_id=checkout_id)
+
+  #get account object in account db
+  account_object = Account.get( account_id=account_id )
+
+  #paymaya_checkout db initilize
+  paymaya_checkout_dao = PaymayaCheckoutDao(sql_util)
+
+  #update checkout status as failed
+  paymaya_checkout_dao.update_checkout_status( checkout_id, 'FAILURE' )
+
+  #update purchase history
+  checkout_object.status = Checkout.STATUS_FAILURE
+  checkout_object.write_to_purchase_history()
